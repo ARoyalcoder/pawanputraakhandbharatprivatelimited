@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "description": "Pawan Putra Akhand Bharat Pvt. Ltd. (PPAB) Corporate Website",
+  "packageManager": "pnpm@11.25.0",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
