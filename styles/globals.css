@@ -1,0 +1,458 @@
+@import 'tailwindcss';
+
+/*
+ * Explicit UI sources so new folders are watched in dev (Turbopack otherwise keeps a
+ * stale stylesheet when a brand-new directory appears). Worktrees and tests are not UI.
+ */
+@source '../app';
+@source '../components';
+@source '../sections';
+@source '../features';
+@source '../content';
+@source '../data';
+@source not '../.claude';
+@source not '../_archive_ppab';
+@source not '../apps';
+@source not '../packages';
+@source not '../tests';
+@source not '../e2e';
+
+@plugin 'daisyui' {
+  themes: false;
+  logs: false;
+}
+
+/* ------------------------------------------------------------------ */
+/* daisyUI themes: light editorial surface + dark cinematic surface.  */
+/* Scoped per element with data-theme so forms adapt to their section. */
+/* ------------------------------------------------------------------ */
+@plugin 'daisyui/theme' {
+  name: 'ppab';
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
+  --color-base-100: #ffffff;
+  --color-base-200: #f6f8fb;
+  --color-base-300: #e6ebf2;
+  --color-base-content: #172033;
+  --color-primary: #06152f;
+  --color-primary-content: #ffffff;
+  --color-secondary: #d8a62a;
+  --color-secondary-content: #06152f;
+  --color-accent: #f4c95d;
+  --color-accent-content: #06152f;
+  --color-neutral: #0b2347;
+  --color-neutral-content: #f6f8fb;
+  --color-info: #3b7ddd;
+  --color-info-content: #ffffff;
+  --color-success: #1d8a5f;
+  --color-success-content: #ffffff;
+  --color-warning: #c98a12;
+  --color-warning-content: #ffffff;
+  --color-error: #c43d3d;
+  --color-error-content: #ffffff;
+  --radius-selector: 2rem;
+  --radius-field: 0.75rem;
+  --radius-box: 1.25rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+@plugin 'daisyui/theme' {
+  name: 'ppab-night';
+  default: false;
+  prefersdark: false;
+  color-scheme: dark;
+  --color-base-100: #0b2347;
+  --color-base-200: #06152f;
+  --color-base-300: #020b1d;
+  --color-base-content: #e7ecf4;
+  --color-primary: #d8a62a;
+  --color-primary-content: #06152f;
+  --color-secondary: #f4c95d;
+  --color-secondary-content: #06152f;
+  --color-accent: #f4c95d;
+  --color-accent-content: #06152f;
+  --color-neutral: #123260;
+  --color-neutral-content: #f6f8fb;
+  --color-info: #6aa5ff;
+  --color-info-content: #06152f;
+  --color-success: #3cc48a;
+  --color-success-content: #06152f;
+  --color-warning: #f4c95d;
+  --color-warning-content: #06152f;
+  --color-error: #ff7a7a;
+  --color-error-content: #06152f;
+  --radius-selector: 2rem;
+  --radius-field: 0.75rem;
+  --radius-box: 1.25rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Design tokens                                                      */
+/* ------------------------------------------------------------------ */
+@theme {
+  --breakpoint-xs: 30rem;
+  --breakpoint-3xl: 120rem;
+
+  /* Brand navy (PPAB Navy = 900, Dark Navy = 950, Secondary Navy = 800) */
+  --color-navy-50: #f0f4f9;
+  --color-navy-100: #dfe6f1;
+  --color-navy-200: #bfcde3;
+  --color-navy-300: #8fa6cc;
+  --color-navy-400: #5b7fb5;
+  --color-navy-500: #2b5896;
+  --color-navy-600: #1b4279;
+  --color-navy-700: #123260;
+  --color-navy-800: #0b2347;
+  --color-navy-850: #081b3b;
+  --color-navy-900: #06152f;
+  --color-navy-950: #020b1d;
+
+  /* Brand gold (Gold = 500, Light Gold = 300) */
+  --color-gold-50: #fdf8eb;
+  --color-gold-100: #faefcf;
+  --color-gold-200: #f6e0a0;
+  --color-gold-300: #f4c95d;
+  --color-gold-400: #e7b843;
+  --color-gold-500: #d8a62a;
+  --color-gold-600: #b8871c;
+  --color-gold-700: #8c6514;
+  --color-gold-800: #61440c;
+  --color-gold-900: #382506;
+
+  /* Neutrals */
+  --color-surface: #f6f8fb;
+  --color-ink: #172033;
+  --color-ink-soft: #3b4659;
+  --color-muted: #657084;
+  --color-line: #e2e7ef;
+
+  /* Division accents — used sparingly for icons, rules and data lines */
+  --color-secure: #2fb5a7;
+  --color-connect: #4a90ff;
+  --color-solar: #f2a516;
+  --color-digital: #8c73f7;
+  --color-space: #c9925e;
+
+  /* Type scale — fluid, clamped so mobile stays usable */
+  --text-display: clamp(2.5rem, 1.45rem + 4.3vw, 5.5rem);
+  --text-display--line-height: 1.02;
+  --text-display--letter-spacing: -0.035em;
+  --text-display--font-weight: 650;
+  --text-h1: clamp(2.25rem, 1.55rem + 2.9vw, 4.25rem);
+  --text-h1--line-height: 1.05;
+  --text-h1--letter-spacing: -0.03em;
+  --text-h1--font-weight: 650;
+  --text-h2: clamp(1.875rem, 1.35rem + 2.1vw, 3.25rem);
+  --text-h2--line-height: 1.08;
+  --text-h2--letter-spacing: -0.028em;
+  --text-h2--font-weight: 650;
+  --text-h3: clamp(1.3rem, 1.12rem + 0.75vw, 1.75rem);
+  --text-h3--line-height: 1.2;
+  --text-h3--letter-spacing: -0.018em;
+  --text-h3--font-weight: 650;
+  --text-h4: clamp(1.075rem, 1rem + 0.3vw, 1.25rem);
+  --text-h4--line-height: 1.3;
+  --text-h4--letter-spacing: -0.01em;
+  --text-h4--font-weight: 650;
+  --text-body-lg: clamp(1.05rem, 0.98rem + 0.3vw, 1.2rem);
+  --text-body-lg--line-height: 1.65;
+  --text-body: 1rem;
+  --text-body--line-height: 1.65;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.55;
+  --text-caption: 0.72rem;
+  --text-caption--line-height: 1.4;
+  --text-caption--letter-spacing: 0.16em;
+  --text-button: 0.9375rem;
+  --text-button--line-height: 1;
+  --text-button--letter-spacing: -0.005em;
+  --text-button--font-weight: 600;
+
+  --radius-card: 1.25rem;
+  --radius-panel: 1.75rem;
+
+  --shadow-card: 0 1px 2px rgb(6 21 47 / 0.04), 0 10px 30px -18px rgb(6 21 47 / 0.18);
+  --shadow-lift: 0 2px 4px rgb(6 21 47 / 0.05), 0 28px 60px -30px rgb(6 21 47 / 0.35);
+  --shadow-gold: 0 10px 30px -12px rgb(216 166 42 / 0.55);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+
+  --animate-marquee: marquee var(--marquee-duration, 38s) linear infinite;
+  --animate-pulse-soft: pulse-soft 2.8s ease-in-out infinite;
+  --animate-page-in: page-in 0.45s var(--ease-out-expo) both;
+  --animate-rise: rise 1.1s var(--ease-out-expo) both;
+  --animate-progress: progress var(--progress-duration, 5s) linear both;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 28px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes progress {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+  @keyframes pulse-soft {
+    0%,
+    100% {
+      opacity: 0.45;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+  @keyframes page-in {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 10px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+@theme inline {
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, 'SFMono-Regular', Menlo, monospace;
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                               */
+/* ------------------------------------------------------------------ */
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-line, currentColor);
+  }
+
+  html {
+    scroll-padding-top: 6.5rem;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html:not(.lenis) {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: 'ss01', 'cv11';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: var(--color-gold-300);
+    color: var(--color-navy-950);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold-500);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  button:not(:disabled),
+  [role='button']:not([aria-disabled='true']) {
+    cursor: pointer;
+  }
+
+  img,
+  svg,
+  video,
+  canvas {
+    max-width: 100%;
+  }
+
+  /*
+   * Let grid items shrink below their content's intrinsic width, so horizontally
+   * scrolling rails (chips, tabs) inside a grid never widen the page on small screens.
+   * Zero specificity: explicit min-w-* utilities still win.
+   */
+  :where(.grid) > * {
+    min-width: 0;
+  }
+
+  dialog::backdrop {
+    background: rgb(2 11 29 / 0.72);
+    backdrop-filter: blur(6px);
+  }
+}
+
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+/* ------------------------------------------------------------------ */
+/* Layout utilities                                                   */
+/* ------------------------------------------------------------------ */
+@utility container-ppab {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 1320px;
+  padding-inline: 1.25rem;
+  @media (width >= 40rem) {
+    padding-inline: 2rem;
+  }
+  @media (width >= 80rem) {
+    padding-inline: 2.5rem;
+  }
+}
+
+@utility section-y {
+  padding-block: clamp(4.5rem, 2.8rem + 5.2vw, 8.5rem);
+}
+
+@utility section-y-sm {
+  padding-block: clamp(3rem, 2.2rem + 3vw, 5rem);
+}
+
+/* Blueprint grid used on dark cinematic surfaces */
+@utility bg-blueprint {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.045) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+@utility bg-blueprint-light {
+  background-image:
+    linear-gradient(to right, rgb(6 21 47 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(6 21 47 / 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+@utility mask-fade-radial {
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 30%, transparent 100%);
+}
+
+@utility mask-fade-x {
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility text-gold-gradient {
+  background: linear-gradient(100deg, var(--color-gold-300), var(--color-gold-500) 55%, var(--color-gold-600));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Animated underline for nav and inline links */
+@utility link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.45s var(--ease-out-expo);
+  &:hover,
+  &:focus-visible,
+  &[aria-current='page'] {
+    background-size: 100% 1px;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Motion: initial states for GSAP-driven reveals.                    */
+/* Hidden only when JS is present; a timed fallback in the root       */
+/* layout re-shows everything if the animation runtime never starts.  */
+/* ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: no-preference) {
+  .js:not(.motion-fallback) [data-reveal],
+  .js:not(.motion-fallback) [data-split] {
+    opacity: 0;
+  }
+  .js:not(.motion-fallback) [data-reveal='mask'] {
+    clip-path: inset(0 0 100% 0);
+  }
+}
+
+/*
+ * Keyframes used through arbitrary `animate-[…]` values live outside @theme so they are
+ * always emitted. -90 is a multiple of the 18px and 10px dash periods, so loops are seamless.
+ */
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -90;
+  }
+}
+@keyframes ppab-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* SplitText line masks: leave room for descenders (g, y, p) */
+.split-line {
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

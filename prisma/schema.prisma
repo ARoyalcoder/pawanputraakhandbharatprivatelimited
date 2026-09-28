@@ -1,0 +1,209 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  SURVEY_SCHEDULED
+  QUOTATION_SENT
+  NEGOTIATION
+  WON
+  LOST
+}
+
+enum ContentStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+model Lead {
+  id              String      @id @default(cuid())
+  referenceId     String      @unique
+  division        String
+  service         String
+  status          LeadStatus  @default(NEW)
+  name            String
+  email           String
+  phone           String
+  organization    String?
+  city            String
+  requirement     String
+  metadata        Json?
+  source          String?
+  notes           String?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  @@index([status])
+  @@index([division])
+  @@index([createdAt])
+  @@index([email])
+  @@index([phone])
+}
+
+model Blog {
+  id            String        @id @default(cuid())
+  slug          String        @unique
+  title         String
+  excerpt       String
+  content       String        @db.Text
+  category      String
+  author        String        @default("PPAB Engineering Desk")
+  readTime      String        @default("4 min read")
+  status        ContentStatus @default(PUBLISHED)
+  featuredImage String?
+  tags          String[]
+  publishedAt   DateTime?     @default(now())
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([category])
+  @@index([status])
+  @@index([publishedAt])
+}
+
+model Project {
+  id          String        @id @default(cuid())
+  slug        String        @unique
+  title       String
+  clientName  String?
+  division    String
+  category    String
+  sector      String
+  location    String
+  summary     String
+  challenge   String?       @db.Text
+  solution    String?       @db.Text
+  outcome     String?       @db.Text
+  status      ContentStatus @default(PUBLISHED)
+  metrics     Json?
+  featured    Boolean       @default(false)
+  image       String?
+  gallery     String[]
+  completedAt DateTime?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([division])
+  @@index([status])
+  @@index([featured])
+}
+
+model SiteContent {
+  id        String   @id @default(cuid())
+  section   String   @unique
+  title     String
+  subtitle  String?
+  content   Json
+  updatedAt DateTime @updatedAt
+}
+
+model Service {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  division    String
+  name        String
+  description String
+  features    String[]
+  order       Int      @default(0)
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([division])
+  @@index([active])
+}
+
+model Solution {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  title     String
+  tagline   String
+  summary   String
+  division  String
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([division])
+}
+
+model Industry {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  description String
+  solutions   String[]
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model FAQ {
+  id        String   @id @default(cuid())
+  question  String
+  answer    String   @db.Text
+  category  String
+  order     Int      @default(0)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([category])
+  @@index([active])
+}
+
+model Testimonial {
+  id               String    @id @default(cuid())
+  clientName       String
+  designation      String?
+  organization     String?
+  content          String    @db.Text
+  rating           Int       @default(5)
+  serviceDivision  String
+  approved         Boolean   @default(false)
+  verificationDate DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  @@index([approved])
+  @@index([serviceDivision])
+}
+
+model Media {
+  id        String   @id @default(cuid())
+  filename  String
+  altText   String
+  category  String
+  mimeType  String
+  width     Int?
+  height    Int?
+  size      Int
+  url       String
+  posterUrl String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([category])
+}
+
+model AdminUser {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  name         String
+  role         String    @default("SUPER_ADMIN")
+  passwordHash String
+  active       Boolean   @default(true)
+  lastLoginAt  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@index([email])
+}

@@ -83,6 +83,9 @@ temp/
 *.sqlite3
 *.db
 
+# Claude Code session worktrees
+.claude/worktrees/
+
 # Generated archives
 
 _archive/

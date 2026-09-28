@@ -12,6 +12,11 @@ const config = [
       'coverage/**',
       'e2e/**',
       '.claude/**',
+      // Local archive copy and the unused monorepo skeleton are not part of the site.
+      '_archive_ppab/**',
+      'apps/**',
+      'packages/**',
+      'infra/**',
       'playwright.config.ts',
       'next-env.d.ts',
       // Tests for the pre-redesign frontend, kept on disk until deleted by hand.
