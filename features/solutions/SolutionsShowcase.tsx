@@ -4,7 +4,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { CinematicBackground } from './CinematicBackground';
 import { ActiveSolutionCard } from './ActiveSolutionCard';
-import { VerticalSolutionTab } from './VerticalSolutionTab';
+import { ShowcaseAccordionCard } from './ShowcaseAccordionCard';
 import { MobileSolutionNav } from './MobileSolutionNav';
 import { cn } from '@/lib/utils';
 import type { SolutionCardData } from './types';
@@ -18,19 +18,13 @@ export function SolutionsShowcase({ items }: SolutionsShowcaseProps) {
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const hoverTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Ultra-responsive hover intent: 35ms micro-buffer gives instantaneous expansion while guarding against random cursor crossing
+  // Silky hover intent buffer: 40ms ensures instantaneous responsiveness without card thrashing
   const handleTabHover = useCallback((idx: number) => {
     if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
     hoverTimerRef.current = setTimeout(() => {
       setActiveIndex((prev) => (prev !== idx ? idx : prev));
-    }, 35);
-  }, []);
-
-  const handleTabHoverLeave = useCallback(() => {
-    if (hoverTimerRef.current) {
-      clearTimeout(hoverTimerRef.current);
       hoverTimerRef.current = null;
-    }
+    }, 40);
   }, []);
 
   // Instant switch on direct click
@@ -107,37 +101,16 @@ export function SolutionsShowcase({ items }: SolutionsShowcaseProps) {
         aria-label="PPAB Divisions Accordion"
         className="hidden lg:flex lg:h-[28.5rem] lg:gap-3 xl:gap-3.5 w-full items-stretch"
       >
-        {items.map((item, idx) => {
-          const isActive = idx === activeIndex;
-
-          return (
-            <div
-              key={item.id}
-              onMouseEnter={() => handleTabHover(idx)}
-              onMouseLeave={handleTabHoverLeave}
-              className={cn(
-                'h-full transition-all duration-600 ease-[cubic-bezier(0.22,1,0.36,1)] overflow-hidden motion-reduce:transition-none will-change-[flex,min-width]',
-                isActive
-                  ? 'flex-[3.2] min-w-[370px] xl:min-w-[430px]'
-                  : 'flex-1 min-w-[110px] sm:min-w-[125px] xl:min-w-[140px]'
-              )}
-            >
-              {isActive ? (
-                <ActiveSolutionCard item={item} className="h-full w-full" />
-              ) : (
-                <VerticalSolutionTab
-                  item={item}
-                  index={idx}
-                  isActive={false}
-                  onSelect={handleTabSelect}
-                  onHover={handleTabHover}
-                  onHoverLeave={handleTabHoverLeave}
-                  className="h-full w-full"
-                />
-              )}
-            </div>
-          );
-        })}
+        {items.map((item, idx) => (
+          <ShowcaseAccordionCard
+            key={item.id}
+            item={item}
+            index={idx}
+            isActive={idx === activeIndex}
+            onSelect={handleTabSelect}
+            onHover={handleTabHover}
+          />
+        ))}
       </div>
 
       {/* 3. Mobile & Tablet Composition (Responsive Stack + Pill Navigator) */}
