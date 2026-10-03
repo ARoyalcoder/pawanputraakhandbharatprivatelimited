@@ -41,7 +41,11 @@ export function SectionHeading({
   return (
     <header className={cn('max-w-3xl', align === 'center' && 'mx-auto text-center', className)}>
       {eyebrow && (
-        <div data-reveal="fade" className={cn('mb-5', align === 'center' && 'flex justify-center')}>
+        <div
+          data-reveal="fade"
+          suppressHydrationWarning
+          className={cn('mb-5', align === 'center' && 'flex justify-center')}
+        >
           <Eyebrow index={index} tone={tone}>
             {eyebrow}
           </Eyebrow>
@@ -50,6 +54,7 @@ export function SectionHeading({
       <Tag
         id={id}
         data-split
+        suppressHydrationWarning
         className={cn(
           sizeClass[size],
           dark ? 'text-white' : 'text-navy-900',
@@ -61,6 +66,7 @@ export function SectionHeading({
       {description && (
         <p
           data-reveal="up"
+          suppressHydrationWarning
           className={cn('mt-5 max-w-2xl type-lead', dark ? 'text-white/75' : 'text-muted', align === 'center' && 'mx-auto')}
         >
           {description}

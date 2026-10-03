@@ -57,7 +57,7 @@ export default function SolutionsPage() {
                     </span>
                     0{i + 1} · {division.short}
                   </p>
-                  <h2 data-split className="mt-5 type-h2 text-navy-900">
+                  <h2 data-split suppressHydrationWarning className="mt-5 type-h2 text-navy-900">
                     {division.name}
                   </h2>
                   <p data-reveal="up" className="mt-2 type-tagline-lg" style={{ color: ink }}>

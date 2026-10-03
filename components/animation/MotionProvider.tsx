@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { ScrollTrigger, prefersReducedMotion, useGSAP } from '@/lib/animations/gsap';
 import { initBatchReveals, initParallax, initSplitHeadings, revealNow, showAllStatic } from '@/lib/animations/scroll';
@@ -12,13 +12,18 @@ import { initBatchReveals, initParallax, initSplitHeadings, revealNow, showAllSt
 export function MotionProvider() {
   const pathname = usePathname();
   const seen = useRef(new WeakSet<Element>());
+  const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
+    setIsHydrated(true);
     document.documentElement.classList.add('motion-ready');
   }, []);
 
   useGSAP(
     () => {
+      // Never alter DOM or run SplitText before initial React hydration is complete
+      if (!isHydrated) return;
+
       const root = document.getElementById('main-content') ?? document.body;
       seen.current = new WeakSet();
 
@@ -29,7 +34,7 @@ export function MotionProvider() {
 
       initBatchReveals(document, seen.current);
       initParallax(root);
-      initSplitHeadings(root);
+      const cleanupSplit = initSplitHeadings(root);
 
       // Content mounted after this pass (tab panels, lazy sections) is revealed directly
       // so it can never remain in its hidden initial state.
@@ -57,9 +62,10 @@ export function MotionProvider() {
       return () => {
         observer.disconnect();
         window.removeEventListener('load', refresh);
+        cleanupSplit?.();
       };
     },
-    { dependencies: [pathname], revertOnUpdate: true }
+    { dependencies: [pathname, isHydrated], revertOnUpdate: true }
   );
 
   return null;

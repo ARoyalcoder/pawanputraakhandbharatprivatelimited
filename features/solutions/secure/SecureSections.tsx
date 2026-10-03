@@ -176,7 +176,7 @@ export function SecureAmc() {
       <div className="container-ppab relative flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
         <div className="max-w-2xl">
           <p className="type-eyebrow">Maintenance & AMC</p>
-          <h2 id="amc-title" data-split className="mt-4 type-h2">
+          <h2 id="amc-title" data-split suppressHydrationWarning className="mt-4 type-h2">
             Security that keeps working after handover.
           </h2>
           <p data-reveal="up" className="mt-4 type-lead text-navy-950/75">

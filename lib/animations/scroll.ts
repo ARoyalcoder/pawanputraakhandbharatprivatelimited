@@ -90,27 +90,46 @@ function splitModeOf(el: Element): SplitMode {
  * Splitting re-runs on resize (autoSplit), and SplitText keeps an aria-label with the original
  * text so screen readers never hear fragments. Reduced motion skips all of this (showAllStatic).
  */
-export function initSplitHeadings(root: ParentNode) {
+export function initSplitHeadings(root: ParentNode): () => void {
+  const instances: Array<{ revert: () => void }> = [];
+
   root.querySelectorAll<HTMLElement>('[data-split]').forEach((el) => {
     const mode = splitModeOf(el);
-    SplitText.create(el, {
-      type: mode === 'lines' ? 'lines' : mode === 'words' ? 'lines,words' : 'words,chars',
-      mask: mode === 'chars' ? undefined : 'lines',
-      linesClass: 'split-line',
-      autoSplit: true,
-      onSplit(self) {
-        gsap.set(el, { autoAlpha: 1 });
-        const scrollTrigger = { trigger: el, start: revealStart, once: true };
-        if (mode === 'words') {
-          return gsap.from(self.words, { yPercent: 110, duration: duration.slow, ease: ease.out, stagger: 0.045, scrollTrigger });
-        }
-        if (mode === 'chars') {
-          return gsap.from(self.chars, { autoAlpha: 0, yPercent: 40, duration: duration.base, ease: ease.out, stagger: 0.018, scrollTrigger });
-        }
-        return gsap.from(self.lines, { yPercent: 110, duration: duration.slow, ease: ease.out, stagger: 0.09, scrollTrigger });
-      },
-    });
+    try {
+      const split = SplitText.create(el, {
+        type: mode === 'lines' ? 'lines' : mode === 'words' ? 'lines,words' : 'words,chars',
+        mask: mode === 'chars' ? undefined : 'lines',
+        linesClass: 'split-line',
+        autoSplit: true,
+        onSplit(self) {
+          gsap.set(el, { autoAlpha: 1 });
+          const scrollTrigger = { trigger: el, start: revealStart, once: true };
+          if (mode === 'words') {
+            return gsap.from(self.words, { yPercent: 110, duration: duration.slow, ease: ease.out, stagger: 0.045, scrollTrigger });
+          }
+          if (mode === 'chars') {
+            return gsap.from(self.chars, { autoAlpha: 0, yPercent: 40, duration: duration.base, ease: ease.out, stagger: 0.018, scrollTrigger });
+          }
+          return gsap.from(self.lines, { yPercent: 110, duration: duration.slow, ease: ease.out, stagger: 0.09, scrollTrigger });
+        },
+      });
+      if (split) {
+        instances.push(split);
+      }
+    } catch {
+      // Safe fallback if splitting is unsupported or element cannot be parsed
+    }
   });
+
+  return () => {
+    instances.forEach((inst) => {
+      try {
+        inst.revert();
+      } catch {
+        // Safe revert
+      }
+    });
+  };
 }
 
 /**
