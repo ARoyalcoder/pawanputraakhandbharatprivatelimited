@@ -11,12 +11,12 @@ import { ScrollProgress } from '@/components/animation/ScrollProgress';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { organizationSchema } from '@/lib/seo/schema';
 import { getNavMedia } from '@/lib/media/nav-media';
-import { PPABIntroReveal } from '@/components/3d/PPABIntroReveal';
+import { PageLoader } from '@/components/loading/PageLoader';
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
     <QuoteProvider>
-      <PPABIntroReveal />
+      <PageLoader />
       <CustomCursor />
       <ScrollProgress />
       <a

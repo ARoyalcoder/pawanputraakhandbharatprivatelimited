@@ -1,8 +1,10 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { SolutionEnvironment3D } from './SolutionEnvironment3D';
+import { useInViewLoad } from '@/hooks/useInViewLoad';
+import { useDeviceCapability } from '@/hooks/useDeviceCapability';
 import type { SolutionCardData } from './types';
 
 interface CinematicBackgroundProps {
@@ -14,10 +16,30 @@ export const CinematicBackground: React.FC<CinematicBackgroundProps> = ({
   items,
   activeIndex,
 }) => {
+  const [containerRef, isInView] = useInViewLoad<HTMLDivElement>({
+    rootMargin: '350px',
+    once: false,
+  });
+
+  const { canRender3D, isLowPower } = useDeviceCapability();
+  const [loadedIndices, setLoadedIndices] = useState<Set<number>>(new Set([0]));
+
   const activeItem = items[activeIndex] || items[0];
+
+  // Progressive prefetch: keep active + next likely solution in memory
+  useEffect(() => {
+    setLoadedIndices((prev) => {
+      const next = new Set(prev);
+      next.add(activeIndex);
+      // Preload next likely solution
+      next.add((activeIndex + 1) % items.length);
+      return next;
+    });
+  }, [activeIndex, items.length]);
 
   return (
     <div
+      ref={containerRef}
       aria-hidden="true"
       className="pointer-events-none absolute inset-0 -z-10 overflow-hidden select-none"
     >
@@ -25,9 +47,14 @@ export const CinematicBackground: React.FC<CinematicBackgroundProps> = ({
       <div className="absolute inset-0 bg-[#020b1d]" />
       <div className="absolute inset-0 bg-blueprint mask-fade-radial opacity-35" />
 
-      {/* 2. Realistic Photorealistic Environmental Imagery Layers */}
+      {/* 2. Realistic Environmental Imagery Layers (Progressively Loaded) */}
       {items.map((item, idx) => {
         const isActive = idx === activeIndex;
+        const isLoaded = loadedIndices.has(idx);
+
+        // Do not render DOM for images that have never been requested or preloaded
+        if (!isLoaded && !isActive) return null;
+
         const imageSrc =
           item.imageUrl ||
           (item.image.src ? item.image.src : `/images/solutions/${item.id}.jpg`);
@@ -46,6 +73,7 @@ export const CinematicBackground: React.FC<CinematicBackgroundProps> = ({
               alt=""
               fill
               priority={idx === 0}
+              loading={idx === 0 ? undefined : 'lazy'}
               sizes="100vw"
               className="object-cover object-center filter brightness-[0.75] contrast-[1.1] saturate-[1.1]"
             />
@@ -56,12 +84,14 @@ export const CinematicBackground: React.FC<CinematicBackgroundProps> = ({
         );
       })}
 
-      {/* 3. Three.js Interactive 3D Lighting & Particle Depth Canvas */}
-      <SolutionEnvironment3D
-        accentColor={activeItem.accent}
-        activeId={activeItem.id}
-        className="opacity-75 z-2"
-      />
+      {/* 3. Three.js Interactive 3D Lighting & Particle Depth Canvas (Viewport-Lazy) */}
+      {isInView && canRender3D && !isLowPower && (
+        <SolutionEnvironment3D
+          accentColor={activeItem.accent}
+          activeId={activeItem.id}
+          className="opacity-75 z-2"
+        />
+      )}
 
       {/* 4. Dynamic Practical Lights & Soft Rim Reflections */}
       <div
@@ -75,7 +105,6 @@ export const CinematicBackground: React.FC<CinematicBackgroundProps> = ({
 
       {/* Subtle Gold Corporate Horizon Glow */}
       <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-gold-500/5 to-transparent z-3" />
-
     </div>
   );
 };

@@ -83,5 +83,10 @@ export function ConsentNote() {
 }
 
 export function SubmitSpinner() {
-  return <span className="loading loading-spinner loading-sm" aria-hidden="true" />;
+  return (
+    <span className="inline-flex items-center gap-2" aria-hidden="true">
+      <span className="inline-block size-3.5 rounded-full border-2 border-current border-t-transparent animate-spin" />
+      <span className="text-xs font-semibold tracking-wide">Sending Request...</span>
+    </span>
+  );
 }

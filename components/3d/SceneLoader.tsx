@@ -1,11 +1,29 @@
-import type { ReactNode } from 'react';
+'use client';
 
-/** Shown while a scene chunk loads: the static fallback with a soft pulse, so nothing shifts. */
-export function SceneLoader({ children }: { children: ReactNode }) {
+import React, { type ReactNode } from 'react';
+import { ThreeLoader } from '@/components/loading/ThreeLoader';
+
+export interface SceneLoaderProps {
+  children?: ReactNode;
+  label?: string;
+}
+
+/**
+ * Shown while a 3D scene chunk loads.
+ * Renders static fallback with ambient pulse or branded ThreeLoader so nothing shifts.
+ */
+export function SceneLoader({ children, label = 'Preparing 3D Experience' }: SceneLoaderProps) {
+  if (!children) {
+    return <ThreeLoader label={label} />;
+  }
+
   return (
     <div className="relative size-full" aria-busy="true">
       {children}
-      <div aria-hidden="true" className="absolute inset-0 animate-pulse-soft bg-gradient-to-t from-navy-950/30 to-transparent" />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 animate-pulse-soft bg-gradient-to-t from-navy-950/40 via-transparent to-transparent"
+      />
     </div>
   );
 }

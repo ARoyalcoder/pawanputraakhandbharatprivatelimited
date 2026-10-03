@@ -1,12 +1,13 @@
 'use client';
 
 import Link from 'next/link';
-import { useId, useRef, useState, type KeyboardEvent } from 'react';
+import { useId, useRef, useState, useEffect, type KeyboardEvent } from 'react';
 import { ArrowRight, ShieldCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AIImageView } from '@/components/media/AIImageView';
 import { Icon } from '@/components/ui/Icon';
 import { QuoteButton } from '@/components/forms/QuoteButton';
+import { preloadNextIndustry } from '@/lib/loading/preload';
 import { cn } from '@/lib/utils';
 import type { IndustryCardData } from './types';
 
@@ -16,6 +17,14 @@ export function IndustrySelector({ items }: { items: IndustryCardData[] }) {
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
   const baseId = useId();
   const current = items[active];
+
+  // Predictive prefetch: prefetch the next likely industry photography
+  useEffect(() => {
+    const nextItem = items[(active + 1) % items.length];
+    if (nextItem?.image?.src) {
+      preloadNextIndustry(nextItem.image.src);
+    }
+  }, [active, items]);
 
   const onKeyDown = (e: KeyboardEvent<HTMLButtonElement>, index: number) => {
     const last = items.length - 1;
