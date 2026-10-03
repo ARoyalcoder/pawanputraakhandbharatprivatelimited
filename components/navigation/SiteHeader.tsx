@@ -9,13 +9,14 @@ import { WhatsAppIcon } from '@/components/ui/Icon';
 import { DesktopNav } from '@/components/navigation/DesktopNav';
 import { MobileNav } from '@/components/navigation/MobileNav';
 import { telHref, whatsappHref } from '@/lib/contact';
+import type { NavMedia } from '@/lib/media/nav-media';
 import { cn } from '@/lib/utils';
 
 /**
  * Fixed site header. Starts transparent over the dark page hero; once the page scrolls,
  * the utility bar slides away and the header compacts onto a navy glass surface.
  */
-export function SiteHeader({ utilityBar }: { utilityBar: ReactNode }) {
+export function SiteHeader({ utilityBar, navMedia }: { utilityBar: ReactNode; navMedia?: NavMedia }) {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
@@ -51,7 +52,7 @@ export function SiteHeader({ utilityBar }: { utilityBar: ReactNode }) {
           <Logo className="lg:hidden xl:inline-flex" />
           <Logo compact className="hidden lg:inline-flex xl:hidden" />
 
-          <DesktopNav />
+          <DesktopNav media={navMedia} />
 
           <div className="flex items-center gap-2.5">
             <a

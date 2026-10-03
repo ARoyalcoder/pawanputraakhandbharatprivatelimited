@@ -14,4 +14,10 @@ export interface SolutionCardData {
   accent: string;
   icon: IconName;
   image: ResolvedAIImage;
+  imageUrl?: string;
+  environmentTelemetry?: string;
+  subTagline?: string;
+  highlights?: string[];
+  stat?: { value: string; label: string };
+  category?: string;
 }

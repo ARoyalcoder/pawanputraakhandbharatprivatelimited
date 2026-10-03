@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Phone } from 'lucide-react';
 import { WhatsAppIcon } from '@/components/ui/Icon';
+import { Magnetic } from '@/components/animation/Magnetic';
 import { telHref, whatsappHref } from '@/lib/contact';
 import { trackEvent } from '@/lib/analytics/tracker';
 import { cn } from '@/lib/utils';
@@ -12,7 +13,7 @@ const itemClass =
 
 function Tip({ children }: { children: string }) {
   return (
-    <span className="pointer-events-none absolute right-full mr-3 whitespace-nowrap rounded-full bg-navy-950 px-3 py-1.5 text-[0.78rem] font-medium text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100">
+    <span className="pointer-events-none absolute right-full mr-3 whitespace-nowrap rounded-full bg-navy-950 px-3 py-1.5 type-caption font-medium text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100">
       {children}
     </span>
   );
@@ -37,28 +38,32 @@ export function FloatingContact() {
         visible ? 'translate-x-0 opacity-100' : 'pointer-events-none translate-x-4 opacity-0'
       )}
     >
-      <a
-        href={whatsappHref()}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Chat with PPAB on WhatsApp"
-        tabIndex={visible ? 0 : -1}
-        onClick={() => trackEvent('whatsapp_click', { source: 'floating' })}
-        className={cn(itemClass, 'bg-gold-500 text-navy-950')}
-      >
-        <WhatsAppIcon size={22} />
-        <Tip>WhatsApp us</Tip>
-      </a>
-      <a
-        href={telHref}
-        aria-label="Call PPAB"
-        tabIndex={visible ? 0 : -1}
-        onClick={() => trackEvent('call_click', { source: 'floating' })}
-        className={cn(itemClass, 'border border-white/15 bg-navy-900 text-white')}
-      >
-        <Phone className="size-5" aria-hidden="true" />
-        <Tip>Call now</Tip>
-      </a>
+      <Magnetic strength={0.3}>
+        <a
+          href={whatsappHref()}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Chat with PPAB on WhatsApp"
+          tabIndex={visible ? 0 : -1}
+          onClick={() => trackEvent('whatsapp_click', { source: 'floating' })}
+          className={cn(itemClass, 'bg-gold-500 text-navy-950')}
+        >
+          <WhatsAppIcon size={22} />
+          <Tip>WhatsApp us</Tip>
+        </a>
+      </Magnetic>
+      <Magnetic strength={0.3}>
+        <a
+          href={telHref}
+          aria-label="Call PPAB"
+          tabIndex={visible ? 0 : -1}
+          onClick={() => trackEvent('call_click', { source: 'floating' })}
+          className={cn(itemClass, 'border border-white/15 bg-navy-900 text-white')}
+        >
+          <Phone className="size-5" aria-hidden="true" />
+          <Tip>Call now</Tip>
+        </a>
+      </Magnetic>
     </aside>
   );
 }

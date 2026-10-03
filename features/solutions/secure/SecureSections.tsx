@@ -27,7 +27,7 @@ export function CctvSectors() {
               <span className="grid size-11 place-items-center rounded-full bg-navy-900 text-secure">
                 <Icon name={sector.icon} size={20} />
               </span>
-              <h3 className="mt-5 text-h4 text-navy-900">{sector.name}</h3>
+              <h3 className="mt-5 type-h4 text-navy-900">{sector.name}</h3>
               <p className="mt-2 text-small text-muted">{sector.description}</p>
             </li>
           ))}
@@ -69,8 +69,8 @@ export function SecureFeatures() {
             <span className="grid size-14 place-items-center rounded-2xl bg-secure/15 text-secure">
               <Icon name={feature.icon} size={26} />
             </span>
-            <h2 className="mt-7 text-h2 font-display text-white">{feature.title}</h2>
-            <p className="mt-4 max-w-lg text-body text-white/70">{feature.description}</p>
+            <h2 className="mt-7 type-h2 text-white">{feature.title}</h2>
+            <p className="mt-4 max-w-lg type-body text-white/70">{feature.description}</p>
             <ul className="mt-7 space-y-2.5">
               {feature.points.map((point) => (
                 <li key={point} className="flex items-start gap-3 text-small text-white/80">
@@ -120,9 +120,9 @@ export function SecureProducts() {
             <li key={product.id} data-reveal="fade" className="bg-white p-6 sm:p-7">
               <div className="flex items-center justify-between">
                 <Icon name={productIcons[product.id]} size={22} className="text-navy-900" />
-                <span className="font-mono text-caption text-navy-900/30">{String(i + 1).padStart(2, '0')}</span>
+                <span className="type-index text-navy-900/60">{String(i + 1).padStart(2, '0')}</span>
               </div>
-              <h3 className="mt-6 text-h4 text-navy-900">{product.name}</h3>
+              <h3 className="mt-6 type-h4 text-navy-900">{product.name}</h3>
               <p className="mt-2 text-small text-muted">{product.description}</p>
             </li>
           ))}
@@ -158,8 +158,8 @@ export function SecureInstallation() {
         <ol className="grid gap-4 sm:grid-cols-2 lg:col-span-7">
           {installSteps.map((step, i) => (
             <li key={step.title} data-reveal="up" className="rounded-card border border-line p-6">
-              <p className="font-serif text-[2rem] italic leading-none text-secure">0{i + 1}</p>
-              <h3 className="mt-4 text-h4 text-navy-900">{step.title}</h3>
+              <p className="type-ordinal text-secure-ink">0{i + 1}</p>
+              <h3 className="mt-4 type-h4 text-navy-900">{step.title}</h3>
               <p className="mt-2 text-small text-muted">{step.description}</p>
             </li>
           ))}
@@ -175,11 +175,11 @@ export function SecureAmc() {
       <div aria-hidden="true" className="absolute inset-0 bg-blueprint-light opacity-60" />
       <div className="container-ppab relative flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
         <div className="max-w-2xl">
-          <p className="font-mono text-caption uppercase">Maintenance & AMC</p>
-          <h2 id="amc-title" data-split className="mt-4 text-h2 font-display">
+          <p className="type-eyebrow">Maintenance & AMC</p>
+          <h2 id="amc-title" data-split className="mt-4 type-h2">
             Security that keeps working after handover.
           </h2>
-          <p data-reveal="up" className="mt-4 text-body-lg text-navy-950/75">
+          <p data-reveal="up" className="mt-4 type-lead text-navy-950/75">
             Annual maintenance contracts and scheduled maintenance keep your cameras, recorders and storage in working order.
           </p>
         </div>

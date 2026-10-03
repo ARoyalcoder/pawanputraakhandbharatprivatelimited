@@ -75,31 +75,51 @@ export function initParallax(root: ParentNode) {
   });
 }
 
-/** Line-by-line masked heading reveals for [data-split] elements. */
+type SplitMode = 'lines' | 'words' | 'chars';
+
+function splitModeOf(el: Element): SplitMode {
+  const value = el.getAttribute('data-split');
+  return value === 'words' || value === 'chars' ? value : 'lines';
+}
+
+/**
+ * Masked text reveals for [data-split] elements:
+ *   data-split / data-split="lines"  each line rises out of its own mask (section headings)
+ *   data-split="words"               words rise in sequence inside line masks (statement headings)
+ *   data-split="chars"               characters fade up (short labels only, never paragraphs)
+ * Splitting re-runs on resize (autoSplit), and SplitText keeps an aria-label with the original
+ * text so screen readers never hear fragments. Reduced motion skips all of this (showAllStatic).
+ */
 export function initSplitHeadings(root: ParentNode) {
   root.querySelectorAll<HTMLElement>('[data-split]').forEach((el) => {
+    const mode = splitModeOf(el);
     SplitText.create(el, {
-      type: 'lines',
-      mask: 'lines',
+      type: mode === 'lines' ? 'lines' : mode === 'words' ? 'lines,words' : 'words,chars',
+      mask: mode === 'chars' ? undefined : 'lines',
       linesClass: 'split-line',
       autoSplit: true,
       onSplit(self) {
         gsap.set(el, { autoAlpha: 1 });
-        return gsap.from(self.lines, {
-          yPercent: 110,
-          duration: duration.slow,
-          ease: ease.out,
-          stagger: 0.09,
-          scrollTrigger: { trigger: el, start: revealStart, once: true },
-        });
+        const scrollTrigger = { trigger: el, start: revealStart, once: true };
+        if (mode === 'words') {
+          return gsap.from(self.words, { yPercent: 110, duration: duration.slow, ease: ease.out, stagger: 0.045, scrollTrigger });
+        }
+        if (mode === 'chars') {
+          return gsap.from(self.chars, { autoAlpha: 0, yPercent: 40, duration: duration.base, ease: ease.out, stagger: 0.018, scrollTrigger });
+        }
+        return gsap.from(self.lines, { yPercent: 110, duration: duration.slow, ease: ease.out, stagger: 0.09, scrollTrigger });
       },
     });
   });
 }
 
-/** Make every motion-managed element visible without animating (reduced motion). */
+/**
+ * Make every motion-managed element visible without animating (reduced motion).
+ * Clears only the properties the reveals animate: `clearProps: 'all'` would also wipe
+ * React's inline styles, such as the division colour on eyebrows and taglines.
+ */
 export function showAllStatic(root: ParentNode) {
   root.querySelectorAll<HTMLElement>('[data-reveal], [data-split]').forEach((el) => {
-    gsap.set(el, { clearProps: 'all', autoAlpha: 1 });
+    gsap.set(el, { clearProps: 'transform,translate,rotate,scale,clipPath,filter', autoAlpha: 1 });
   });
 }

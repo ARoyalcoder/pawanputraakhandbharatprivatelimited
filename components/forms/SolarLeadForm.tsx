@@ -22,11 +22,13 @@ export function SolarLeadForm({ source = 'solar-lead' }: { source?: string }) {
   return (
     <LeadFormShell state={state} onReset={reset}>
       <form onSubmit={onSubmit} noValidate aria-label="Solar requirement request">
-        <fieldset disabled={submitting} className="grid gap-5">
-          <SelectField label="Monthly electricity bill" options={leadOptions.solarBill} error={errorOf('monthlyBill')} {...register('monthlyBill')} />
+        <fieldset disabled={submitting} className="grid gap-4">
+          <div className="grid gap-4 sm:grid-cols-2">
+            <SelectField label="Monthly electricity bill" options={leadOptions.solarBill} error={errorOf('monthlyBill')} {...register('monthlyBill')} />
+            <TextField label="Location" placeholder="City / Area" autoComplete="address-level2" error={errorOf('location')} {...register('location')} />
+          </div>
           <ChoiceChips legend="Property type" options={leadOptions.solarProperty} error={errorOf('propertyType')} {...register('propertyType')} />
-          <TextField label="Location" placeholder="City / Area" autoComplete="address-level2" error={errorOf('location')} {...register('location')} />
-          <div className="grid gap-5 sm:grid-cols-2">
+          <div className="grid gap-4 sm:grid-cols-2">
             <TextField label="Name" autoComplete="name" error={errorOf('name')} {...register('name')} />
             <TextField label="Mobile" type="tel" inputMode="tel" autoComplete="tel" placeholder="10-digit mobile" error={errorOf('phone')} {...register('phone')} />
           </div>
@@ -35,20 +37,16 @@ export function SolarLeadForm({ source = 'solar-lead' }: { source?: string }) {
           <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:flex-wrap">
             <Button
               type="submit"
-              size="lg"
               withArrow={!submitting}
               icon={submitting ? <SubmitSpinner /> : undefined}
               onClick={() => setValue('intent', 'calculate')}
             >
               {submitting ? 'Sending…' : 'Calculate My Solar Requirement'}
             </Button>
-            <Button type="submit" size="lg" variant="outline-dark" className="border-base-content/25 text-base-content" onClick={() => setValue('intent', 'consultation')}>
+            <Button type="submit" variant="outline-dark" className="border-base-content/25 text-base-content" onClick={() => setValue('intent', 'consultation')}>
               Get Free Solar Consultation
             </Button>
           </div>
-          <p className="text-[0.8rem] text-base-content/60">
-            Our team works out the right system size from your bill and property, then calls you back.
-          </p>
           <ConsentNote />
         </fieldset>
       </form>

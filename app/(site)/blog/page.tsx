@@ -41,7 +41,7 @@ export default async function BlogPage() {
           {posts.length ? (
             <BlogExplorer categories={categories} items={posts.map((post) => ({ key: post.slug, category: post.category, node: <BlogCard post={post} /> }))} />
           ) : (
-            <p className="text-center text-body text-muted">New articles will be published here soon.</p>
+            <p className="text-center type-body text-muted">New articles will be published here soon.</p>
           )}
         </Container>
       </Section>

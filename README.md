@@ -21,6 +21,7 @@ pnpm dev            # http://localhost:3000
 | `pnpm test` | Vitest: content integrity, schemas, lead API, SEO, media manifest, UI components, backend |
 | `pnpm a11y [url]` | axe-core audit of every public page (run against `pnpm start`, default `http://localhost:3200`) |
 | `pnpm images` | Status of the AI concept images; `pnpm images --missing` prints prompts for the missing ones |
+| `pnpm contrast` | WCAG AA check of every text/surface colour pair the typography system uses |
 
 ## Where things live
 
@@ -42,6 +43,7 @@ content/             image-prompts.ts: AI imagery manifest and prompts
 config/site.config.ts  Verified company details (contact, offices)
 lib/                 animations, seo, validations, media, contact helpers, cms, db, security
 styles/globals.css   Design tokens (@theme), daisyUI themes, utilities
+styles/typography.css  Type families, fluid scale, type-* role utilities, long-form prose
 ```
 
 Content is data-driven. To change a service, tagline, FAQ or industry, edit `data/`; every page that uses it updates.
@@ -49,10 +51,10 @@ Content is data-driven. To change a service, tagline, FAQ or industry, edit `dat
 ## Design system
 
 - **Palette:** PPAB navy (`navy-900 #06152F`, `navy-950 #020B1D`, `navy-800 #0B2347`) and gold (`gold-500 #D8A62A`, `gold-300 #F4C95D`), with one restrained accent per division (Secure teal, Connect blue, Solar amber, Digital violet, Space bronze).
-- **Type:** Manrope (display and body), Instrument Serif italic for gold accent phrases (`<em>` inside headings), JetBrains Mono for micro-labels. Fluid scale: `text-display`, `text-h1`…`text-h4`, `text-body-lg`, `text-body`, `text-small`, `text-caption`, `text-button`.
+- **Type:** Manrope (display and headings), Inter (body and interface), Instrument Serif italic for gold accent phrases and division taglines, all self-hosted with `next/font`. Components use role utilities such as `type-display-xl`, `type-h2`, `type-lead`, `type-eyebrow` and `type-tagline` (or `components/ui/Typography.tsx`), defined in `styles/typography.css`. See [docs/typography.md](docs/typography.md) for the scale, the pairing evaluation, colour rules and the `/typography-preview` reference.
 - **Motifs:** the gold hairline eyebrow from the logo lockup, blueprint grids on dark sections, viewfinder corner brackets on media.
 - **Surfaces:** dark cinematic sections (`Section tone="dark|darker"`, which also switches daisyUI to the `ppab-night` theme) alternate with light editorial ones.
-- **Motion:** sections stay server components and opt in with `data-reveal="up|fade|scale|left|right|mask"`, `data-parallax="0.15"` and `data-split` (line-masked headings). `MotionProvider` wires these up with GSAP ScrollTrigger. Content is visible without JavaScript, and a 4s failsafe reveals everything if the animation runtime never starts. `prefers-reduced-motion` disables all motion, including 3D and auto-advancing tabs.
+- **Motion:** sections stay server components and opt in with `data-reveal="up|fade|scale|left|right|mask"`, `data-parallax="0.15"` and `data-split` (line-masked headings; `="words"` or `="chars"` for other reveals). `MotionProvider` wires these up with GSAP ScrollTrigger. Content is visible without JavaScript, and a 4s failsafe reveals everything if the animation runtime never starts. `prefers-reduced-motion` disables all motion, including 3D and auto-advancing tabs.
 
 ## 3D
 

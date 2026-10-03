@@ -10,7 +10,7 @@ export interface Crumb {
 /** Visible breadcrumb trail; pair with breadcrumbSchema() for structured data. */
 export function Breadcrumbs({ items, className }: { items: Crumb[]; className?: string }) {
   return (
-    <nav aria-label="Breadcrumb" className={cn('text-small', className)}>
+    <nav aria-label="Breadcrumb" className={cn('type-meta', className)}>
       <ol className="flex flex-wrap items-center gap-1.5 text-white/55">
         {items.map((item, i) => {
           const last = i === items.length - 1;

@@ -142,6 +142,12 @@ export interface NavLink {
   href: string;
   description?: string;
   icon?: IconName;
+  /** Short name for compact UI ("Secure"). */
+  short?: string;
+  /** Accent colour for this entry's preview in the desktop menu. */
+  accent?: string;
+  /** A few verified services or divisions shown as chips in the menu preview. */
+  chips?: string[];
 }
 
 export interface NavItem extends NavLink {

@@ -36,9 +36,9 @@ export function ServiceGrid({ services, accent, tone = 'light', columns = 3 }: S
             >
               <Icon name={service.icon} size={22} className={dark ? undefined : 'text-navy-900'} />
             </span>
-            <span className={cn('font-mono text-caption', dark ? 'text-white/35' : 'text-navy-900/30')}>{String(i + 1).padStart(2, '0')}</span>
+            <span className={cn('type-index', dark ? 'text-white/55' : 'text-navy-900/60')}>{String(i + 1).padStart(2, '0')}</span>
           </div>
-          <h3 className={cn('mt-6 text-h4', dark ? 'text-white' : 'text-navy-900')}>{service.name}</h3>
+          <h3 className={cn('mt-6 type-h4', dark ? 'text-white' : 'text-navy-900')}>{service.name}</h3>
           <p className={cn('mt-2 text-small', dark ? 'text-white/65' : 'text-muted')}>{service.summary}</p>
         </li>
       ))}

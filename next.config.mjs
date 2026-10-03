@@ -36,6 +36,11 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   outputFileTracingRoot: __dirname,
+  // Development only. An early version of this config served dev chunks with
+  // `Cache-Control: immutable`, so browsers that visited then keep year-long copies under
+  // unchanged chunk URLs ("module factory is not available" errors). The deployment id adds
+  // `?dpl=…` to every chunk URL so those stale copies are never used. Bump it if that recurs.
+  deploymentId: process.env.NODE_ENV === 'development' ? 'dev-2026-09-28' : undefined,
   images: {
     formats: ['image/avif', 'image/webp'],
     // Only local images are served. Add specific hosts here if a CDN is introduced.

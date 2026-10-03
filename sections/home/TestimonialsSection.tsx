@@ -32,7 +32,7 @@ export function TestimonialsSection() {
             <div data-reveal="up" className="flex items-start gap-5 rounded-card border border-dashed border-navy-900/20 bg-surface p-7 lg:col-span-7">
               <MessageSquareQuote aria-hidden="true" className="size-8 shrink-0 text-gold-600" />
               <div>
-                <p className="text-h4 text-navy-900">Client testimonials will be published here after verification.</p>
+                <p className="type-h4 text-navy-900">Client testimonials will be published here after verification.</p>
                 <p className="mt-2 text-small text-muted">
                   We publish only genuine feedback, with the client&apos;s written permission.
                 </p>

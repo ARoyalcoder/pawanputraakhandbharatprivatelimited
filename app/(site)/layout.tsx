@@ -6,12 +6,19 @@ import { MobileActionBar } from '@/components/layout/MobileActionBar';
 import { QuoteProvider } from '@/components/forms/QuoteProvider';
 import { MotionProvider } from '@/components/animation/MotionProvider';
 import { SmoothScroll } from '@/components/animation/SmoothScroll';
+import { CustomCursor } from '@/components/animation/CustomCursor';
+import { ScrollProgress } from '@/components/animation/ScrollProgress';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { organizationSchema } from '@/lib/seo/schema';
+import { getNavMedia } from '@/lib/media/nav-media';
+import { PPABIntroReveal } from '@/components/3d/PPABIntroReveal';
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
     <QuoteProvider>
+      <PPABIntroReveal />
+      <CustomCursor />
+      <ScrollProgress />
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-gold-500 focus:px-5 focus:py-3 focus:font-semibold focus:text-navy-950"
@@ -19,7 +26,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         Skip to main content
       </a>
       <JsonLd data={organizationSchema()} />
-      <SiteHeader utilityBar={<TopUtilityBar />} />
+      <SiteHeader utilityBar={<TopUtilityBar />} navMedia={getNavMedia()} />
       <main id="main-content" tabIndex={-1} className="outline-none">
         {children}
       </main>

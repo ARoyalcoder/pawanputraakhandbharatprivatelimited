@@ -11,10 +11,10 @@ type QuoteButtonProps = Omit<ComponentProps<typeof Button>, 'onClick' | 'type'> 
 };
 
 /** Opens the site-wide consultation dialog. Usable from server components. */
-export function QuoteButton({ division, source, children = 'Get Free Consultation', ...rest }: QuoteButtonProps) {
+export function QuoteButton({ division, source, children = 'Get Free Consultation', magnetic = true, ...rest }: QuoteButtonProps) {
   const { openQuote } = useQuote();
   return (
-    <Button aria-haspopup="dialog" onClick={() => openQuote({ division, source })} {...rest}>
+    <Button aria-haspopup="dialog" magnetic={magnetic} onClick={() => openQuote({ division, source })} {...rest}>
       {children}
     </Button>
   );

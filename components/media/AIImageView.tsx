@@ -8,6 +8,8 @@ interface AIImageViewProps {
   image: ResolvedAIImage;
   sizes?: string;
   priority?: boolean;
+  /** Use "eager" for imagery that is mounted on demand (for example a menu preview). */
+  loading?: 'eager' | 'lazy';
   /** Show the "Illustrative concept" label on generated imagery (default true). */
   showLabel?: boolean;
   className?: string;
@@ -19,12 +21,12 @@ interface AIImageViewProps {
  * Generated images are always labelled as illustrative so they are never mistaken for
  * real PPAB project photography.
  */
-export function AIImageView({ image, sizes, priority, showLabel = true, className, imgClassName }: AIImageViewProps) {
+export function AIImageView({ image, sizes, priority, loading, showLabel = true, className, imgClassName }: AIImageViewProps) {
   return (
     <div className={cn('relative size-full overflow-hidden bg-navy-900', className)}>
       {image.src ? (
         <>
-          <OptimizedImage src={image.src} alt={image.alt} fill sizes={sizes} priority={priority} className={imgClassName} />
+          <OptimizedImage src={image.src} alt={image.alt} fill sizes={sizes} priority={priority} loading={loading} className={imgClassName} />
           {showLabel && <IllustrativeLabel className="absolute bottom-3 left-3 z-10" />}
         </>
       ) : (

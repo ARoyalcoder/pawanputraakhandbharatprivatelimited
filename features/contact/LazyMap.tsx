@@ -27,7 +27,7 @@ export function LazyMap({ query, title }: { query: string; title: string }) {
               <MapPin aria-hidden="true" className="size-5" />
             </span>
             <span className="text-small font-semibold">Show map: {title}</span>
-            <span className="text-[0.75rem] text-white/55">Loads Google Maps</span>
+            <span className="type-caption text-white/55">Loads Google Maps</span>
           </span>
         </button>
       )}

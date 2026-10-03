@@ -35,7 +35,7 @@ export function LeadFormTabs() {
 
   return (
     <div>
-      <div role="tablist" aria-label="Choose an enquiry type" className="no-scrollbar -mx-1 mb-8 flex gap-1.5 overflow-x-auto px-1 pb-1">
+      <div role="tablist" aria-label="Choose an enquiry type" className="no-scrollbar -mx-1 mb-4 flex gap-1.5 overflow-x-auto px-1 pb-1">
         {forms.map((f, i) => (
           <button
             key={f.id}

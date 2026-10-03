@@ -69,44 +69,35 @@ export const slugify = (text: string) =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)/g, '');
 
-export function Markdown({ source }: { source: string }) {
+/** Renders an article body inside the shared long-form reading system (.prose-ppab). */
+export function Markdown({ source, className }: { source: string; className?: string }) {
   return (
-    <>
+    <div className={className ? `prose-ppab ${className}` : 'prose-ppab'}>
       {parseMarkdown(source).map((block, i) => {
         switch (block.type) {
           case 'h2':
             return (
-              <h2 key={i} id={slugify(block.text)} className="mt-14 scroll-mt-32 text-h3 text-navy-900 first:mt-0">
+              <h2 key={i} id={slugify(block.text)}>
                 {block.text}
               </h2>
             );
           case 'h3':
-            return (
-              <h3 key={i} className="mt-9 text-h4 text-navy-900">
-                {block.text}
-              </h3>
-            );
+            return <h3 key={i}>{block.text}</h3>;
           case 'ul':
           case 'ol': {
             const List = block.type;
             return (
-              <List key={i} className={`mt-5 space-y-2.5 pl-5 text-body-lg text-ink-soft ${block.type === 'ul' ? 'list-disc marker:text-gold-500' : 'list-decimal marker:font-semibold marker:text-gold-600'}`}>
+              <List key={i}>
                 {block.items.map((item, j) => (
-                  <li key={j} className="pl-1.5">
-                    {inline(item)}
-                  </li>
+                  <li key={j}>{inline(item)}</li>
                 ))}
               </List>
             );
           }
           default:
-            return (
-              <p key={i} className="mt-5 text-body-lg text-ink-soft [&_strong]:font-semibold [&_strong]:text-navy-900">
-                {inline(block.text)}
-              </p>
-            );
+            return <p key={i}>{inline(block.text)}</p>;
         }
       })}
-    </>
+    </div>
   );
 }

@@ -18,7 +18,7 @@ export function Badge({ children, tone = 'light', icon, className }: BadgeProps)
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[0.8rem] font-medium leading-5',
+        'inline-flex items-center gap-1.5 rounded-full border px-3 py-1 type-caption font-medium leading-5',
         tones[tone],
         className
       )}
@@ -34,7 +34,7 @@ export function IllustrativeLabel({ className }: { className?: string }) {
   return (
     <span
       className={cn(
-        'pointer-events-none inline-flex items-center gap-1.5 rounded-full bg-navy-950/70 px-2.5 py-1 font-mono text-[0.62rem] uppercase tracking-[0.14em] text-white/80 backdrop-blur-sm',
+        'pointer-events-none inline-flex items-center gap-1.5 rounded-full bg-navy-950/70 px-2.5 py-1 type-caption font-semibold text-white/85 backdrop-blur-sm',
         className
       )}
     >

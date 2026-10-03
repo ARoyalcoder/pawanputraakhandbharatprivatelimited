@@ -8,8 +8,8 @@ function Row({ hidden = false }: { hidden?: boolean }) {
           <span
             className={
               i % 2 === 0
-                ? 'px-6 font-display text-[clamp(1.5rem,1.1rem+1.6vw,2.6rem)] font-semibold uppercase tracking-[-0.02em] text-navy-950 sm:px-10'
-                : 'px-6 font-serif text-[clamp(1.6rem,1.2rem+1.7vw,2.8rem)] italic text-navy-950/75 sm:px-10'
+                ? 'px-6 type-ticker text-navy-950 sm:px-10'
+                : 'px-6 type-ticker-accent text-navy-950/75 sm:px-10'
             }
           >
             {word}

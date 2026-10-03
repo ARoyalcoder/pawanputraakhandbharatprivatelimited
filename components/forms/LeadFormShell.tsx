@@ -29,9 +29,9 @@ export function LeadFormShell({ state, onReset, children }: LeadFormShellProps) 
           <CheckCircle2 className="size-7" aria-hidden="true" />
         </span>
         <div>
-          <p className="text-h3 text-base-content">Request received</p>
-          <p className="mt-2 text-body text-base-content/70">{state.message}</p>
-          <p className="mt-4 inline-flex items-center gap-2 rounded-full border border-base-content/15 px-3.5 py-1.5 font-mono text-small text-base-content/80">
+          <p className="type-h3 text-base-content">Request received</p>
+          <p className="mt-2 type-body text-base-content/70">{state.message}</p>
+          <p className="mt-4 inline-flex items-center gap-2 rounded-full border border-base-content/15 px-3.5 py-1.5 type-meta font-semibold text-base-content/80">
             Reference <strong className="font-semibold text-base-content">{state.referenceId}</strong>
           </p>
         </div>
@@ -72,7 +72,7 @@ export function LeadFormShell({ state, onReset, children }: LeadFormShellProps) 
 
 export function ConsentNote() {
   return (
-    <p className="text-[0.78rem] leading-relaxed text-base-content/55">
+    <p className="type-caption leading-relaxed text-base-content/55">
       By submitting, you agree to be contacted by PPAB about your requirement. See our{' '}
       <Link href="/privacy-policy" className="underline underline-offset-4 hover:text-base-content">
         privacy policy

@@ -63,10 +63,10 @@ export function DigitalEcosystem({ clusters, services }: { clusters: DigitalClus
                 )}
               >
                 <span>
-                  <span className={cn('block text-h4', selected ? 'text-white' : 'text-white/75')}>{c.label}</span>
+                  <span className={cn('block type-h4', selected ? 'text-white' : 'text-white/75')}>{c.label}</span>
                   <span className="mt-1 block text-small text-white/55">{c.description}</span>
                 </span>
-                <span className={cn('font-mono text-caption', selected ? 'text-digital' : 'text-white/35')}>
+                <span className={cn('type-index', selected ? 'text-digital' : 'text-white/55')}>
                   {String(c.serviceIds.length).padStart(2, '0')}
                 </span>
               </button>
@@ -102,7 +102,7 @@ export function DigitalEcosystem({ clusters, services }: { clusters: DigitalClus
           <div className="absolute left-1/2 top-1/2 grid size-36 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-digital/40 bg-navy-950 text-center shadow-[0_0_60px_-10px_rgb(140_115_247/0.6)]">
             <div>
               <Image src="/brand/ppab-mark.png" alt="" width={331} height={320} sizes="40px" className="mx-auto h-9 w-auto" />
-              <p className="mt-2 text-[0.8rem] font-semibold text-white">Your business</p>
+              <p className="mt-2 type-caption font-semibold text-white">Your business</p>
             </div>
           </div>
           <ul>
@@ -112,7 +112,7 @@ export function DigitalEcosystem({ clusters, services }: { clusters: DigitalClus
                 <li
                   key={service.id}
                   className={cn(
-                    'absolute flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 whitespace-nowrap rounded-full border px-3 py-1.5 text-[0.78rem] font-medium transition-all duration-500 ease-out-expo',
+                    'absolute flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 whitespace-nowrap rounded-full border px-3 py-1.5 type-caption font-medium transition-all duration-500 ease-out-expo',
                     on ? 'scale-105 border-digital bg-digital text-white shadow-[0_8px_24px_-8px_rgb(140_115_247/0.8)]' : 'border-white/12 bg-navy-900 text-white/55'
                   )}
                   style={{ left: `${x}%`, top: `${y}%` }}

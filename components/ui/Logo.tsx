@@ -1,41 +1,41 @@
-import Image from 'next/image';
-import Link from 'next/link';
+'use client';
+
+import React from 'react';
+import { PPABLogo3D } from '@/components/3d/PPABLogo3D';
 import { cn } from '@/lib/utils';
 
 interface LogoProps {
   tone?: 'light' | 'dark';
   className?: string;
   compact?: boolean;
+  variant?: 'header' | 'hero' | 'footer' | 'intro';
+  interactive?: boolean;
 }
 
-/** PPAB lockup: the gold mark with a typeset company name for crisp rendering at small sizes. */
-export function Logo({ tone = 'dark', className, compact = false }: LogoProps) {
+/**
+ * PPAB Brand Logo Component
+ * Upgraded with dynamic 3D WebGL metallic gold emblem,
+ * pointer-driven tilt interaction, specular sheen sweep,
+ * and robust static accessible fallback for non-WebGL/SSR.
+ */
+export function Logo({
+  tone = 'dark',
+  className,
+  compact = false,
+  variant = 'header',
+  interactive = true,
+}: LogoProps) {
   return (
-    <Link href="/" aria-label="Pawan Putra Akhand Bharat, home" className={cn('group inline-flex items-center gap-3', className)}>
-      <Image
-        src="/brand/ppab-mark.png"
-        alt=""
-        width={331}
-        height={320}
-        priority
-        sizes="48px"
-        className="h-10 w-auto transition-transform duration-500 ease-out-expo group-hover:scale-[1.04] sm:h-11"
+    <div className={cn('inline-flex items-center', className)}>
+      <PPABLogo3D
+        size={compact ? 'sm' : 'md'}
+        variant={variant}
+        showText={!compact}
+        tone={tone}
+        interactive={interactive}
       />
-      {!compact && (
-        <span className="flex flex-col leading-none">
-          <span className={cn('text-[0.95rem] font-bold tracking-[0.02em]', tone === 'dark' ? 'text-white' : 'text-navy-900')}>
-            Pawan Putra
-          </span>
-          <span
-            className={cn(
-              'mt-1 font-mono text-[0.6rem] uppercase tracking-[0.22em]',
-              tone === 'dark' ? 'text-gold-300' : 'text-gold-700'
-            )}
-          >
-            Akhand Bharat
-          </span>
-        </span>
-      )}
-    </Link>
+    </div>
   );
 }
+
+export default Logo;

@@ -42,7 +42,7 @@ export default function IndustriesPage() {
               </li>
             ))}
           </ul>
-          <p className="mt-10 text-center text-[0.8rem] text-muted">Imagery on this page is illustrative.</p>
+          <p className="mt-10 text-center type-caption text-muted">Imagery on this page is illustrative.</p>
         </Container>
       </Section>
       <FinalCta source="industries-final" />

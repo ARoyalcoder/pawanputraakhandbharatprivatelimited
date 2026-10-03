@@ -76,12 +76,12 @@ export default async function ProjectPage({ params }: Props) {
               <dl className="space-y-4">
                 {details.map((d) => (
                   <div key={d.label} className="border-b border-line pb-4 last:border-0 last:pb-0">
-                    <dt className="font-mono text-caption uppercase text-gold-700">{d.label}</dt>
+                    <dt className="type-eyebrow text-gold-700">{d.label}</dt>
                     <dd className="mt-1 font-semibold text-navy-900">{d.value}</dd>
                   </div>
                 ))}
               </dl>
-              <h2 className="mt-8 text-h4 text-navy-900">Scope</h2>
+              <h2 className="mt-8 type-h4 text-navy-900">Scope</h2>
               <ul className="mt-3 space-y-2">
                 {project.scope.map((item) => (
                   <li key={item} className="flex items-start gap-2.5 text-small text-ink-soft">

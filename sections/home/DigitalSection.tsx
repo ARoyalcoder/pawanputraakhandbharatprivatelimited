@@ -122,7 +122,7 @@ export function DigitalSection() {
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <h3 className="text-h4 text-white">{card.title}</h3>
+                  <h3 className="type-h4 text-white">{card.title}</h3>
                   <p className="mt-2 max-w-xs text-small text-white/60">{card.description}</p>
                 </div>
                 <span className="grid size-10 shrink-0 place-items-center rounded-full bg-digital/15 text-digital">

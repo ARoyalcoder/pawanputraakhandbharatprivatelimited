@@ -16,10 +16,17 @@ interface CameraControllerProps {
 }
 
 /**
- * Smooth pointer parallax and scroll-linked dolly. Reads the window pointer, so it
- * works even when DOM content sits on top of the canvas.
+ * Cinematic Camera Controller
+ * Combines GSAP ScrollTrigger-linked camera dolly & arc with
+ * ultra-smooth inertia-damped mouse parallax and gentle organic breathing.
  */
-export function CameraController({ base, sway = [0.6, 0.35], progressRef, lookAt = [0, 0, 0], pointer = true }: CameraControllerProps) {
+export function CameraController({
+  base,
+  sway = [0.45, 0.28],
+  progressRef,
+  lookAt = [0, 0, 0],
+  pointer = true,
+}: CameraControllerProps) {
   const target = useRef({ x: 0, y: 0 });
   const look = useRef(new Vector3(...lookAt));
 
@@ -37,14 +44,33 @@ export function CameraController({ base, sway = [0.6, 0.35], progressRef, lookAt
   useFrame((state, delta) => {
     const progress = progressRef?.current ?? 0;
     const cam = state.camera;
-    const angle = progress * 0.5;
-    const distance = base[2] + progress * 2.2;
-    const tx = base[0] + target.current.x * sway[0] + Math.sin(angle) * distance * 0.35;
-    const ty = base[1] + target.current.y * sway[1] + progress * 0.8;
-    const tz = Math.cos(angle) * distance;
-    cam.position.x = MathUtils.damp(cam.position.x, tx, 3, delta);
-    cam.position.y = MathUtils.damp(cam.position.y, ty, 3, delta);
-    cam.position.z = MathUtils.damp(cam.position.z, tz, 3, delta);
+    const t = state.clock.getElapsedTime();
+
+    // Subtle organic breathing motion (alive at 60fps even without mouse movement)
+    const breatheX = Math.sin(t * 0.4) * 0.04;
+    const breatheY = Math.cos(t * 0.3) * 0.03;
+
+    // Scroll-linked cinematic crane dolly & perspective widening
+    const scrollAngle = progress * 0.42;
+    const distance = base[2] + progress * 2.4;
+
+    // Smooth target calculation
+    const tx = base[0] + target.current.x * sway[0] + Math.sin(scrollAngle) * distance * 0.32 + breatheX;
+    const ty = base[1] + target.current.y * sway[1] + progress * 0.75 + breatheY;
+    const tz = Math.cos(scrollAngle) * distance;
+
+    // Inertia damping for buttery smoothness
+    cam.position.x = MathUtils.damp(cam.position.x, tx, 3.2, delta);
+    cam.position.y = MathUtils.damp(cam.position.y, ty, 3.2, delta);
+    cam.position.z = MathUtils.damp(cam.position.z, tz, 3.2, delta);
+
+    // LookAt follows with gentle offset
+    const lookTarget = new Vector3(
+      lookAt[0] + target.current.x * 0.08,
+      lookAt[1] + target.current.y * 0.06 - progress * 0.3,
+      lookAt[2]
+    );
+    look.current.lerp(lookTarget, 0.08);
     cam.lookAt(look.current);
   });
 

@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { Breadcrumbs, type Crumb } from '@/components/ui/Breadcrumbs';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { breadcrumbSchema } from '@/lib/seo/schema';
+import { accentTone } from '@/components/ui/Typography';
 import { cn } from '@/lib/utils';
 
 interface PageHeroProps {
@@ -16,12 +17,26 @@ interface PageHeroProps {
   accent?: string;
   children?: ReactNode;
   size?: 'default' | 'compact';
+  /** Title role: 'display' for landing-style pages, 'article' for long titles (blog posts, legal). */
+  titleStyle?: 'display' | 'article';
 }
 
 const delay = (step: number) => ({ animationDelay: `${0.05 + step * 0.08}s` });
 
 /** Dark page header shared by all inner pages. Emits BreadcrumbList structured data. */
-export function PageHero({ crumbs, eyebrow, title, description, actions, visual, accent = '#d8a62a', children, size = 'default' }: PageHeroProps) {
+export function PageHero({
+  crumbs,
+  eyebrow,
+  title,
+  description,
+  actions,
+  visual,
+  accent = '#d8a62a',
+  children,
+  size = 'default',
+  titleStyle = 'display',
+}: PageHeroProps) {
+  const titleClass = titleStyle === 'article' ? 'type-h1' : size === 'compact' ? 'type-display-md' : 'type-display-lg';
   return (
     <section data-theme="ppab-night" className="relative isolate overflow-hidden bg-navy-950 text-white">
       <JsonLd data={breadcrumbSchema(crumbs)} />
@@ -43,18 +58,18 @@ export function PageHero({ crumbs, eyebrow, title, description, actions, visual,
           <div style={delay(0)} className="motion-safe:animate-rise">
             <Breadcrumbs items={crumbs} />
           </div>
-          <p style={{ ...delay(1), color: accent }} className="mt-8 inline-flex items-center gap-3 font-mono text-caption uppercase motion-safe:animate-rise">
+          <p style={{ ...delay(1), color: accent }} className="mt-8 inline-flex items-center gap-3 type-eyebrow motion-safe:animate-rise">
             <span aria-hidden="true" className="h-px w-8 bg-current" />
             {eyebrow}
           </p>
           <h1
             style={delay(2)}
-            className="mt-5 text-h1 text-balance font-display motion-safe:animate-rise [&_em]:font-serif [&_em]:font-normal [&_em]:italic [&_em]:tracking-normal [&_em]:text-gold-300"
+            className={cn('mt-5 motion-safe:animate-rise', titleClass, accentTone.dark)}
           >
             {title}
           </h1>
           {description && (
-            <div style={delay(3)} className="mt-6 max-w-2xl text-pretty text-body-lg text-white/70 motion-safe:animate-rise">
+            <div style={delay(3)} className="mt-6 max-w-2xl type-lead text-white/70 motion-safe:animate-rise">
               {description}
             </div>
           )}

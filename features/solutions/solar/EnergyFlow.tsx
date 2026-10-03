@@ -100,8 +100,8 @@ export function EnergyFlow({ systems }: { systems: SolarSystemType[] }) {
         </div>
 
         <div id={`${baseId}-panel`} role="tabpanel" aria-labelledby={`${baseId}-tab-${system.id}`} aria-live="polite" className="mt-8">
-          <h3 className="text-h3 text-navy-900">{system.headline}</h3>
-          <p className="mt-3 text-body text-muted">{system.description}</p>
+          <h3 className="type-h3 text-navy-900">{system.headline}</h3>
+          <p className="mt-3 type-body text-muted">{system.description}</p>
           <p className="mt-5 text-small">
             <span className="font-semibold text-navy-900">Best suited for: </span>
             <span className="text-ink-soft">{system.suitedFor}</span>

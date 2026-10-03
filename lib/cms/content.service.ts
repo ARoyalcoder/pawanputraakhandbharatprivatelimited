@@ -64,8 +64,8 @@ const DEFAULT_HERO: CMSHeroContent = {
   title: 'Powering Security, Connectivity',
   headlineHighlight: '& Growth',
   subtitle:
-    'Complete technology, security, solar, digital and infrastructure solutions for Homes, Businesses, Institutions & Industries.',
-  badgeText: 'One company. Multiple advanced solutions.',
+    'Complete technology, security, solar, digital and Real Estate solutions for Homes, Businesses, Institutions & Industries.',
+  badgeText: 'One company. Multiple solutions.',
   primaryCtaText: 'Get Free Consultation',
   secondaryCtaText: 'WhatsApp Us',
   stats: [

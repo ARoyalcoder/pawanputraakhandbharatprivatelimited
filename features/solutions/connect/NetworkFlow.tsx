@@ -116,8 +116,8 @@ export function NetworkFlow({ nodes }: { nodes: NetworkNode[] }) {
                   <Icon name={node.icon} size={26} />
                 </span>
                 <span>
-                  <span className="block font-mono text-[0.68rem] uppercase tracking-[0.14em] text-white/40">0{i + 1}</span>
-                  <span className={cn('mt-0.5 block text-[1.05rem] font-semibold transition-colors', selected ? 'text-white' : 'text-white/70')}>{node.label}</span>
+                  <span className="block type-eyebrow text-white/55">0{i + 1}</span>
+                  <span className={cn('mt-0.5 block type-h5 transition-colors', selected ? 'text-white' : 'text-white/70')}>{node.label}</span>
                 </span>
               </button>
             );
@@ -132,8 +132,8 @@ export function NetworkFlow({ nodes }: { nodes: NetworkNode[] }) {
         aria-live="polite"
         className="mt-10 flex flex-col gap-2 border-t border-white/10 pt-6 sm:flex-row sm:items-baseline sm:gap-6"
       >
-        <p className="shrink-0 font-serif text-[1.4rem] italic text-connect">{current.label}</p>
-        <p className="text-body text-white/75">{current.description}</p>
+        <p className="shrink-0 type-tagline-lg text-connect">{current.label}</p>
+        <p className="type-body text-white/75">{current.description}</p>
       </div>
     </div>
   );

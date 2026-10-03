@@ -4,9 +4,7 @@ import { Section, Container } from '@/components/ui/Section';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { QuoteButton } from '@/components/forms/QuoteButton';
 import { WhyUsList } from '@/features/why-us/WhyUsList';
-import { TrustBar } from '@/sections/home/TrustBar';
 import { ProcessSection } from '@/sections/home/ProcessSection';
-import { FinalCta } from '@/sections/shared/FinalCta';
 import { whyUs } from '@/data/company';
 import { buildMetadata } from '@/lib/seo/metadata';
 
@@ -39,7 +37,6 @@ export default function WhyUsPage() {
         }
         size="compact"
       />
-      <TrustBar />
       <Section tone="darker" aria-labelledby="pillars-title">
         <Container className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
@@ -62,7 +59,6 @@ export default function WhyUsPage() {
         </Container>
       </Section>
       <ProcessSection />
-      <FinalCta source="why-us-final" />
     </>
   );
 }

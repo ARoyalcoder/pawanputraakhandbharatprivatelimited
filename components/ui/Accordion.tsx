@@ -2,6 +2,7 @@
 
 import { useId, useRef, useState, type KeyboardEvent } from 'react';
 import { Plus } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 export interface AccordionItem {
@@ -17,7 +18,7 @@ interface AccordionProps {
   className?: string;
 }
 
-/** WAI-ARIA accordion. Multiple panels may be open; arrow keys move between headers. */
+/** WAI-ARIA accordion with Framer Motion spring transitions. */
 export function Accordion({ items, tone = 'light', defaultOpenId, className }: AccordionProps) {
   const baseId = useId();
   const [open, setOpen] = useState<Set<string>>(() => new Set(defaultOpenId ? [defaultOpenId] : []));
@@ -65,21 +66,23 @@ export function Accordion({ items, tone = 'light', defaultOpenId, className }: A
                 onClick={() => toggle(item.id)}
                 onKeyDown={(e) => onKeyDown(e, index)}
                 className={cn(
-                  'group flex w-full items-start justify-between gap-6 py-6 text-left text-h4 transition-colors',
+                  'group flex w-full items-start justify-between gap-6 py-6 text-left type-h4 transition-colors',
                   dark ? 'text-white hover:text-gold-300' : 'text-navy-900 hover:text-gold-700'
                 )}
               >
                 <span>{item.question}</span>
-                <span
+                <motion.span
                   aria-hidden="true"
+                  animate={{ rotate: isOpen ? 45 : 0 }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
                   className={cn(
-                    'mt-0.5 grid size-8 shrink-0 place-items-center rounded-full border transition-all duration-500 ease-out-expo',
+                    'mt-0.5 grid size-8 shrink-0 place-items-center rounded-full border transition-colors duration-300',
                     dark ? 'border-white/20' : 'border-navy-900/15',
-                    isOpen && 'rotate-45 border-gold-500 bg-gold-500 text-navy-950'
+                    isOpen && 'border-gold-500 bg-gold-500 text-navy-950'
                   )}
                 >
                   <Plus className="size-4" />
-                </span>
+                </motion.span>
               </button>
             </h3>
             <div
@@ -87,12 +90,22 @@ export function Accordion({ items, tone = 'light', defaultOpenId, className }: A
               role="region"
               aria-labelledby={headerId}
               inert={!isOpen}
-              className="grid transition-[grid-template-rows] duration-500 ease-out-expo"
-              style={{ gridTemplateRows: isOpen ? '1fr' : '0fr' }}
             >
-              <div className="overflow-hidden">
-                <p className={cn('max-w-3xl pb-7 pr-14 text-body', dark ? 'text-white/70' : 'text-muted')}>{item.answer}</p>
-              </div>
+              <AnimatePresence initial={false}>
+                {isOpen && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ type: 'spring', duration: 0.45, bounce: 0 }}
+                    className="overflow-hidden"
+                  >
+                    <p className={cn('max-w-3xl pb-7 pr-14 type-body', dark ? 'text-white/70' : 'text-muted')}>
+                      {item.answer}
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
         );

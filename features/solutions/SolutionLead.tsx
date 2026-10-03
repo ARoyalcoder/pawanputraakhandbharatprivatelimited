@@ -26,7 +26,7 @@ export function SolutionLead({ id, eyebrow, title, description, points, formTitl
           <SectionHeading id={`${id}-title`} tone="dark" eyebrow={eyebrow} title={title} description={description} />
           <ul className="mt-9 space-y-3">
             {points.map((point) => (
-              <li key={point} data-reveal="up" className="flex items-start gap-3 text-body text-white/80">
+              <li key={point} data-reveal="up" className="flex items-start gap-3 type-body text-white/80">
                 <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-gold-500 text-navy-950">
                   <Check aria-hidden="true" className="size-3.5" strokeWidth={3} />
                 </span>
@@ -44,8 +44,8 @@ export function SolutionLead({ id, eyebrow, title, description, points, formTitl
           </div>
         </div>
         <div data-reveal="up" className="lg:col-span-7">
-          <div data-theme="ppab" className="rounded-panel bg-white p-6 text-ink shadow-lift sm:p-10">
-            <h3 className="mb-8 text-h3 text-navy-900">{formTitle}</h3>
+          <div data-theme="ppab" className="rounded-panel bg-white p-6 text-ink shadow-lift sm:p-8">
+            <h3 className="mb-5 type-h3 text-navy-900">{formTitle}</h3>
             {form}
           </div>
         </div>

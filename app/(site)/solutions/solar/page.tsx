@@ -90,8 +90,8 @@ export default function SolarPage() {
                 <span className="grid size-12 place-items-center rounded-xl bg-solar/15 text-navy-900">
                   <Icon name={segment.icon} size={22} />
                 </span>
-                <h3 className="mt-6 text-h3 text-navy-900">{segment.name}</h3>
-                <p className="mt-2 text-body text-muted">{segment.description}</p>
+                <h3 className="mt-6 type-h3 text-navy-900">{segment.name}</h3>
+                <p className="mt-2 type-body text-muted">{segment.description}</p>
                 <ul className="mt-6 space-y-2">
                   {segment.fits.map((fit) => (
                     <li key={fit} className="flex items-center gap-2.5 text-small text-ink-soft">
@@ -180,7 +180,7 @@ export default function SolarPage() {
             {solarBenefits.map((benefit) => (
               <li key={benefit.id} data-reveal="up" className="rounded-card bg-white p-6 shadow-card">
                 <Icon name={benefit.icon} size={24} className="text-solar" />
-                <h3 className="mt-5 text-h4 text-navy-900">{benefit.title}</h3>
+                <h3 className="mt-5 type-h4 text-navy-900">{benefit.title}</h3>
                 <p className="mt-2 text-small text-muted">{benefit.description}</p>
               </li>
             ))}

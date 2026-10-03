@@ -28,27 +28,30 @@ export function GeneralLeadForm({ source = 'general-lead', defaultService, submi
   return (
     <LeadFormShell state={state} onReset={reset}>
       <form onSubmit={onSubmit} noValidate aria-label="Consultation request">
-        <fieldset disabled={submitting} className="grid gap-5">
-          <div className="grid gap-5 sm:grid-cols-2">
+        <fieldset disabled={submitting} className="grid gap-4">
+          {/* Five short fields: two rows of three on desktop, so the form stays within a laptop screen */}
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <TextField label="Name" autoComplete="name" error={errorOf('name')} {...register('name')} />
             <TextField label="Mobile" type="tel" inputMode="tel" autoComplete="tel" placeholder="10-digit mobile" error={errorOf('phone')} {...register('phone')} />
-            <TextField label="Email" type="email" autoComplete="email" optional error={errorOf('email')} {...register('email')} />
             <TextField label="City / Area" autoComplete="address-level2" error={errorOf('city')} {...register('city')} />
+            <SelectField label="What do you need?" options={leadOptions.generalService} error={errorOf('service')} {...register('service')} />
+            <TextField label="Email" type="email" autoComplete="email" optional error={errorOf('email')} containerClassName="lg:col-span-2" {...register('email')} />
           </div>
-          <SelectField label="What do you need?" options={leadOptions.generalService} error={errorOf('service')} {...register('service')} />
           <TextareaField
             label="Tell us your requirement"
+            rows={2}
+            className="min-h-[4.5rem]"
             placeholder="For example: 8 CCTV cameras for a two-floor office, or rooftop solar for a home"
             error={errorOf('message')}
             {...register('message')}
           />
           <HoneypotField />
-          <div>
-            <Button type="submit" size="lg" withArrow={!submitting} icon={submitting ? <SubmitSpinner /> : undefined}>
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
+            <Button type="submit" className="shrink-0" withArrow={!submitting} icon={submitting ? <SubmitSpinner /> : undefined}>
               {submitting ? 'Sending…' : submitLabel}
             </Button>
+            <ConsentNote />
           </div>
-          <ConsentNote />
         </fieldset>
       </form>
     </LeadFormShell>

@@ -1,29 +1,8 @@
 import type { ReactNode } from 'react';
 import { cn } from '@/lib/utils';
+import { Eyebrow, accentTone } from './Typography';
 
-interface EyebrowProps {
-  children: ReactNode;
-  index?: string;
-  tone?: 'light' | 'dark';
-  className?: string;
-}
-
-/** Mono micro-label with the gold hairline taken from the PPAB logo lockup. */
-export function Eyebrow({ children, index, tone = 'light', className }: EyebrowProps) {
-  return (
-    <p
-      className={cn(
-        'inline-flex items-center gap-3 font-mono text-caption uppercase',
-        tone === 'dark' ? 'text-gold-300' : 'text-gold-700',
-        className
-      )}
-    >
-      <span aria-hidden="true" className="h-px w-8 bg-current opacity-70" />
-      {index && <span className={tone === 'dark' ? 'text-white/45' : 'text-navy-900/40'}>{index}</span>}
-      <span>{children}</span>
-    </p>
-  );
-}
+export { Eyebrow };
 
 interface SectionHeadingProps {
   id?: string;
@@ -39,9 +18,11 @@ interface SectionHeadingProps {
   children?: ReactNode;
 }
 
+const sizeClass = { h1: 'type-h1', h2: 'type-h2', h3: 'type-h3' } as const;
+
 /**
- * Standard section heading. Wrap accent words in <em> to render them in the
- * gold serif italic used across the site.
+ * Standard section heading: eyebrow → heading → description.
+ * Wrap accent words in <em> to render them in the gold serif italic.
  */
 export function SectionHeading({
   id,
@@ -70,13 +51,9 @@ export function SectionHeading({
         id={id}
         data-split
         className={cn(
-          'text-balance font-display',
-          size === 'h1' && 'text-h1',
-          size === 'h2' && 'text-h2',
-          size === 'h3' && 'text-h3',
+          sizeClass[size],
           dark ? 'text-white' : 'text-navy-900',
-          '[&_em]:font-serif [&_em]:font-normal [&_em]:italic [&_em]:tracking-normal',
-          dark ? '[&_em]:text-gold-300' : '[&_em]:text-gold-600'
+          dark ? accentTone.dark : size === 'h3' ? accentTone.light : accentTone.lightLarge
         )}
       >
         {title}
@@ -84,7 +61,7 @@ export function SectionHeading({
       {description && (
         <p
           data-reveal="up"
-          className={cn('mt-5 text-pretty text-body-lg', dark ? 'text-white/70' : 'text-muted', align === 'center' && 'mx-auto')}
+          className={cn('mt-5 max-w-2xl type-lead', dark ? 'text-white/75' : 'text-muted', align === 'center' && 'mx-auto')}
         >
           {description}
         </p>

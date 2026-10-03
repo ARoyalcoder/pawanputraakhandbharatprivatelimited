@@ -48,7 +48,7 @@ export default function ContactPage() {
               >
                 <span className="grid size-11 shrink-0 place-items-center rounded-full bg-gold-500 text-navy-950">{c.icon}</span>
                 <span className="min-w-0">
-                  <span className="block text-[0.78rem] text-white/55">{c.label}</span>
+                  <span className="block type-caption text-white/55">{c.label}</span>
                   <span className="block truncate font-semibold text-white">{c.value}</span>
                 </span>
               </a>
@@ -60,9 +60,9 @@ export default function ContactPage() {
       <Section tone="light" id="quote" aria-labelledby="quote-title" className="scroll-mt-24">
         <Container className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-7">
-            <div data-theme="ppab" className="rounded-panel bg-white p-6 shadow-card sm:p-10">
-              <p className="font-mono text-caption uppercase text-gold-700">Free consultation</p>
-              <h2 id="quote-title" className="mb-8 mt-2 text-h3 text-navy-900">
+            <div data-theme="ppab" className="rounded-panel bg-white p-6 shadow-card sm:p-7">
+              <p className="type-eyebrow text-gold-700">Free consultation</p>
+              <h2 id="quote-title" className="mb-4 mt-1.5 type-h3 text-navy-900">
                 What would you like help with?
               </h2>
               <LeadFormTabs />
@@ -72,9 +72,9 @@ export default function ContactPage() {
           <div className="space-y-8 lg:col-span-5">
             {siteConfig.offices.map((office) => (
               <article key={office.id} data-reveal="up">
-                <p className="font-mono text-caption uppercase text-gold-700">{office.type}</p>
-                <h3 className="mt-2 text-h3 text-navy-900">{office.city}</h3>
-                <address className="mt-2 text-body not-italic text-muted">
+                <p className="type-eyebrow text-gold-700">{office.type}</p>
+                <h3 className="mt-2 type-h3 text-navy-900">{office.city}</h3>
+                <address className="mt-2 type-body not-italic text-muted">
                   {office.addressLines.map((line) => (
                     <span key={line} className="block">
                       {line}

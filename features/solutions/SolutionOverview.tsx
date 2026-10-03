@@ -21,7 +21,7 @@ export function SolutionOverview({ division, accent }: { division: Division; acc
             description={division.overview}
           />
           {division.subTagline && (
-            <p data-reveal="up" className="mt-8 border-l-2 pl-5 font-serif text-[1.35rem] italic text-navy-900" style={{ borderColor: accent }}>
+            <p data-reveal="up" className="mt-8 border-l-2 pl-5 type-quote text-navy-900" style={{ borderColor: accent }}>
               {division.subTagline}
             </p>
           )}
@@ -30,7 +30,7 @@ export function SolutionOverview({ division, accent }: { division: Division; acc
               <p className="text-small font-semibold text-navy-900">Also available</p>
               <ul className="mt-3 flex flex-wrap gap-2">
                 {division.additionalServices.map((s) => (
-                  <li key={s} className="rounded-full border border-navy-900/12 bg-white px-3.5 py-1.5 text-[0.82rem] text-ink-soft">
+                  <li key={s} className="rounded-full border border-navy-900/12 bg-white px-3.5 py-1.5 type-caption text-ink-soft">
                     {s}
                   </li>
                 ))}

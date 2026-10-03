@@ -5,6 +5,7 @@ import { ArrowUpRight, Check } from 'lucide-react';
 import { PageHero } from '@/components/layout/PageHero';
 import { Section, Container } from '@/components/ui/Section';
 import { SectionHeading } from '@/components/ui/SectionHeading';
+import { Tagline } from '@/components/ui/Typography';
 import { CornerFrame } from '@/components/ui/CornerFrame';
 import { Icon } from '@/components/ui/Icon';
 import { AIImage } from '@/components/media/AIImage';
@@ -37,7 +38,6 @@ export default async function IndustryPage({ params }: Props) {
   const { slug } = await params;
   if (!isIndustryId(slug)) notFound();
   const industry = industries.find((i) => i.id === slug)!;
-  const others = industries.filter((i) => i.id !== industry.id);
 
   return (
     <>
@@ -65,19 +65,10 @@ export default async function IndustryPage({ params }: Props) {
 
       <Section tone="white" aria-labelledby="needs-title">
         <Container className="grid gap-12 lg:grid-cols-12 lg:gap-16">
-          <SectionHeading
-            id="needs-title"
-            eyebrow="Typical needs"
-            title={
-              <>
-                What {industry.name.toLowerCase()} properties <em>usually need.</em>
-              </>
-            }
-            className="lg:col-span-5"
-          />
+           
           <ul className="grid gap-3 sm:grid-cols-2 lg:col-span-7">
             {industry.needs.map((need) => (
-              <li key={need} data-reveal="up" className="flex items-start gap-3 rounded-card border border-line bg-surface p-5 text-body text-ink-soft">
+              <li key={need} data-reveal="up" className="flex items-start gap-3 rounded-card border border-line bg-surface p-5 type-body text-ink-soft">
                 <Check aria-hidden="true" className="mt-1 size-4 shrink-0 text-gold-600" />
                 {need}
               </li>
@@ -108,15 +99,17 @@ export default async function IndustryPage({ params }: Props) {
                   <span className="grid size-11 place-items-center rounded-full bg-navy-900" style={{ color: accent }}>
                     <Icon name={division.icon} size={20} />
                   </span>
-                  <h3 className="mt-5 text-h4 text-navy-900">
+                  <h3 className="mt-5 type-h4 text-navy-900">
                     <Link href={division.href} className="after:absolute after:inset-0">
                       {division.name}
                     </Link>
                   </h3>
-                  <p className="mt-1 font-serif italic text-gold-600">{division.tagline}</p>
+                  <Tagline division={s.division} surface="light" size="sm" className="mt-1">
+                    {division.tagline}
+                  </Tagline>
                   <ul className="mt-5 flex flex-wrap gap-2">
                     {s.services.map((service) => (
-                      <li key={service} className="rounded-full bg-surface px-3 py-1 text-[0.8rem] text-ink-soft">
+                      <li key={service} className="rounded-full bg-surface px-3 py-1 type-caption text-ink-soft">
                         {service}
                       </li>
                     ))}
@@ -144,27 +137,6 @@ export default async function IndustryPage({ params }: Props) {
         formTitle="Tell us your requirement"
         form={<GeneralLeadForm source={`industry-${industry.id}`} />}
       />
-
-      <Section tone="white" spacing="compact" aria-labelledby="other-industries">
-        <Container>
-          <h2 id="other-industries" className="font-mono text-caption uppercase text-gold-700">
-            Other industries
-          </h2>
-          <ul className="mt-5 flex flex-wrap gap-2">
-            {others.map((other) => (
-              <li key={other.id}>
-                <Link
-                  href={`/industries/${other.id}`}
-                  className="inline-flex items-center gap-2 rounded-full border border-navy-900/12 px-4 py-2 text-small font-medium text-navy-900 transition-colors hover:border-navy-900/50"
-                >
-                  <Icon name={other.icon} size={16} />
-                  {other.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </Section>
 
       <FinalCta source={`industry-${industry.id}-final`} />
     </>

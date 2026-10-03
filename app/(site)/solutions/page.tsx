@@ -38,7 +38,7 @@ export default function SolutionsPage() {
       <Section tone="light" aria-label="PPAB divisions">
         <Container className="space-y-20 lg:space-y-28">
           {divisions.map((division, i) => {
-            const accent = divisionAccent[division.id].hex;
+            const { hex: accent, ink } = divisionAccent[division.id];
             const flip = i % 2 === 1;
             return (
               <article key={division.id} id={division.id} className="grid scroll-mt-32 items-center gap-10 lg:grid-cols-12 lg:gap-16">
@@ -51,24 +51,24 @@ export default function SolutionsPage() {
                   </div>
                 </div>
                 <div className={cn('lg:col-span-6', flip && 'lg:order-1')}>
-                  <p data-reveal="fade" className="flex items-center gap-3 font-mono text-caption uppercase" style={{ color: accent }}>
+                  <p data-reveal="fade" className="flex items-center gap-3 type-eyebrow" style={{ color: ink }}>
                     <span className="grid size-9 place-items-center rounded-full bg-navy-900" style={{ color: accent }}>
                       <Icon name={division.icon} size={17} />
                     </span>
                     0{i + 1} · {division.short}
                   </p>
-                  <h2 data-split className="mt-5 text-h2 font-display text-navy-900">
+                  <h2 data-split className="mt-5 type-h2 text-navy-900">
                     {division.name}
                   </h2>
-                  <p data-reveal="up" className="mt-2 font-serif text-[1.5rem] italic text-gold-600">
+                  <p data-reveal="up" className="mt-2 type-tagline-lg" style={{ color: ink }}>
                     {division.tagline}
                   </p>
-                  <p data-reveal="up" className="mt-5 text-body-lg text-muted">
+                  <p data-reveal="up" className="mt-5 type-lead text-muted">
                     {division.summary}
                   </p>
                   <ul data-reveal="up" className="mt-6 flex flex-wrap gap-2">
                     {division.services.map((s) => (
-                      <li key={s.id} className="rounded-full border border-navy-900/12 bg-white px-3.5 py-1.5 text-[0.82rem] text-ink-soft">
+                      <li key={s.id} className="rounded-full border border-navy-900/12 bg-white px-3.5 py-1.5 type-caption text-ink-soft">
                         {s.name}
                       </li>
                     ))}

@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 export const buttonVariants = cva(
   [
     'group/btn relative isolate inline-flex shrink-0 items-center justify-center gap-2.5 overflow-hidden rounded-full',
-    'font-semibold text-button whitespace-nowrap select-none',
+    'type-button whitespace-nowrap select-none',
     'transition-[background-color,border-color,color,box-shadow,transform] duration-300 ease-out-expo',
     'active:scale-[0.98] disabled:pointer-events-none disabled:opacity-55',
   ],
@@ -65,10 +65,13 @@ function ArrowBadge({ variant = 'primary', size = 'md' }: { variant: Variants['v
   );
 }
 
+import { Magnetic } from '@/components/animation/Magnetic';
+
 interface CommonProps extends Variants {
   children: ReactNode;
   className?: string;
   icon?: ReactNode;
+  magnetic?: boolean;
 }
 
 export function Button({
@@ -78,16 +81,19 @@ export function Button({
   icon,
   className,
   children,
+  magnetic = false,
   type = 'button',
   ...rest
 }: CommonProps & ButtonHTMLAttributes<HTMLButtonElement>) {
-  return (
+  const btn = (
     <button type={type} className={cn(buttonVariants({ variant, size, withArrow }), className)} {...rest}>
       {icon}
       <span>{children}</span>
       {withArrow && <ArrowBadge variant={variant} size={size} />}
     </button>
   );
+
+  return magnetic ? <Magnetic strength={0.3}>{btn}</Magnetic> : btn;
 }
 
 const isExternal = (href: string) => /^(https?:|tel:|mailto:)/.test(href);
@@ -100,6 +106,7 @@ export function ButtonLink({
   icon,
   className,
   children,
+  magnetic = false,
   ...rest
 }: CommonProps & { href: string } & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'>) {
   const classes = cn(buttonVariants({ variant, size, withArrow }), className);
@@ -111,18 +118,21 @@ export function ButtonLink({
     </>
   );
 
+  let linkEl;
   if (isExternal(href)) {
     const newTab = href.startsWith('http');
-    return (
+    linkEl = (
       <a href={href} className={classes} {...(newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {})} {...rest}>
         {content}
       </a>
     );
+  } else {
+    linkEl = (
+      <Link href={href} className={classes} {...rest}>
+        {content}
+      </Link>
+    );
   }
 
-  return (
-    <Link href={href} className={classes} {...rest}>
-      {content}
-    </Link>
-  );
+  return magnetic ? <Magnetic strength={0.3}>{linkEl}</Magnetic> : linkEl;
 }

@@ -17,9 +17,9 @@ export function CCTVLeadForm({ source = 'cctv-lead' }: { source?: string }) {
   return (
     <LeadFormShell state={state} onReset={reset}>
       <form onSubmit={onSubmit} noValidate aria-label="Request a free CCTV site survey">
-        <fieldset disabled={submitting} className="grid gap-5">
+        <fieldset disabled={submitting} className="grid gap-4">
           <ChoiceChips legend="Property type" options={leadOptions.cctvProperty} error={errorOf('propertyType')} {...register('propertyType')} />
-          <div className="grid gap-5 sm:grid-cols-2">
+          <div className="grid gap-4 sm:grid-cols-2">
             <TextField label="Name" autoComplete="name" error={errorOf('name')} {...register('name')} />
             <TextField label="Mobile" type="tel" inputMode="tel" autoComplete="tel" placeholder="10-digit mobile" error={errorOf('phone')} {...register('phone')} />
             <TextField label="City / Area" autoComplete="address-level2" error={errorOf('city')} {...register('city')} />
@@ -27,7 +27,7 @@ export function CCTVLeadForm({ source = 'cctv-lead' }: { source?: string }) {
           </div>
           <HoneypotField />
           <div className="flex flex-col gap-4 pt-1 sm:flex-row sm:items-center sm:justify-between">
-            <Button type="submit" size="lg" withArrow={!submitting} icon={submitting ? <SubmitSpinner /> : undefined}>
+            <Button type="submit" withArrow={!submitting} icon={submitting ? <SubmitSpinner /> : undefined}>
               {submitting ? 'Sending…' : 'Get FREE CCTV Site Survey'}
             </Button>
           </div>

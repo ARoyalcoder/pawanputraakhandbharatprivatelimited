@@ -8,6 +8,7 @@ import { ThreeScene } from '@/components/3d/ThreeScene';
 import { SceneLoader } from '@/components/3d/SceneLoader';
 import { ConceptArt } from '@/components/media/ConceptArt';
 import { gsap, ScrollTrigger, prefersReducedMotion, useGSAP } from '@/lib/animations/gsap';
+import { whenIntroDone } from '@/lib/animations/heroCue';
 import { useMediaQuery, useReducedMotion } from '@/hooks/useMediaQuery';
 import { cn } from '@/lib/utils';
 
@@ -21,7 +22,12 @@ export interface HeroDivision {
   accent: string;
 }
 
-const heroFallback = <ConceptArt variant="hero" className="mask-fade-radial opacity-80" />;
+/** Static stand-in when 3D is off (reduced motion, low-power device, lost WebGL context). */
+const heroFallback = (
+  <div className="absolute inset-x-0 bottom-0 h-[24rem] lg:inset-y-0 lg:left-auto lg:right-0 lg:h-auto lg:w-[60%]">
+    <ConceptArt variant="hero" className="mask-fade-radial opacity-80" />
+  </div>
+);
 
 const HeroScene = dynamic(() => import('@/components/3d/scenes/HeroScene'), {
   ssr: false,
@@ -31,8 +37,9 @@ const HeroScene = dynamic(() => import('@/components/3d/scenes/HeroScene'), {
 const splineUrl = process.env.NEXT_PUBLIC_SPLINE_HERO_URL || undefined;
 
 /**
- * Client shell for the homepage hero: the 3D visual, the division tabs that drive it,
- * and scroll-linked depth. The copy itself is server-rendered and passed in as children.
+ * Client shell for the homepage hero. The 3D scene fills the whole section and the copy
+ * sits over it on a legibility scrim; the division tabs drive the scene and scrolling pushes
+ * the camera in. The copy itself is server-rendered and passed in as children.
  */
 export function HeroStage({ divisions, children }: { divisions: HeroDivision[]; children: ReactNode }) {
   const sectionRef = useRef<HTMLElement>(null);
@@ -41,6 +48,8 @@ export function HeroStage({ divisions, children }: { divisions: HeroDivision[]; 
   const [active, setActive] = useState(0);
   const [hovering, setHovering] = useState(false);
   const [inView, setInView] = useState(true);
+  // The scene assembles once the first-visit intro has handed over (at once when there is none).
+  const [play, setPlay] = useState(false);
   const reduced = useReducedMotion();
   const finePointer = useMediaQuery('(pointer: fine)');
   const baseId = useId();
@@ -54,6 +63,8 @@ export function HeroStage({ divisions, children }: { divisions: HeroDivision[]; 
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => whenIntroDone(() => setPlay(true)), []);
 
   useGSAP(
     () => {
@@ -104,25 +115,37 @@ export function HeroStage({ divisions, children }: { divisions: HeroDivision[]; 
       <div aria-hidden="true" className="absolute inset-0 -z-10 bg-blueprint mask-fade-radial opacity-70" />
 
       {/* Copy */}
-      <div className="container-ppab flex items-start pt-32 sm:pt-36 lg:flex-1 lg:items-center lg:pt-40 lg:pb-16">
+      <div className="container-ppab flex items-start pt-32 sm:pt-36 lg:flex-1 lg:items-center lg:pb-14 lg:pt-36">
         <div data-hero-copy className="w-full max-w-2xl lg:max-w-[40rem] xl:max-w-[44rem]">
           {children}
         </div>
       </div>
 
-      {/* 3D visual — in flow on mobile, a right-hand stage on desktop */}
-      <div className="pointer-events-none relative -z-10 -mt-4 h-[21rem] sm:h-[26rem] lg:absolute lg:inset-y-0 lg:right-[-4%] lg:mt-0 lg:h-auto lg:w-[62%]">
+      {/* Room for the medallion below the copy on small screens */}
+      <div aria-hidden="true" className="h-[19rem] sm:h-[23rem] lg:hidden" />
+
+      {/* 3D scene: covers the whole hero, behind the copy */}
+      <div className="pointer-events-none absolute inset-0 -z-10">
         <ThreeScene
           splineUrl={splineUrl}
           fallback={heroFallback}
-          render={(ctx) => <HeroScene {...ctx} active={active} progressRef={progressRef} pointer={finePointer} />}
+          render={(ctx) => <HeroScene {...ctx} active={active} progressRef={progressRef} pointer={finePointer} play={play} />}
         />
       </div>
-      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-56 bg-gradient-to-t from-navy-950 to-transparent" />
+
+      {/* Cinematic finish over the scene: legibility scrims, vignette and a trace of film grain */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-navy-950/90 via-navy-950/45 to-transparent lg:hidden" />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-y-0 left-0 -z-10 hidden w-[64%] bg-[linear-gradient(90deg,rgb(2_11_29/0.86)_0%,rgb(2_11_29/0.7)_45%,rgb(2_11_29/0.25)_78%,transparent_100%)] lg:block"
+      />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(120%_90%_at_50%_45%,transparent_55%,rgb(2_11_29/0.7)_100%)]" />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-48 bg-gradient-to-t from-navy-950 to-transparent" />
+      <div aria-hidden="true" className="hero-grain pointer-events-none absolute inset-0 -z-10" />
 
       {/* Division tabs */}
       <div
-        className="relative border-t border-white/10 bg-navy-950/60 backdrop-blur-md"
+        className="relative border-t border-white/10 bg-navy-950/55 backdrop-blur-md"
         onPointerEnter={() => setHovering(true)}
         onPointerLeave={() => setHovering(false)}
         onFocus={() => setHovering(true)}
@@ -161,10 +184,10 @@ export function HeroStage({ divisions, children }: { divisions: HeroDivision[]; 
                       />
                     )}
                   </span>
-                  <span className="block font-mono text-caption" style={selected ? { color: d.accent } : undefined}>
+                  <span className="block type-index" style={selected ? { color: d.accent } : undefined}>
                     {String(i + 1).padStart(2, '0')}
                   </span>
-                  <span className="mt-1.5 block text-[1.02rem] font-semibold tracking-tight">{d.short}</span>
+                  <span className="mt-1.5 block type-h5">{d.short}</span>
                 </button>
               );
             })}
@@ -177,7 +200,7 @@ export function HeroStage({ divisions, children }: { divisions: HeroDivision[]; 
             aria-live="polite"
             className="border-t border-white/10 py-5 lg:border-l lg:border-t-0 lg:pl-8"
           >
-            <p className="font-serif text-[1.15rem] italic leading-snug" style={{ color: current.accent }}>
+            <p className="type-tagline" style={{ color: current.accent }}>
               {current.tagline}
             </p>
             <Link

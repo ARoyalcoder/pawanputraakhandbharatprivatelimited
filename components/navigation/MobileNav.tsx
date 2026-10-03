@@ -90,7 +90,7 @@ export function MobileNav() {
                       <Link
                         href={item.href}
                         aria-current={pathname === item.href ? 'page' : undefined}
-                        className="flex items-center justify-between py-4 text-[1.35rem] font-semibold tracking-tight aria-[current=page]:text-gold-300"
+                        className="flex items-center justify-between py-4 type-nav-lg aria-[current=page]:text-gold-300"
                       >
                         {item.label}
                       </Link>
@@ -104,7 +104,7 @@ export function MobileNav() {
                       aria-expanded={isOpen}
                       aria-controls={groupId}
                       onClick={() => setExpanded(isOpen ? null : item.label)}
-                      className="flex w-full items-center justify-between py-4 text-left text-[1.35rem] font-semibold tracking-tight"
+                      className="flex w-full items-center justify-between py-4 text-left type-nav-lg"
                     >
                       {item.label}
                       <ChevronDown aria-hidden="true" className={cn('size-5 text-gold-300 transition-transform duration-300', isOpen && 'rotate-180')} />
@@ -146,7 +146,7 @@ export function MobileNav() {
                 WhatsApp
               </ButtonLink>
             </div>
-            <p className="text-center text-[0.8rem] text-white/50">{siteConfig.contact.phoneDisplay} · Lucknow · New Delhi</p>
+            <p className="text-center type-caption text-white/50">{siteConfig.contact.phoneDisplay} · Lucknow · New Delhi</p>
           </div>
         </div>
       </dialog>

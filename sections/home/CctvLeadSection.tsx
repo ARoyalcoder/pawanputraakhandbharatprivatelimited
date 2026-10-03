@@ -48,13 +48,13 @@ export function CctvLeadSection() {
                 className="flex flex-col items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-2 py-3.5 text-center"
               >
                 <Icon name={p.icon} size={20} className="text-secure" />
-                <span className="text-[0.75rem] font-medium text-white/80">{p.label}</span>
+                <span className="type-caption font-medium text-white/80">{p.label}</span>
               </li>
             ))}
           </ul>
           <ul className="mt-9 space-y-3">
             {included.map((item) => (
-              <li key={item} data-reveal="up" className="flex items-start gap-3 text-body text-white/80">
+              <li key={item} data-reveal="up" className="flex items-start gap-3 type-body text-white/80">
                 <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-gold-500 text-navy-950">
                   <Check aria-hidden="true" className="size-3.5" strokeWidth={3} />
                 </span>
@@ -65,10 +65,10 @@ export function CctvLeadSection() {
         </div>
 
         <div className="lg:col-span-7" data-reveal="up">
-          <div data-theme="ppab" className="relative rounded-panel bg-white p-6 text-ink shadow-lift sm:p-10">
+          <div data-theme="ppab" className="relative rounded-panel bg-white p-6 text-ink shadow-lift sm:p-8">
             <CornerFrame className="text-gold-500/60" inset={14} size={16} />
-            <p className="font-mono text-caption uppercase text-gold-700">Free CCTV site survey</p>
-            <h3 className="mb-8 mt-2 text-h3 text-navy-900">Where should we come and survey?</h3>
+            <p className="type-eyebrow text-gold-700">Free CCTV site survey</p>
+            <h3 className="mb-5 mt-2 type-h3 text-navy-900">Where should we come and survey?</h3>
             <CCTVLeadForm source="home-cctv" />
           </div>
         </div>

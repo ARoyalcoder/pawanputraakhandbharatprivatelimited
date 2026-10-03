@@ -14,11 +14,11 @@ export default function NotFound() {
         <Logo />
       </div>
       <main className="container-ppab flex flex-1 flex-col justify-center py-16">
-        <p className="font-mono text-caption uppercase text-gold-300">Error 404</p>
-        <h1 className="mt-5 max-w-3xl text-h1 font-display text-balance">
-          This page could not be found. <em className="font-serif font-normal italic text-gold-300">Let&apos;s get you back.</em>
+        <p className="type-eyebrow text-gold-300">Error 404</p>
+        <h1 className="mt-5 max-w-3xl type-h1">
+          This page could not be found. <em className="type-accent text-gold-300">Let&apos;s get you back.</em>
         </h1>
-        <p className="mt-5 max-w-xl text-body-lg text-white/65">
+        <p className="mt-5 max-w-xl type-lead text-white/65">
           The link may be old or mistyped. Explore our solutions below, or call us on {siteConfig.contact.phoneDisplay}.
         </p>
         <div className="mt-9 flex flex-wrap gap-3">

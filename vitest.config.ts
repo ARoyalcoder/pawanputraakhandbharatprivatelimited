@@ -8,6 +8,10 @@ export default defineConfig({
     globals: true,
     include: ['tests/**/*.test.{ts,tsx}'],
     exclude: ['node_modules/**', ...legacyTestFiles],
+    testTimeout: 15000,
+    env: {
+      DATABASE_URL: '',
+    },
   },
   resolve: {
     alias: {

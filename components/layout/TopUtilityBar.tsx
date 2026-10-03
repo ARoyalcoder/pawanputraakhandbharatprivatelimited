@@ -4,7 +4,7 @@ import { mailHref, telHref } from '@/lib/contact';
 
 export function TopUtilityBar() {
   return (
-    <aside aria-label="Offices and contact" className="hidden h-10 border-b border-white/[0.08] bg-navy-950 text-[0.78rem] text-white/65 lg:block">
+    <aside aria-label="Offices and contact" className="hidden h-10 border-b border-white/[0.08] bg-navy-950 type-caption text-white/65 lg:block">
       <div className="container-ppab flex h-full items-center justify-between gap-6">
         <p className="flex items-center gap-2 truncate">
           <MapPin aria-hidden="true" className="size-3.5 text-gold-300" />

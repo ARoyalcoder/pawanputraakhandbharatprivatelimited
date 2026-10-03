@@ -72,7 +72,7 @@ export function QuoteProvider({ children }: { children: ReactNode }) {
         onClick={(e) => e.target === dialogRef.current && close()}
         className="m-auto max-h-[92dvh] w-[calc(100%-1.5rem)] max-w-2xl overflow-y-auto overscroll-contain rounded-panel bg-white p-0 text-ink opacity-0 shadow-lift transition-[opacity,translate,display,overlay] duration-300 ease-out-expo transition-discrete open:translate-y-0 open:opacity-100 starting:open:translate-y-4 starting:open:opacity-0"
       >
-        <div className="relative p-6 sm:p-10">
+        <div className="relative p-6 sm:p-8">
           <button
             type="button"
             onClick={close}
@@ -81,8 +81,8 @@ export function QuoteProvider({ children }: { children: ReactNode }) {
           >
             <X className="size-5" aria-hidden="true" />
           </button>
-          <p className="font-mono text-caption uppercase text-gold-700">Free consultation</p>
-          <h2 id="quote-dialog-title" className="mt-3 pr-12 text-h3 text-navy-900">
+          <p className="type-eyebrow text-gold-700">Free consultation</p>
+          <h2 id="quote-dialog-title" className="mt-3 pr-12 type-h3 text-navy-900">
             Tell us what you need. We&apos;ll suggest the right solution.
           </h2>
           <p className="mt-2 text-small text-muted">Our team usually replies by phone or WhatsApp.</p>

@@ -42,6 +42,7 @@ export default async function BlogPostPage({ params }: Props) {
     <>
       <JsonLd data={articleSchema({ title: post.title, description: post.excerpt, slug: post.slug, publishedAt: post.publishedAt, author: post.author })} />
       <PageHero
+        titleStyle="article"
         crumbs={[
           { label: 'Home', href: '/' },
           { label: 'Blog', href: '/blog' },
@@ -52,7 +53,7 @@ export default async function BlogPostPage({ params }: Props) {
         description={post.excerpt}
         size="compact"
       >
-        <p className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-1 text-small text-white/60">
+        <p className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-1 type-meta text-white/65">
           <span>{post.author}</span>
           <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
           <span className="inline-flex items-center gap-1.5">
@@ -67,7 +68,7 @@ export default async function BlogPostPage({ params }: Props) {
             <div className="space-y-8 lg:sticky lg:top-32">
               {toc.length > 1 && (
                 <nav aria-label="On this page">
-                  <p className="font-mono text-caption uppercase text-gold-700">On this page</p>
+                  <p className="type-eyebrow text-gold-700">On this page</p>
                   <ul className="mt-4 space-y-2.5 border-l border-line pl-4 text-small">
                     {toc.map((h) => (
                       <li key={h.id}>
@@ -80,7 +81,7 @@ export default async function BlogPostPage({ params }: Props) {
                 </nav>
               )}
               <div>
-                <p className="font-mono text-caption uppercase text-gold-700">Share</p>
+                <p className="type-eyebrow text-gold-700">Share</p>
                 <div className="mt-4 flex gap-2">
                   <a
                     href={`https://wa.me/?text=${encodeURIComponent(`${post.title} ${url}`)}`}
@@ -110,7 +111,7 @@ export default async function BlogPostPage({ params }: Props) {
       {related.length > 0 && (
         <Section tone="light" aria-labelledby="related-title">
           <Container>
-            <h2 id="related-title" className="text-h3 text-navy-900">
+            <h2 id="related-title" className="type-h3 text-navy-900">
               More guides
             </h2>
             <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

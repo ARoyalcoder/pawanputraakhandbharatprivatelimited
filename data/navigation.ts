@@ -1,12 +1,16 @@
 import type { NavItem, NavLink } from '@/types/content';
-import { divisions } from '@/data/divisions';
+import { divisions, divisionAccent, getDivision } from '@/data/divisions';
 import { industries } from '@/data/industries';
 
+/** Everything the menus show comes from the verified division and industry data. */
 export const solutionLinks: NavLink[] = divisions.map((d) => ({
   label: d.name,
   href: d.href,
   description: d.tagline,
   icon: d.icon,
+  short: d.short,
+  accent: divisionAccent[d.id].hex,
+  chips: d.services.slice(0, 4).map((s) => s.name),
 }));
 
 export const industryLinks: NavLink[] = industries.map((i) => ({
@@ -14,6 +18,8 @@ export const industryLinks: NavLink[] = industries.map((i) => ({
   href: `/industries/${i.id}`,
   description: i.audience,
   icon: i.icon,
+  short: i.name,
+  chips: i.solutions.map((s) => getDivision(s.division).short),
 }));
 
 export const mainNav: NavItem[] = [

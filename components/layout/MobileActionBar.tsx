@@ -6,7 +6,7 @@ import { useQuote } from '@/components/forms/QuoteProvider';
 import { telHref, whatsappHref } from '@/lib/contact';
 import { trackEvent } from '@/lib/analytics/tracker';
 
-const cell = 'flex flex-1 flex-col items-center justify-center gap-1 text-[0.72rem] font-semibold tracking-wide';
+const cell = 'flex flex-1 flex-col items-center justify-center gap-1 type-caption font-semibold';
 
 /** Sticky bottom bar on phones and small tablets: Call · WhatsApp · Get Quote. */
 export function MobileActionBar() {

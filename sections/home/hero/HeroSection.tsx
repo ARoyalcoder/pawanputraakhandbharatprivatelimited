@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { QuoteButton } from '@/components/forms/QuoteButton';
 import { ButtonLink } from '@/components/ui/Button';
 import { WhatsAppIcon } from '@/components/ui/Icon';
@@ -16,23 +17,40 @@ const heroDivisions: HeroDivision[] = divisions.map((d) => ({
   accent: divisionAccent[d.id].hex,
 }));
 
-/** Staggered CSS entrance (`motion-safe:animate-rise`): runs at first paint, independent of JavaScript. */
+/**
+ * Staggered CSS entrance (`motion-safe:animate-rise`): runs at first paint, independent of JavaScript.
+ * The headline is the LCP element, so its word-by-word mask reveal is CSS too (see .hero-word in
+ * styles/typography.css) rather than GSAP, which would hold the text back until hydration.
+ */
 const delay = (step: number) => ({ animationDelay: `${0.08 + step * 0.09}s` });
+const wordDelay = (step: number) => ({ animationDelay: `${0.16 + step * 0.085}s` });
+
+const headline = ['Powering', 'Security,', 'Connectivity'];
 
 export function HeroSection() {
   return (
     <HeroStage divisions={heroDivisions}>
-      <p style={delay(0)} className="inline-flex items-center gap-3 font-mono text-caption uppercase text-gold-300 motion-safe:animate-rise">
+      <p style={delay(0)} className="inline-flex items-center gap-3 type-eyebrow text-gold-300 motion-safe:animate-rise">
         <span aria-hidden="true" className="h-px w-8 bg-current" />
         One company. Multiple advanced solutions.
       </p>
 
-      <h1 style={delay(1)} className="mt-6 text-display text-balance font-display text-white motion-safe:animate-rise">
-        Powering Security, Connectivity{' '}
-        <em className="font-serif font-normal italic tracking-normal text-gold-300">&amp; Growth</em>
+      <h1 className="mt-6 type-display-xl font-extrabold text-white">
+        {headline.map((word, i) => (
+          <Fragment key={word}>
+            <span className="hero-word">
+              <span style={wordDelay(i)}>{word}</span>
+            </span>{' '}
+          </Fragment>
+        ))}
+        <span className="hero-word">
+          <em style={wordDelay(headline.length + 0.6)} className="type-accent text-gold-300">
+            &amp; Growth
+          </em>
+        </span>
       </h1>
 
-      <p style={delay(2)} className="mt-6 max-w-xl text-pretty text-body-lg text-white/70 motion-safe:animate-rise">
+      <p style={delay(2)} className="mt-6 max-w-xl type-lead text-white/70 motion-safe:animate-rise">
         Complete technology, security, solar, digital and infrastructure solutions for Homes, Businesses,
         Institutions &amp; Industries.
       </p>
@@ -41,7 +59,7 @@ export function HeroSection() {
         {heroBadges.map((badge) => (
           <li
             key={badge}
-            className="rounded-full border border-white/12 bg-white/[0.04] px-3.5 py-1.5 font-mono text-[0.7rem] uppercase tracking-[0.14em] text-white/75"
+            className="cursor-default rounded-full border border-white/12 bg-white/[0.04] px-3.5 py-1.5 type-caption text-white/80 transition-all duration-300 hover:border-gold-400/50 hover:bg-gold-400/10 hover:text-gold-200"
           >
             {badge}
           </li>
@@ -52,7 +70,13 @@ export function HeroSection() {
         <QuoteButton size="lg" withArrow source="hero">
           Get Free Consultation
         </QuoteButton>
-        <ButtonLink href={whatsappHref()} size="lg" variant="outline-light" icon={<WhatsAppIcon size={18} className="text-gold-300" />}>
+        <ButtonLink
+          href={whatsappHref()}
+          size="lg"
+          variant="outline-light"
+          magnetic
+          icon={<WhatsAppIcon size={18} className="text-gold-300" />}
+        >
           WhatsApp Us
         </ButtonLink>
       </div>
