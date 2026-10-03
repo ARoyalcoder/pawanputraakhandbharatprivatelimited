@@ -33,7 +33,7 @@ export function ScrollProgress() {
       {/* Top progress indicator bar */}
       <motion.div
         aria-hidden="true"
-        className="fixed top-0 left-0 right-0 z-[100] h-[3px] origin-left bg-gradient-to-r from-gold-500 via-amber-400 to-gold-300 shadow-[0_0_10px_rgba(234,179,8,0.5)]"
+        className="fixed top-0 left-0 right-0 z-[100] h-[3.5px] origin-left bg-gradient-to-r from-gold-600 via-gold-400 to-amber-300 shadow-[0_0_12px_rgba(216,166,42,0.85),0_0_4px_rgba(255,255,255,0.6)]"
         style={{ scaleX }}
       />
 

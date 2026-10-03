@@ -1,19 +1,16 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
   Shield,
   Wifi,
   Sun,
   Code2,
   Building2,
-  ArrowRight,
   Play,
   Pause,
   Sparkles,
-  CheckCircle2,
 } from 'lucide-react';
 import { CornerFrame } from '@/components/ui/CornerFrame';
 import { InteractiveTiltCard } from '@/components/animation/InteractiveTiltCard';
@@ -324,72 +321,7 @@ export function InteractiveEcosystemHub() {
           );
         })}
 
-        {/* 5. Holographic Inspection HUD Card (Active Division Spotlight) */}
-        <div className="absolute top-3 left-3 right-3 sm:top-4 sm:left-4 sm:right-auto sm:max-w-xs z-30 pointer-events-auto">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeNode.id}
-              initial={{ opacity: 0, y: -8, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -6, scale: 0.95 }}
-              transition={{ duration: 0.25, ease: 'easeOut' }}
-              className="rounded-2xl border border-white/15 bg-navy-950/90 p-3.5 shadow-xl backdrop-blur-xl"
-              style={{
-                boxShadow: `0 10px 30px -5px ${activeNode.accent}25`,
-              }}
-            >
-              <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-2">
-                <span
-                  className="font-mono text-[10px] font-bold uppercase tracking-wider"
-                  style={{ color: activeNode.accent }}
-                >
-                  {activeNode.short} Division Active
-                </span>
-                <span className="flex items-center gap-1 font-mono text-[9px] text-white/50">
-                  <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  Deployed
-                </span>
-              </div>
 
-              <div className="mt-2 space-y-1">
-                <h4 className="text-xs sm:text-sm font-bold text-white font-heading">
-                  {activeNode.name}
-                </h4>
-                <p className="text-[11px] text-white/65 line-clamp-2 leading-tight">
-                  {activeNode.summary}
-                </p>
-              </div>
-
-              {/* Key Capabilities */}
-              <div className="mt-2.5 flex flex-wrap gap-1">
-                {activeNode.capabilities.map((cap) => (
-                  <span
-                    key={cap}
-                    className="inline-flex items-center gap-1 rounded-md bg-white/[0.06] px-1.5 py-0.5 text-[9px] text-white/80"
-                  >
-                    <CheckCircle2 className="size-2.5 text-gold-400" />
-                    <span>{cap}</span>
-                  </span>
-                ))}
-              </div>
-
-              {/* Action Link */}
-              <div className="mt-3 pt-2 border-t border-white/10 flex items-center justify-between">
-                <Link
-                  href={activeNode.href}
-                  className="inline-flex items-center gap-1.5 text-[11px] font-semibold transition-colors hover:text-white"
-                  style={{ color: activeNode.accent }}
-                >
-                  <span>Explore division</span>
-                  <ArrowRight className="size-3 transition-transform hover:translate-x-0.5" />
-                </Link>
-                <span className="text-[9px] font-mono text-white/40">
-                  Click nodes to inspect
-                </span>
-              </div>
-            </motion.div>
-          </AnimatePresence>
-        </div>
 
         {/* 6. Bottom Interactive Division Selector Strip */}
         <div className="absolute bottom-3 inset-x-3 sm:bottom-4 sm:inset-x-4 z-30 flex items-center justify-between gap-2 rounded-2xl border border-white/10 bg-navy-950/80 px-2.5 py-1.5 backdrop-blur-md">

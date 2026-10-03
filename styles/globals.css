@@ -246,6 +246,32 @@
     scroll-padding-top: 6.5rem;
     -webkit-text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
+    scrollbar-color: #d8a62a #06152f;
+    scrollbar-width: thin;
+  }
+
+  /* Custom luxury browser scrollbar matching PPAB Brand Palette */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #020b1d;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #d8a62a 0%, #b8861b 100%);
+    border-radius: 9999px;
+    border: 2px solid #020b1d;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #f4c95d 0%, #d8a62a 100%);
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: #020b1d;
   }
 
   @media (prefers-reduced-motion: no-preference) {
