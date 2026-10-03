@@ -2,14 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import { IntroFallback } from './IntroFallback';
-import { announceIntroComplete } from '@/lib/animations/heroCue';
+import { announceIntroComplete, INTRO_SEEN_KEY, INTRO_SESSION_KEY } from '@/lib/animations/heroCue';
 
 const IntroController = dynamic(
   () => import('./IntroController').then((mod) => mod.IntroController),
   {
     ssr: false,
-    loading: () => <IntroFallback onDismiss={() => {}} isLoading={true} />,
+    loading: () => null,
   }
 );
 
@@ -18,9 +17,9 @@ export interface CinematicIntroProps {
 }
 
 /**
- * First-visit Cinematic 3D Intro Container.
- * Manages localStorage / session detection for first-time visitors vs returning visitors.
- * Renders the 3D Intro experience once on first visit, or allows testing via forceShow.
+ * First-visit Cinematic Executive Intro & Smooth Loading Experience.
+ * Manages session/local detection for seamless first-time visitor onboarding.
+ * Automatically hands over to the hero section at 60 FPS.
  */
 export function CinematicIntro({ forceShow = false }: CinematicIntroProps) {
   const [mounted, setMounted] = useState(false);
@@ -34,13 +33,25 @@ export function CinematicIntro({ forceShow = false }: CinematicIntroProps) {
     }
 
     try {
-      const hasSeen = localStorage.getItem('ppab_intro_seen');
-      if (!hasSeen) {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('intro') === 'true' || urlParams.get('replay') === 'true') {
         setShouldShow(true);
+        return;
+      }
+
+      const sessionSeen = sessionStorage.getItem(INTRO_SESSION_KEY);
+      const localSeen = localStorage.getItem(INTRO_SEEN_KEY);
+
+      if (!sessionSeen && !localSeen) {
+        setShouldShow(true);
+      } else {
+        // If already seen, immediately release the hero without delay
+        announceIntroComplete();
       }
     } catch {
-      // Default to false if cookies/storage blocked
+      // Storage blocked (strict sandbox/cookies): release hero immediately
       setShouldShow(false);
+      announceIntroComplete();
     }
   }, [forceShow]);
 
@@ -50,7 +61,6 @@ export function CinematicIntro({ forceShow = false }: CinematicIntroProps) {
     <IntroController
       onComplete={() => {
         setShouldShow(false);
-        // Lets the hero start its 3D assembly as the intro hands over (lib/animations/heroCue.ts).
         announceIntroComplete();
       }}
     />
