@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
+import { smoothScrollTo } from './SmoothScroll';
 
 /**
  * Top reading progress bar and animated Back-to-Top button using Framer Motion.
@@ -24,7 +25,7 @@ export function ScrollProgress() {
   }, [scrollY]);
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    smoothScrollTo(0);
   };
 
   return (

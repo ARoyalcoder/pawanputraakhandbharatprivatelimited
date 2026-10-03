@@ -3,10 +3,11 @@ import { notFound } from 'next/navigation';
 import { Clock, Link2 } from 'lucide-react';
 import { PageHero } from '@/components/layout/PageHero';
 import { Section, Container } from '@/components/ui/Section';
-import { ConceptArt } from '@/components/media/ConceptArt';
+import { OptimizedImage } from '@/components/media/images';
+import { IllustrativeLabel } from '@/components/ui/Badge';
 import { WhatsAppIcon } from '@/components/ui/Icon';
 import { JsonLd } from '@/components/seo/JsonLd';
-import { BlogCard, blogArt, formatDate } from '@/features/blog/BlogCard';
+import { BlogCard, getBlogImage, formatDate } from '@/features/blog/BlogCard';
 import { FinalCta } from '@/sections/shared/FinalCta';
 import { cmsContentService } from '@/lib/cms/content.service';
 import { Markdown, headingsOf } from '@/lib/blog/markdown';
@@ -100,8 +101,17 @@ export default async function BlogPostPage({ params }: Props) {
             </div>
           </aside>
           <article className="order-1 lg:order-2 lg:col-span-8 lg:col-start-5">
-            <div className="relative mb-12 aspect-[16/8] overflow-hidden rounded-panel">
-              <ConceptArt variant={blogArt(post.category)} />
+            <div className="relative mb-12 aspect-[16/9] overflow-hidden rounded-panel bg-navy-950 shadow-card">
+              <OptimizedImage
+                src={getBlogImage(post)}
+                alt={`Guide: ${post.title}`}
+                fill
+                priority
+                sizes="(min-width: 1024px) 66vw, 100vw"
+                className="size-full object-cover"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-950/40 via-transparent to-transparent" />
+              <IllustrativeLabel className="absolute bottom-4 right-4" />
             </div>
             <Markdown source={post.content} />
           </article>

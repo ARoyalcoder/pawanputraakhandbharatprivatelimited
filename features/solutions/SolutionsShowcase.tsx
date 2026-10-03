@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { CinematicBackground } from './CinematicBackground';
 import { ActiveSolutionCard } from './ActiveSolutionCard';
@@ -16,17 +16,49 @@ interface SolutionsShowcaseProps {
 export function SolutionsShowcase({ items }: SolutionsShowcaseProps) {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isHovered, setIsHovered] = useState<boolean>(false);
+  const hoverTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Auto-advance showcase every 7 seconds when not hovering
+  // Ultra-responsive hover intent: 35ms micro-buffer gives instantaneous expansion while guarding against random cursor crossing
+  const handleTabHover = useCallback((idx: number) => {
+    if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
+    hoverTimerRef.current = setTimeout(() => {
+      setActiveIndex((prev) => (prev !== idx ? idx : prev));
+    }, 35);
+  }, []);
+
+  const handleTabHoverLeave = useCallback(() => {
+    if (hoverTimerRef.current) {
+      clearTimeout(hoverTimerRef.current);
+      hoverTimerRef.current = null;
+    }
+  }, []);
+
+  // Instant switch on direct click
+  const handleTabSelect = useCallback((idx: number) => {
+    if (hoverTimerRef.current) {
+      clearTimeout(hoverTimerRef.current);
+      hoverTimerRef.current = null;
+    }
+    setActiveIndex(idx);
+  }, []);
+
+  // Auto-advance showcase every 8.5 seconds when not hovering
   useEffect(() => {
     if (isHovered) return;
 
     const timer = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % items.length);
-    }, 7000);
+    }, 8500);
 
     return () => clearInterval(timer);
   }, [isHovered, items.length]);
+
+  // Clean up timer on unmount
+  useEffect(() => {
+    return () => {
+      if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
+    };
+  }, []);
 
   // Keyboard navigation across solutions (ArrowLeft / ArrowRight)
   const handleKeyDown = useCallback(
@@ -55,7 +87,13 @@ export function SolutionsShowcase({ items }: SolutionsShowcaseProps) {
       tabIndex={0}
       onKeyDown={handleKeyDown}
       onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseLeave={() => {
+        setIsHovered(false);
+        if (hoverTimerRef.current) {
+          clearTimeout(hoverTimerRef.current);
+          hoverTimerRef.current = null;
+        }
+      }}
       role="region"
       aria-label="PPAB Business Divisions Interactive Showcase"
       className="relative isolate w-full focus:outline-none"
@@ -75,11 +113,13 @@ export function SolutionsShowcase({ items }: SolutionsShowcaseProps) {
           return (
             <div
               key={item.id}
+              onMouseEnter={() => handleTabHover(idx)}
+              onMouseLeave={handleTabHoverLeave}
               className={cn(
-                'h-full transition-[flex] duration-600 ease-[cubic-bezier(0.2,0.8,0.2,1)] overflow-hidden',
+                'h-full transition-all duration-600 ease-[cubic-bezier(0.22,1,0.36,1)] overflow-hidden motion-reduce:transition-none will-change-[flex,min-width]',
                 isActive
-                  ? 'flex-[2.6] min-w-[360px] xl:min-w-[420px]'
-                  : 'flex-1 min-w-[125px] sm:min-w-[140px] xl:min-w-[155px]'
+                  ? 'flex-[3.2] min-w-[370px] xl:min-w-[430px]'
+                  : 'flex-1 min-w-[110px] sm:min-w-[125px] xl:min-w-[140px]'
               )}
             >
               {isActive ? (
@@ -89,7 +129,9 @@ export function SolutionsShowcase({ items }: SolutionsShowcaseProps) {
                   item={item}
                   index={idx}
                   isActive={false}
-                  onSelect={(newIdx) => setActiveIndex(newIdx)}
+                  onSelect={handleTabSelect}
+                  onHover={handleTabHover}
+                  onHoverLeave={handleTabHoverLeave}
                   className="h-full w-full"
                 />
               )}

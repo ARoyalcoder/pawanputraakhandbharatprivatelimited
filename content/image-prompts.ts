@@ -10,7 +10,7 @@
  * This module has no imports so tooling can load it directly with Node.
  */
 
-export type AIImageCategory = 'hero' | 'secure' | 'connect' | 'solar' | 'digital' | 'space' | 'industries';
+export type AIImageCategory = 'hero' | 'secure' | 'connect' | 'solar' | 'digital' | 'space' | 'industries' | 'blog';
 
 export type AIConceptArt =
   | 'hero'
@@ -176,6 +176,56 @@ export const aiImages: AIImageEntry[] = [
     width: 1600,
     height: 1200,
     fallbackArt: 'commercial',
+  }),
+  entry({
+    id: 'blog-solar',
+    category: 'blog',
+    filename: 'blog/solar-guide.jpg',
+    prompt: `Professional solar technician in safety vest consulting with a homeowner on a sunny rooftop alongside modern solar panels, warm human emotion, ${STYLE}.`,
+    alt: 'Illustrative concept: solar technician consulting with a homeowner on a rooftop installation',
+    width: 1600,
+    height: 900,
+    fallbackArt: 'solar',
+  }),
+  entry({
+    id: 'blog-cctv',
+    category: 'blog',
+    filename: 'blog/cctv-guide.jpg',
+    prompt: `Security specialist demonstrating smart CCTV camera and monitoring tablet feed to a family outside a modern home, warm friendly trust, ${STYLE}.`,
+    alt: 'Illustrative concept: security specialist demonstrating CCTV camera monitoring to homeowners',
+    width: 1600,
+    height: 900,
+    fallbackArt: 'secure',
+  }),
+  entry({
+    id: 'blog-network',
+    category: 'blog',
+    filename: 'blog/network-guide.jpg',
+    prompt: `Two IT network engineers collaborating in an enterprise data center server room, organizing clean fiber optic cables and reviewing laptop diagnostics, ${STYLE}.`,
+    alt: 'Illustrative concept: network engineers configuring fiber cabling and diagnostics in a server room',
+    width: 1600,
+    height: 900,
+    fallbackArt: 'connect',
+  }),
+  entry({
+    id: 'blog-digital',
+    category: 'blog',
+    filename: 'blog/digital-guide.jpg',
+    prompt: `Creative digital software and design team collaborating around a table reviewing modern responsive website and dashboard UI on laptops and tablets, ${STYLE}.`,
+    alt: 'Illustrative concept: digital software and web team collaborating in an open studio',
+    width: 1600,
+    height: 900,
+    fallbackArt: 'digital',
+  }),
+  entry({
+    id: 'blog-space',
+    category: 'blog',
+    filename: 'blog/space-guide.jpg',
+    prompt: `Architect and design engineer consulting with a client over building blueprints and physical scale models in a bright design studio, ${STYLE}.`,
+    alt: 'Illustrative concept: architect and engineer reviewing architectural blueprints with a client',
+    width: 1600,
+    height: 900,
+    fallbackArt: 'space',
   }),
 ];
 

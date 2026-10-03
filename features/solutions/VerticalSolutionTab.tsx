@@ -12,6 +12,8 @@ interface VerticalSolutionTabProps {
   index: number;
   isActive: boolean;
   onSelect: (index: number) => void;
+  onHover?: (index: number) => void;
+  onHoverLeave?: () => void;
   className?: string;
 }
 
@@ -20,6 +22,8 @@ export const VerticalSolutionTab: React.FC<VerticalSolutionTabProps> = ({
   index,
   isActive,
   onSelect,
+  onHover,
+  onHoverLeave,
   className = '',
 }) => {
   const imageSrc =
@@ -33,7 +37,13 @@ export const VerticalSolutionTab: React.FC<VerticalSolutionTabProps> = ({
       aria-selected={isActive}
       aria-label={`Switch to ${item.name}`}
       onClick={() => onSelect(index)}
-      onMouseEnter={() => onSelect(index)}
+      onMouseEnter={() => {
+        if (onHover) onHover(index);
+        else onSelect(index);
+      }}
+      onMouseLeave={() => {
+        onHoverLeave?.();
+      }}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();

@@ -76,12 +76,13 @@ export const ActiveSolutionCard: React.FC<ActiveSolutionCardProps> = ({
     <div
       ref={cardRef}
       className={cn(
-        'group relative isolate overflow-hidden rounded-3xl border transition-all duration-700 ease-out',
+        'group relative isolate overflow-hidden rounded-3xl border transition-[border-color,box-shadow,opacity] duration-500 ease-out',
         'bg-[#061226]/90 shadow-2xl backdrop-blur-xl h-full flex flex-col justify-between',
         className
       )}
       style={{
         transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+        transition: 'transform 0.22s cubic-bezier(0.16, 1, 0.3, 1)',
         borderColor: `${item.accent}55`,
         boxShadow: `0 25px 60px -12px rgba(0,0,0,0.75), 0 0 50px -15px ${item.accent}40`,
       }}
@@ -121,7 +122,7 @@ export const ActiveSolutionCard: React.FC<ActiveSolutionCardProps> = ({
       {/* 3. Card Content Container with Smooth In-Change Animation */}
       <div
         key={item.id}
-        className="relative flex flex-col justify-between h-full p-4 sm:p-5 z-10 motion-safe:animate-fade-in"
+        className="relative flex flex-col justify-between h-full p-4 sm:p-5 z-10 motion-safe:animate-fade-in w-full min-w-[340px] xl:min-w-[390px]"
       >
         {/* Top Header HUD Bar */}
         <div className="flex items-center justify-between gap-3 border-b border-white/10 pb-3">

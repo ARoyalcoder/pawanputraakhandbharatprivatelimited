@@ -12,6 +12,7 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { organizationSchema } from '@/lib/seo/schema';
 import { getNavMedia } from '@/lib/media/nav-media';
 import { PageLoader } from '@/components/loading/PageLoader';
+import { PageTransition } from '@/components/animation/PageTransition';
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -28,7 +29,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
       <JsonLd data={organizationSchema()} />
       <SiteHeader utilityBar={<TopUtilityBar />} navMedia={getNavMedia()} />
       <main id="main-content" tabIndex={-1} className="outline-none">
-        {children}
+        <PageTransition>{children}</PageTransition>
       </main>
       <SiteFooter />
       <FloatingContact />

@@ -93,6 +93,7 @@ const SEED_BLOGS: CMSBlog[] = [
     author: 'PPAB Team',
     readTime: '5 min read',
     status: 'PUBLISHED',
+    featuredImage: '/images/ai/blog/solar-guide.jpg',
     tags: ['Solar', 'On-Grid', 'Off-Grid', 'Hybrid', 'Net Metering'],
     publishedAt: '2026-09-25T00:00:00.000Z',
     content: `
@@ -136,6 +137,7 @@ Pawan Putra Solar installs on-grid, off-grid and hybrid systems and supports net
     author: 'PPAB Team',
     readTime: '5 min read',
     status: 'PUBLISHED',
+    featuredImage: '/images/ai/blog/cctv-guide.jpg',
     tags: ['CCTV', 'Security', 'NVR', 'PoE'],
     publishedAt: '2026-09-25T00:00:00.000Z',
     content: `
@@ -174,6 +176,7 @@ Pawan Putra Secure offers a free CCTV site survey, installation, and maintenance
     author: 'PPAB Team',
     readTime: '4 min read',
     status: 'PUBLISHED',
+    featuredImage: '/images/ai/blog/network-guide.jpg',
     tags: ['Networking', 'Fiber', 'LAN', 'Wi-Fi', 'Server Racks'],
     publishedAt: '2026-09-25T00:00:00.000Z',
     content: `
@@ -213,6 +216,7 @@ Pawan Putra Connect plans and installs fiber, LAN/CAN, Wi-Fi, routers, switches 
     author: 'PPAB Team',
     readTime: '4 min read',
     status: 'PUBLISHED',
+    featuredImage: '/images/ai/blog/digital-guide.jpg',
     tags: ['Website', 'Mobile App', 'ERP', 'CRM', 'SEO'],
     publishedAt: '2026-09-25T00:00:00.000Z',
     content: `

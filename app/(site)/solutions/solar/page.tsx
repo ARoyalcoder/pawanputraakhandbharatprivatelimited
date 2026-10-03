@@ -107,7 +107,7 @@ export default function SolarPage() {
       </Section>
 
       {/* System types */}
-      <Section tone="light" id="system-types" aria-labelledby="system-types-title" className="bg-gold-50">
+      <Section tone="light" id="system-types" aria-labelledby="system-types-title" className="relative overflow-hidden bg-gradient-to-b from-white via-surface to-gold-50/40 py-20 lg:py-28 border-y border-navy-900/5">
         <Container>
           <SectionHeading
             id="system-types-title"

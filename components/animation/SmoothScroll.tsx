@@ -32,14 +32,26 @@ export function SmoothScroll() {
     const finePointer = window.matchMedia('(pointer: fine)').matches;
     if (!finePointer || prefersReducedMotion()) return;
 
-    const lenis = new Lenis({ duration: 1.05, anchors: { offset: -96 }, prevent: (node) => node.closest('dialog') !== null });
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.5,
+      anchors: { offset: -96 },
+      prevent: (node) => node.closest('dialog') !== null,
+    });
     lenisInstance = lenis;
+    document.documentElement.classList.add('lenis', 'lenis-smooth');
     lenis.on('scroll', ScrollTrigger.update);
     const tick = (time: number) => lenis.raf(time * 1000);
     gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
 
     return () => {
+      document.documentElement.classList.remove('lenis', 'lenis-smooth');
       gsap.ticker.remove(tick);
       lenis.destroy();
       lenisInstance = null;
