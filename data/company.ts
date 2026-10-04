@@ -51,6 +51,58 @@ export const whyUs: NumberedPoint[] = [
   },
 ];
 
+export const whyChooseUsHome: NumberedPoint[] = [
+  {
+    id: 'integrated',
+    index: '01',
+    title: 'Integrated Solutions',
+    description: 'Comprehensive services across Security, Connectivity, Solar, Spaces and Digital Solutions.',
+    icon: 'layers',
+  },
+  {
+    id: 'quality',
+    index: '02',
+    title: 'Quality & Reliability',
+    description: 'Professional execution, dependable products and consistent service standards.',
+    icon: 'check',
+  },
+  {
+    id: 'customer',
+    index: '03',
+    title: 'Customer-Centric Approach',
+    description: 'Solutions designed around each client’s specific requirements and budget.',
+    icon: 'handshake',
+  },
+  {
+    id: 'expertise',
+    index: '04',
+    title: 'Professional Expertise',
+    description: 'Structured teams and processes covering sales, project execution, installation and support.',
+    icon: 'settings',
+  },
+  {
+    id: 'communication',
+    index: '05',
+    title: 'Transparent Communication',
+    description: 'Clear proposals, honest guidance and smooth coordination at every stage.',
+    icon: 'clipboard',
+  },
+  {
+    id: 'scalable',
+    index: '06',
+    title: 'Flexible & Scalable',
+    description: 'Solutions suitable for individuals, businesses, institutions and large-scale projects.',
+    icon: 'scale',
+  },
+  {
+    id: 'support',
+    index: '07',
+    title: 'Long-Term Support',
+    description: 'Continued assistance through maintenance, service and customer support after project completion.',
+    icon: 'support',
+  },
+];
+
 export const processSteps: NumberedPoint[] = [
   {
     id: 'requirement',

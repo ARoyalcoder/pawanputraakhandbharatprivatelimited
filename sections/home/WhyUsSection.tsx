@@ -2,7 +2,7 @@ import { Section, Container } from '@/components/ui/Section';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { QuoteButton } from '@/components/forms/QuoteButton';
 import { WhyUsList } from '@/features/why-us/WhyUsList';
-import { whyUs } from '@/data/company';
+import { whyChooseUsHome } from '@/data/company';
 
 export function WhyUsSection() {
   return (
@@ -18,10 +18,10 @@ export function WhyUsSection() {
               index="04"
               title={
                 <>
-                  One partner. <em>Fewer handovers.</em> Better outcomes.
+                  Why Choose <em>Us</em>
                 </>
               }
-              description="When one team understands your whole requirement, nothing falls between vendors. Here is what that means in practice."
+              description="We don't just deliver services — we create dependable solutions that help our customers operate smarter, grow stronger and move forward with confidence."
             />
             <div data-reveal="fade" className="mt-9">
               <QuoteButton withArrow source="why-us">
@@ -31,7 +31,7 @@ export function WhyUsSection() {
           </div>
         </div>
         <div className="lg:col-span-7">
-          <WhyUsList items={whyUs} />
+          <WhyUsList items={whyChooseUsHome} />
         </div>
       </Container>
     </Section>
