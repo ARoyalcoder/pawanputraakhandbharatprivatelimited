@@ -9,7 +9,9 @@ export function IndustryCard({ industry, index }: { industry: Industry; index: n
     <article className="group relative flex h-full flex-col overflow-hidden rounded-card border border-line bg-white shadow-card transition-shadow duration-500 hover:shadow-lift">
       <div className="relative aspect-[2/1] overflow-hidden">
         <div className="size-full transition-transform duration-1000 ease-out-expo group-hover:scale-[1.04]">
-          <AIImage id={industry.imageId} sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" showLabel={false} />
+          <div data-depth className="size-full">
+            <AIImage id={industry.imageId} sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" showLabel={false} />
+          </div>
         </div>
       </div>
       <div className="flex flex-1 flex-col p-5">
@@ -21,7 +23,7 @@ export function IndustryCard({ industry, index }: { industry: Industry; index: n
           <span className="text-navy-900/30">0{index + 1}</span>
         </p>
         <h3 className="mt-3 type-h4 text-navy-900">
-          <Link href={`/industries/${industry.id}`} className="after:absolute after:inset-0">
+          <Link href={`/industries/${industry.id}`} data-cursor="view" className="after:absolute after:inset-0">
             {industry.headline}
           </Link>
         </h3>

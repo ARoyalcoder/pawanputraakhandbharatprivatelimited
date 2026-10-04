@@ -75,6 +75,28 @@ export function initParallax(root: ParentNode) {
   });
 }
 
+/** How far a [data-depth] image drifts inside its frame, as a percentage of its height. */
+const DEPTH_DRIFT = 6;
+
+/**
+ * Scrubbed depth for [data-depth] images: the image is slightly larger than its frame and
+ * drifts against the scroll, so cards feel like windows rather than flat pictures. The
+ * frame must clip (overflow hidden); the scale leaves room for the drift at both ends.
+ */
+export function initDepth(root: ParentNode) {
+  root.querySelectorAll<HTMLElement>('[data-depth]').forEach((el) => {
+    gsap.fromTo(
+      el,
+      { yPercent: -DEPTH_DRIFT, scale: 1 + (DEPTH_DRIFT * 2.4) / 100 },
+      {
+        yPercent: DEPTH_DRIFT,
+        ease: 'none',
+        scrollTrigger: { trigger: el.parentElement || el, start: 'top bottom', end: 'bottom top', scrub: true },
+      }
+    );
+  });
+}
+
 type SplitMode = 'lines' | 'words' | 'chars';
 
 function splitModeOf(el: Element): SplitMode {

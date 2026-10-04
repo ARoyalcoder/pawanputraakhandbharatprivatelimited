@@ -38,13 +38,15 @@ export function BlogCard({ post }: { post: CMSBlog }) {
       <article className="group relative flex h-full flex-col overflow-hidden rounded-card border border-line bg-white shadow-card transition-all duration-500 hover:shadow-lift">
         <div className="relative aspect-[16/10] overflow-hidden bg-navy-950">
           <div className="size-full transition-transform duration-700 ease-out-expo group-hover:scale-[1.05]">
-            <OptimizedImage
-              src={imageSrc}
-              alt={`Guide: ${post.title}`}
-              fill
-              sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-              className="size-full object-cover"
-            />
+            <div data-depth className="relative size-full">
+              <OptimizedImage
+                src={imageSrc}
+                alt={`Guide: ${post.title}`}
+                fill
+                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                className="size-full object-cover"
+              />
+            </div>
           </div>
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-950/40 via-transparent to-transparent" />
           <span className="absolute left-4 top-4 rounded-full bg-white/95 px-3 py-1 type-caption font-semibold text-navy-900 shadow-sm backdrop-blur-sm">
@@ -61,7 +63,7 @@ export function BlogCard({ post }: { post: CMSBlog }) {
             </span>
           </p>
           <h3 className="mt-2.5 type-h4 text-navy-900">
-            <Link href={`/blog/${post.slug}`} className="after:absolute after:inset-0">
+            <Link href={`/blog/${post.slug}`} data-cursor="view" className="after:absolute after:inset-0">
               {post.title}
             </Link>
           </h3>

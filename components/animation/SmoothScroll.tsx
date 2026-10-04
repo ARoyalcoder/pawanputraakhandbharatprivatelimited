@@ -33,8 +33,8 @@ export function SmoothScroll() {
     if (!finePointer || prefersReducedMotion()) return;
 
     const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      // Each frame closes a tenth of the remaining distance: quick to respond, soft to settle.
+      lerp: 0.1,
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
@@ -59,6 +59,8 @@ export function SmoothScroll() {
   }, []);
 
   useEffect(() => {
+    // The new page has a different height; without this the scroll limit is stale.
+    lenisInstance?.resize();
     if (window.location.hash) return;
     if (lenisInstance) lenisInstance.scrollTo(0, { immediate: true });
   }, [pathname]);

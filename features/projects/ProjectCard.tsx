@@ -44,7 +44,7 @@ export function ProjectCard({ project }: { project: Project }) {
           )}
         </p>
         <h3 className="mt-3 type-h4 text-navy-900">
-          <Link href={`/projects/${project.slug}`} className="after:absolute after:inset-0">
+          <Link href={`/projects/${project.slug}`} data-cursor="view" className="after:absolute after:inset-0">
             {project.title}
           </Link>
         </h3>

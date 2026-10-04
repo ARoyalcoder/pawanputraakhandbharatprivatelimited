@@ -3,10 +3,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { ScrollTrigger, prefersReducedMotion, useGSAP } from '@/lib/animations/gsap';
-import { initBatchReveals, initParallax, initSplitHeadings, revealNow, showAllStatic } from '@/lib/animations/scroll';
+import { initBatchReveals, initDepth, initParallax, initSplitHeadings, revealNow, showAllStatic } from '@/lib/animations/scroll';
 
 /**
- * Wires up declarative motion ([data-reveal], [data-parallax], [data-split]) for the
+ * Wires up declarative motion ([data-reveal], [data-parallax], [data-depth], [data-split]) for the
  * current route. Sections stay server components and simply opt in with attributes.
  */
 export function MotionProvider() {
@@ -14,9 +14,20 @@ export function MotionProvider() {
   const seen = useRef(new WeakSet<Element>());
   const [isHydrated, setIsHydrated] = useState(false);
 
+  // The page sits inside a Suspense boundary, which React hydrates after this layout-level
+  // effect has run. Waiting for the browser to go idle lets that finish first, so GSAP never
+  // writes inline styles onto markup React is still about to hydrate.
   useEffect(() => {
-    setIsHydrated(true);
-    document.documentElement.classList.add('motion-ready');
+    const start = () => {
+      setIsHydrated(true);
+      document.documentElement.classList.add('motion-ready');
+    };
+    if ('requestIdleCallback' in window) {
+      const id = window.requestIdleCallback(start, { timeout: 600 });
+      return () => window.cancelIdleCallback(id);
+    }
+    const id = setTimeout(start, 200);
+    return () => clearTimeout(id);
   }, []);
 
   useGSAP(
@@ -34,6 +45,7 @@ export function MotionProvider() {
 
       initBatchReveals(document, seen.current);
       initParallax(root);
+      initDepth(root);
       const cleanupSplit = initSplitHeadings(root);
 
       // Content mounted after this pass (tab panels, lazy sections) is revealed directly
