@@ -124,9 +124,10 @@ export const industries: Industry[] = [
     name: 'Hospitality',
     icon: 'hospitality',
     audience: 'Hotels, resorts, restaurants and banquet venues',
-    headline: 'Guest experiences built on reliable infrastructure.',
+    headline: 'Memorable Guest Experiences Start with Reliable Infrastructure',
     summary:
-      'Guests notice good Wi-Fi, well-designed spaces and a brand that feels consistent. PPAB supports hospitality businesses behind the scenes and online.',
+      'Hotels and hospitality businesses need more than great service. Guests expect fast Wi-Fi, secure premises, comfortable spaces, and a strong digital presence. PPAB brings these essential solutions together to help hospitality businesses deliver a better guest experience.',
+    tagline: 'Better Infrastructure. Better Experiences. Happier Guests.',
     needs: [
       'Guest Wi-Fi across rooms and common areas',
       'Security for lobbies, entrances and parking',
@@ -135,10 +136,10 @@ export const industries: Industry[] = [
       'Interiors that reflect your brand',
     ],
     solutions: [
-      { division: 'connect', services: ['Wi-Fi', 'Routers', 'Switches'] },
+      { division: 'connect', services: ['Wi-Fi', 'Routers'] },
       { division: 'secure', services: ['CCTV Camera', 'Video Door Phone'] },
       { division: 'solar', services: ['On-Grid Solar', 'Hybrid Solar'] },
-      { division: 'digital', services: ['Meta Ads', 'Social Media Marketing', 'Branding', 'Website Development'] },
+      { division: 'digital', services: ['Meta Ads', 'Social Media Marketing'] },
       { division: 'space', services: ['Interior Design'] },
     ],
     imageId: 'industry-hospitality',
