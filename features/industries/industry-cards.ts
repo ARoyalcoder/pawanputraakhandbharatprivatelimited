@@ -18,6 +18,12 @@ const displayServicesOverride: Record<string, Record<string, string[]>> = {
     digital: ['Website Development & School ERP / Software'],
     solar: ['On-Grid Solar & Solar Street Lights'],
   },
+  healthcare: {
+    secure: ['CCTV Cameras & Biometric Attendance'],
+    connect: ['LAN / CAN Networking & Wi-Fi'],
+    solar: ['Hybrid Solar & Solar Battery Solutions'],
+    digital: ['Website Development & CRM Solutions'],
+  },
 };
 
 export function toIndustryCard(industry: Industry, index: number): IndustryCardData {

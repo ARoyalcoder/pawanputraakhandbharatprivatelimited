@@ -67,9 +67,10 @@ export const industries: Industry[] = [
     name: 'Healthcare',
     icon: 'healthcare',
     audience: 'Hospitals, clinics, nursing homes and diagnostic centres',
-    headline: 'Dependable infrastructure for places of care.',
+    headline: 'Secure, Connected & Reliable Healthcare Facilities',
     summary:
-      'Healthcare facilities depend on secure premises, reliable networks and continuous power. PPAB helps hospitals and clinics put these foundations in place.',
+      'Hospitals and clinics need dependable infrastructure to keep patients, staff, and daily operations safe and connected. PPAB provides integrated solutions for security, networking, backup power, and digital management.',
+    tagline: 'Reliable Infrastructure. Better Care.',
     needs: [
       'Coverage of entrances, wards and visitor areas',
       'Attendance across shifts',
@@ -78,8 +79,8 @@ export const industries: Industry[] = [
       'Patient-facing website and CRM',
     ],
     solutions: [
-      { division: 'secure', services: ['CCTV Camera', 'Biometric Attendance', 'Maintenance & AMC'] },
-      { division: 'connect', services: ['LAN / CAN', 'Wi-Fi', 'Server Racks', 'IT Support'] },
+      { division: 'secure', services: ['CCTV Camera', 'Biometric Attendance'] },
+      { division: 'connect', services: ['LAN / CAN', 'Wi-Fi'] },
       { division: 'solar', services: ['Hybrid Solar', 'Solar Battery'] },
       { division: 'digital', services: ['Website Development', 'CRM'] },
     ],
