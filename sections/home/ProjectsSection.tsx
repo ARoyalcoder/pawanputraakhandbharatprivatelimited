@@ -13,18 +13,18 @@ export function ProjectsSection() {
         <div className="mb-12 flex flex-col gap-8 lg:mb-16 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeading
             id="projects-title"
-            eyebrow="Featured projects"
+            eyebrow="Featured Projects"
             index="06"
             title={
               <>
-                Work we can <em>put our name to.</em>
+                Real Projects. <em>Real Results.</em>
               </>
             }
-            description="Real installations, real photographs, and client approval before anything is published."
+            description="Explore selected PPAB projects featuring real installations and actual project photographs. Every project is shared with the appropriate client approval, giving you a genuine view of our work, quality, and execution."
           />
           <div data-reveal="fade" className="shrink-0">
             <ButtonLink href="/projects" variant="outline-dark" withArrow>
-              View projects
+              See What PPAB Can Deliver
             </ButtonLink>
           </div>
         </div>
