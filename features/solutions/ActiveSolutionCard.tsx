@@ -197,7 +197,7 @@ export const ActiveSolutionCard: React.FC<ActiveSolutionCardProps> = ({
           <div className="pt-0.5">
             <div className="text-[9.5px] font-mono uppercase tracking-wider text-white/50 mb-1.5 flex items-center justify-between">
               <span>Core Capabilities</span>
-              {item.stat && (
+              {item.stat?.value && (
                 <span className="text-white/80 font-mono text-[10.5px] inline-flex items-center gap-1.5">
                   <strong style={{ color: item.accent }}>{item.stat.value}</strong>
                   <span>{item.stat.label}</span>

@@ -115,7 +115,7 @@ export const VerticalSolutionTab: React.FC<VerticalSolutionTabProps> = ({
         </h3>
 
         {/* Live Key Stat Pill */}
-        {item.stat && (
+        {item.stat?.value && (
           <div className="mt-2.5 px-2.5 py-1 rounded-lg border border-white/10 bg-white/[0.04] backdrop-blur-sm group-hover:border-white/20 transition-all">
             <div className="font-mono text-[11px] font-bold" style={{ color: item.accent }}>
               {item.stat.value}

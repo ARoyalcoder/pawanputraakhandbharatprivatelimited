@@ -219,7 +219,7 @@ export const ShowcaseAccordionCard: React.FC<ShowcaseAccordionCardProps> = ({
             {item.short}
           </h3>
 
-          {item.stat && (
+          {item.stat?.value && (
             <div className="mt-2.5 px-2.5 py-1 rounded-lg border border-white/10 bg-white/[0.04] backdrop-blur-sm group-hover:border-white/20 transition-all">
               <div className="font-mono text-[11px] font-bold" style={{ color: item.accent }}>
                 {item.stat.value}
@@ -333,7 +333,7 @@ export const ShowcaseAccordionCard: React.FC<ShowcaseAccordionCardProps> = ({
           <div className="pt-0.5">
             <div className="text-[9.5px] font-mono uppercase tracking-wider text-white/50 mb-1.5 flex items-center justify-between">
               <span>Core Capabilities</span>
-              {item.stat && (
+              {item.stat?.value && (
                 <span className="text-white/80 font-mono text-[10.5px] inline-flex items-center gap-1.5">
                   <strong style={{ color: item.accent }}>{item.stat.value}</strong>
                   <span>{item.stat.label}</span>

@@ -19,12 +19,11 @@ const highlightsMap: Record<string, string[]> = {
   space: ['End-to-End Turnkey', '3D Architectural Renders', 'Quality-Assured Civil EPC', 'Legal Clear Titles'],
 };
 
-const statsMap: Record<string, { value: string; label: string }> = {
+const statsMap: Partial<Record<string, { value: string; label: string }>> = {
   secure: { value: '1,200+', label: 'Protected Properties' },
   connect: { value: '99.9%', label: 'Network Uptime SLA' },
   solar: { value: '80%', label: 'Max Energy Bill Savings' },
   digital: { value: '10x', label: 'Average Client ROAS' },
-  space: { value: 'Turnkey', label: 'Handover Standard' },
 };
 
 const categoryMap: Record<string, string> = {
