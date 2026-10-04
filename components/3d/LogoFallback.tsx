@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { LogoWordmark } from '@/components/ui/LogoWordmark';
 import { cn } from '@/lib/utils';
 
 export interface LogoFallbackProps {
@@ -36,16 +37,10 @@ export function LogoFallback({
     <div className={cn('group relative inline-flex items-center gap-3 select-none', className)}>
       <div
         className={cn(
-          'relative grid place-items-center rounded-full transition-transform duration-500 ease-out-expo group-hover:scale-105',
+          'relative grid place-items-center transition-transform duration-500 ease-out-expo group-hover:scale-105',
           dims.box
         )}
       >
-        {/* Soft gold ambient glow */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 rounded-full bg-gold-500/15 blur-sm transition-opacity duration-300 group-hover:opacity-100 opacity-60"
-        />
-
         <Image
           src="/brand/ppab-mark.png"
           alt="Pawan Putra Akhand Bharat official brand mark"
@@ -56,21 +51,7 @@ export function LogoFallback({
         />
       </div>
 
-      {showText && (
-        <span className="flex flex-col leading-none">
-          <span className={cn('type-wordmark tracking-tight', tone === 'dark' ? 'text-white' : 'text-navy-900')}>
-            Pawan Putra
-          </span>
-          <span
-            className={cn(
-              'mt-1 type-wordmark-sub font-semibold',
-              tone === 'dark' ? 'text-gold-300' : 'text-gold-700'
-            )}
-          >
-            Akhand Bharat
-          </span>
-        </span>
-      )}
+      {showText && <LogoWordmark tone={tone} />}
     </div>
   );
 

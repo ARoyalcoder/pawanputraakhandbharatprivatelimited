@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Canvas } from '@react-three/fiber';
 import { LogoFallback } from './LogoFallback';
 import { useReducedMotion } from '@/hooks/useMediaQuery';
+import { LogoWordmark } from '@/components/ui/LogoWordmark';
 import { cn } from '@/lib/utils';
 import type { PPABLogoSceneProps } from './PPABLogoScene';
 
@@ -79,13 +80,7 @@ export function PPABLogo3D({
 
   const logoNode = (
     <div className={cn('group relative inline-flex items-center gap-3 select-none', className)}>
-      <div className={cn('relative grid place-items-center rounded-full', dims)}>
-        {/* Soft golden ambient rim aura */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 rounded-full bg-gold-500/20 blur-md transition-all duration-500 group-hover:bg-gold-500/40 group-hover:scale-125 opacity-70 group-hover:opacity-100"
-        />
-
+      <div className={cn('relative grid place-items-center', dims)}>
         {/* Static fallback remains underneath until 3D Canvas smoothly loads */}
         <div
           className={cn(
@@ -132,21 +127,7 @@ export function PPABLogo3D({
         </div>
       </div>
 
-      {showText && (
-        <span className="flex flex-col leading-none">
-          <span className={cn('type-wordmark tracking-tight', tone === 'dark' ? 'text-white' : 'text-navy-900')}>
-            Pawan Putra
-          </span>
-          <span
-            className={cn(
-              'mt-1 type-wordmark-sub font-semibold',
-              tone === 'dark' ? 'text-gold-300' : 'text-gold-700'
-            )}
-          >
-            Akhand Bharat
-          </span>
-        </span>
-      )}
+      {showText && <LogoWordmark tone={tone} />}
     </div>
   );
 

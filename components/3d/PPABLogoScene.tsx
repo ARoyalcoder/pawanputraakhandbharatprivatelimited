@@ -38,7 +38,7 @@ function StarGlint({ radius }: { radius: number }) {
   });
 
   return (
-    <group ref={glintRef} position={[0.62 * radius, 0.62 * radius, 0.09]}>
+    <group ref={glintRef} position={[0.02 * radius, 0.98 * radius, 0.1]}>
       {/* Horizontal ray */}
       <mesh>
         <planeGeometry args={[0.18, 0.02]} />
@@ -58,10 +58,15 @@ function StarGlint({ radius }: { radius: number }) {
   );
 }
 
+/** Width over height of /brand/ppab-mark.png. */
+const MARK_ASPECT = 331 / 320;
+/** Thickness of the mark, and where the layers that fill it sit. */
+const DEPTH = 0.14;
+const EDGE_LAYERS = Array.from({ length: 6 }, (_, i) => -DEPTH / 2 + ((i + 0.5) * DEPTH) / 6);
+
 /**
- * 3D Metallic Gold PPAB Medallion
- * True sculpted 3D emblem with 24K gold alloy bezel, ceramic core,
- * double-sided minted medallion structure, and continuous precession animation.
+ * 3D gold PPAB mark: the official artwork on its own, with no disc behind it, given thickness
+ * by stacked layers so it reads as solid metal as it sways, tilts to the pointer and spins.
  */
 function EmblemMesh({
   variant = 'header',
@@ -147,6 +152,9 @@ function EmblemMesh({
 
   const isHero = variant === 'hero' || variant === 'intro';
   const radius = isHero ? 1.55 : 1.08;
+  // The mark fills the frame, at the artwork's own proportions.
+  const width = radius * (isHero ? 1.85 : 2);
+  const height = width / MARK_ASPECT;
 
   return (
     <group
@@ -155,100 +163,43 @@ function EmblemMesh({
       onPointerOut={handlePointerOut}
       onPointerDown={handlePointerDown}
     >
-      {/* 1. Deep Midnight Navy Ceramic Core Medallion */}
-      <mesh position={[0, 0, 0]} rotation={[Math.PI / 2, 0, 0]} castShadow receiveShadow>
-        <cylinderGeometry args={[radius * 1.0, radius * 1.0, 0.12, 64]} />
-        <meshStandardMaterial
-          color="#041228"
-          roughness={0.25}
-          metalness={0.8}
-          envMapIntensity={1.5}
-        />
-      </mesh>
+      {/* Edge: copies of the mark stacked behind the face, in deeper gold, give it thickness */}
+      {EDGE_LAYERS.map((z) => (
+        <mesh key={z} position={[0, 0, z]}>
+          <planeGeometry args={[width, height]} />
+          <meshStandardMaterial map={texture} alphaTest={0.5} color="#a8791c" roughness={0.35} metalness={0.9} side={DoubleSide} />
+        </mesh>
+      ))}
 
-      {/* 2. Outer Heavy 24K Polished Gold Beveled Bezel Ring */}
-      <mesh position={[0, 0, 0]} castShadow receiveShadow>
-        <torusGeometry args={[radius * 0.99, 0.058, 24, 64]} />
-        <meshStandardMaterial
-          color="#f5cc66"
-          roughness={0.12}
-          metalness={0.96}
-          emissive="#66470c"
-          emissiveIntensity={0.25}
-          envMapIntensity={3.0}
-        />
-      </mesh>
-
-      {/* 3. Concentric Inner Stepped Gold Rim (Front) */}
-      <mesh position={[0, 0, 0.035]}>
-        <ringGeometry args={[radius * 0.88, radius * 0.92, 64]} />
-        <meshStandardMaterial
-          color="#d8a62a"
-          roughness={0.2}
-          metalness={0.95}
-          side={DoubleSide}
-        />
-      </mesh>
-
-      {/* 4. Deep Midnight-Navy Ceramic Cavity Disc (Front) */}
-      <mesh position={[0, 0, 0.045]} rotation={[Math.PI / 2, 0, 0]} castShadow>
-        <cylinderGeometry args={[radius * 0.89, radius * 0.91, 0.04, 64]} />
-        <meshStandardMaterial
-          color="#030c1e"
-          roughness={0.4}
-          metalness={0.5}
-          envMapIntensity={1.2}
-        />
-      </mesh>
-
-      {/* 5. FRONT FACE: Sculpted 3D Gold Emblem Relief with High Letter Clarity */}
-      <mesh position={[0, 0, 0.078]}>
-        <planeGeometry args={[radius * 1.7, radius * 1.65]} />
+      {/* Front face: the official gold mark */}
+      <mesh position={[0, 0, DEPTH / 2]}>
+        <planeGeometry args={[width, height]} />
         <meshStandardMaterial
           map={texture}
-          alphaMap={texture}
-          transparent
-          alphaTest={0.04}
-          color="#ffffff"
-          roughness={0.14}
-          metalness={0.82}
+          alphaTest={0.5}
+          roughness={0.16}
+          metalness={0.8}
           bumpMap={texture}
           bumpScale={0.035}
           emissive="#ffcc44"
           emissiveMap={texture}
-          emissiveIntensity={0.65}
-          side={DoubleSide}
+          emissiveIntensity={0.95}
         />
       </mesh>
 
-      {/* 6. BACK FACE: Minted Royal Gold Coin Reverse Relief */}
-      <group position={[0, 0, -0.065]} rotation={[0, Math.PI, 0]}>
-        {/* Concentric guilloche rings on the back */}
-        <mesh position={[0, 0, 0.005]}>
-          <ringGeometry args={[radius * 0.72, radius * 0.76, 64]} />
-          <meshStandardMaterial color="#f4c95d" roughness={0.18} metalness={0.95} side={DoubleSide} />
-        </mesh>
-        <mesh position={[0, 0, 0.005]}>
-          <ringGeometry args={[radius * 0.5, radius * 0.54, 64]} />
-          <meshStandardMaterial color="#e2b23a" roughness={0.2} metalness={0.92} side={DoubleSide} />
-        </mesh>
-        {/* Central golden royal emblem on the reverse side */}
-        <mesh position={[0, 0, 0.012]}>
-          <planeGeometry args={[radius * 1.45, radius * 1.4]} />
-          <meshStandardMaterial
-            map={texture}
-            alphaMap={texture}
-            transparent
-            alphaTest={0.04}
-            color="#f7d478"
-            roughness={0.15}
-            metalness={0.94}
-            emissive="#523608"
-            emissiveIntensity={0.2}
-            side={DoubleSide}
-          />
-        </mesh>
-      </group>
+      {/* Back face: the same mark turned round, so it reads correctly mid-spin */}
+      <mesh position={[0, 0, -DEPTH / 2]} rotation={[0, Math.PI, 0]}>
+        <planeGeometry args={[width, height]} />
+        <meshStandardMaterial
+          map={texture}
+          alphaTest={0.5}
+          roughness={0.16}
+          metalness={0.8}
+          emissive="#ffcc44"
+          emissiveMap={texture}
+          emissiveIntensity={0.95}
+        />
+      </mesh>
 
       {/* 7. Rotating Apex Star Glint Sparkle */}
       {!reducedMotion && <StarGlint radius={radius} />}
