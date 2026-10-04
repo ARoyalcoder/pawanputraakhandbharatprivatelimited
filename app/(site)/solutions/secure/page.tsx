@@ -36,10 +36,23 @@ export default function SecurePage() {
         accent={accent}
         title={
           <>
-            Har Nazar Se <em>Suraksha.</em>
+            Smart Security <em>Solutions.</em>
           </>
         }
-        description={secure.summary}
+        description={
+          <>
+            <p>
+              CCTV cameras, video door phones, and biometric attendance systems{' '}
+              <strong className="text-white font-semibold">
+                planned, installed, configured, and maintained
+              </strong>{' '}
+              for homes, businesses, institutions, and commercial properties.
+            </p>
+            <p className="mt-3 font-mono text-xs uppercase tracking-widest text-gold-300 font-semibold">
+              Reliable Security. Professional Installation. Ongoing Support.
+            </p>
+          </>
+        }
         actions={
           <>
             <ButtonLink href="#survey" size="lg" withArrow>

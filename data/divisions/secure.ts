@@ -7,7 +7,7 @@ export const secure: Division = {
   tagline: 'Har Nazar Se Suraksha',
   subTagline: 'Smart Technology. Safe Tomorrow.',
   summary:
-    'CCTV cameras, video door phones and biometric attendance, planned, installed and maintained for homes, businesses and institutions.',
+    'CCTV cameras, video door phones, and biometric attendance systems planned, installed, configured, and maintained for homes, businesses, institutions, and commercial properties.',
   overview:
     'Pawan Putra Secure brings surveillance and entry technology together as one system. We start with your property and your concerns, recommend the right mix of cameras, recording, door entry and attendance equipment, install it, and remain available for maintenance through AMC.',
   icon: 'cctv',
