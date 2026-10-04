@@ -31,6 +31,13 @@ const displayServicesOverride: Record<string, Record<string, string[]>> = {
     digital: ['Meta Ads & Social Media Marketing'],
     space: ['Interior Design Services'],
   },
+  manufacturing: {
+    secure: ['CCTV Cameras & Biometric Attendance'],
+    connect: ['Fiber Networking & LAN / CAN'],
+    solar: ['On-Grid Solar & Solar Water Pumps'],
+    digital: ['ERP & Software Development'],
+    space: ['Construction Services'],
+  },
 };
 
 export function toIndustryCard(industry: Industry, index: number): IndustryCardData {

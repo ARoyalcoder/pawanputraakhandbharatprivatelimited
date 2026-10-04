@@ -154,9 +154,10 @@ export const industries: Industry[] = [
     name: 'Manufacturing',
     icon: 'manufacturing',
     audience: 'Factories, plants, warehouses and industrial units',
-    headline: 'Industrial sites that are watched, connected and powered.',
+    headline: 'Industrial Sites That Are Secure, Connected & Powered',
     summary:
-      'Large sites need wide-area security, networks that span sheds and buildings, and energy that keeps costs in check. PPAB brings these under one partner.',
+      'Manufacturing facilities need reliable security, strong networks across multiple buildings, efficient energy solutions, and digital systems that support daily operations. PPAB brings these capabilities together through one trusted partner.',
+    tagline: 'One Partner. Integrated Infrastructure. Smarter Operations.',
     needs: [
       'Perimeter, yard and loading-bay coverage',
       'Workforce attendance',
@@ -165,9 +166,9 @@ export const industries: Industry[] = [
       'ERP to connect operations',
     ],
     solutions: [
-      { division: 'secure', services: ['CCTV Camera', 'Biometric Attendance', 'Maintenance & AMC'] },
-      { division: 'connect', services: ['Fiber Networking', 'LAN / CAN', 'IT Support'] },
-      { division: 'solar', services: ['On-Grid Solar', 'Solar Water Pump', 'Solar AMC'] },
+      { division: 'secure', services: ['CCTV Camera', 'Biometric Attendance'] },
+      { division: 'connect', services: ['Fiber Networking', 'LAN / CAN'] },
+      { division: 'solar', services: ['On-Grid Solar', 'Solar Water Pump'] },
       { division: 'digital', services: ['ERP', 'Software Development'] },
       { division: 'space', services: ['Construction'] },
     ],
