@@ -5,11 +5,11 @@ export const secure: Division = {
   name: 'Pawan Putra Secure',
   short: 'Secure',
   tagline: 'Har Nazar Se Suraksha',
-  subTagline: 'Smart Technology. Safe Tomorrow.',
+  subTagline: 'Smart Technology. Safer Tomorrow.',
   summary:
     'CCTV cameras, video door phones, and biometric attendance systems planned, installed, configured, and maintained for homes, businesses, institutions, and commercial properties.',
   overview:
-    'Pawan Putra Secure brings surveillance and entry technology together as one system. We start with your property and your concerns, recommend the right mix of cameras, recording, door entry and attendance equipment, install it, and remain available for maintenance through AMC.',
+    'Pawan Putra Secure brings security, surveillance, and access-control solutions together in one integrated system. We begin by understanding your property and security concerns, then recommend the right combination of cameras, recording systems, video door phones, and attendance solutions.\n\nOur team handles installation, configuration, testing, and handover, with ongoing maintenance and AMC support to keep your security systems working reliably.',
   icon: 'cctv',
   href: '/solutions/secure',
   imageId: 'secure-overview',
@@ -46,7 +46,7 @@ export const secure: Division = {
       icon: 'shield',
     },
   ],
-  additionalServices: ['Intercom System', 'PA System'],
+  additionalServices: ['Intercom Systems', 'PA Systems'],
   faqs: [
     {
       id: 'secure-offer',

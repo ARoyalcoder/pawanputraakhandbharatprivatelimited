@@ -66,7 +66,33 @@ export default function SecurePage() {
         visual={<SecureHeroVisual />}
       />
 
-      <SolutionOverview division={secure} accent={accent} />
+      <SolutionOverview
+        division={secure}
+        accent={accent}
+        title={
+          <>
+            Pawan Putra <em>Secure.</em>
+          </>
+        }
+        description={
+          <div className="space-y-4">
+            <p>
+              Pawan Putra Secure brings{' '}
+              <strong className="text-navy-950 font-semibold">
+                security, surveillance, and access-control solutions together in one integrated system
+              </strong>
+              . We begin by understanding your property and security concerns, then recommend the right combination of cameras, recording systems, video door phones, and attendance solutions.
+            </p>
+            <p>
+              Our team handles{' '}
+              <strong className="text-navy-950 font-semibold">
+                installation, configuration, testing, and handover
+              </strong>
+              , with ongoing maintenance and AMC support to keep your security systems working reliably.
+            </p>
+          </div>
+        }
+      />
 
       <Section tone="white" aria-labelledby="secure-services">
         <Container>

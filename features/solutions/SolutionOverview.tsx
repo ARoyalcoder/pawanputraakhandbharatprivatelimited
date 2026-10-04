@@ -1,11 +1,19 @@
+import type { ReactNode } from 'react';
 import { Section, Container } from '@/components/ui/Section';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { AIImage } from '@/components/media/AIImage';
 import { CornerFrame } from '@/components/ui/CornerFrame';
 import type { Division } from '@/types/content';
 
+interface SolutionOverviewProps {
+  division: Division;
+  accent: string;
+  title?: ReactNode;
+  description?: ReactNode;
+}
+
 /** Division overview: narrative, poster tagline, and the extra offerings from PPAB collateral. */
-export function SolutionOverview({ division, accent }: { division: Division; accent: string }) {
+export function SolutionOverview({ division, accent, title, description }: SolutionOverviewProps) {
   return (
     <Section tone="light" aria-labelledby={`${division.id}-overview`}>
       <Container className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
@@ -14,11 +22,21 @@ export function SolutionOverview({ division, accent }: { division: Division; acc
             id={`${division.id}-overview`}
             eyebrow="Overview"
             title={
-              <>
-                {division.name.replace('Pawan Putra ', '')}, <em>done properly.</em>
-              </>
+              title ?? (
+                <>
+                  {division.name.replace('Pawan Putra ', '')}, <em>done properly.</em>
+                </>
+              )
             }
-            description={division.overview}
+            description={
+              description ?? (
+                <div className="space-y-4">
+                  {division.overview.split('\n\n').map((para) => (
+                    <p key={para}>{para}</p>
+                  ))}
+                </div>
+              )
+            }
           />
           {division.subTagline && (
             <p data-reveal="up" className="mt-8 border-l-2 pl-5 type-quote text-navy-900" style={{ borderColor: accent }}>
