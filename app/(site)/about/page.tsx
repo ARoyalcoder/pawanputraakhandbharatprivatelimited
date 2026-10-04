@@ -13,6 +13,7 @@ import { siteConfig } from '@/config/site.config';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { mapsHref } from '@/lib/contact';
 import { AboutDivisionsSection } from '@/components/about/AboutDivisionsSection';
+import { AboutIdentity, AboutVisionMission, AboutWhoWeAre, AboutWhyChoose } from '@/components/about/AboutCompanyProfile';
 import { getNavMedia } from '@/lib/media/nav-media';
 
 import { InteractiveEcosystemHub } from '@/components/about/InteractiveEcosystemHub';
@@ -88,6 +89,10 @@ export default function AboutPage() {
         visual={<InteractiveEcosystemHub />}
       />
 
+      <AboutWhoWeAre />
+      <AboutVisionMission />
+      <AboutIdentity />
+
       <Section tone="white" aria-labelledby="model-title">
         <Container className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
@@ -117,6 +122,7 @@ export default function AboutPage() {
       </Section>
 
       <AboutDivisionsSection media={getNavMedia()} />
+      <AboutWhyChoose />
 
       <Section tone="light" aria-labelledby="offices-title">
         <Container>

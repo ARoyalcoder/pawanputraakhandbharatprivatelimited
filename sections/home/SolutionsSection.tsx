@@ -13,14 +13,14 @@ export function SolutionsSection() {
           <SectionHeading
             id="solutions-title"
             tone="dark"
-            eyebrow="Solutions"
+            eyebrow="Company Divisions"
             index="02"
             title={
               <>
-                Five divisions. <em>One standard of work.</em>
+                Specialist team. <em>Complete solutions.</em>
               </>
             }
-            description="Each division is a specialist team. Together they cover everything a property or business needs to be secure, connected, powered and online."
+            description="Each division is managed by a specialist team with expertise in its field. Together, we provide complete solutions to help businesses and properties stay secure, connected, powered and online."
           />
           <div data-reveal="fade" className="shrink-0">
             <ButtonLink href="/solutions" variant="outline-light" withArrow>

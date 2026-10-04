@@ -334,9 +334,16 @@ function Halo({ glow, accent, rig }: { glow: Texture; accent: string; rig: RigRe
   );
 }
 
+/** The logo artwork's proportions, its size in the scene, and the thickness it is given. */
+const MARK_ASPECT = 331 / 320;
+const MARK_WIDTH = 2.5;
+const MARK_DEPTH = 0.16;
+const MARK_EDGE_LAYERS = Array.from({ length: 7 }, (_, i) => -MARK_DEPTH / 2 + ((i + 0.5) * MARK_DEPTH) / 7);
+
 /**
- * The PPAB medallion: navy ceramic field, gold rim and emblem, gyroscopic rings and a
- * travelling specular sheen. It rises out of the floor light and unwinds into place.
+ * The PPAB logo at the centre: the gold mark on its own, given thickness, inside gyroscopic
+ * rings and under a travelling specular sheen. It rises out of the floor light and unwinds
+ * into place.
  */
 function Core({ rig }: { rig: RigRef }) {
   const root = useRef<Group>(null);
@@ -379,51 +386,37 @@ function Core({ rig }: { rig: RigRef }) {
     <group ref={root} visible={false}>
       <Float speed={1} rotationIntensity={0.04} floatIntensity={0.16}>
         <group ref={shell}>
-          {/* Navy ceramic back-plate */}
-          <mesh position={[0, 0, -0.06]} rotation={[Math.PI / 2, 0, 0]}>
-            <cylinderGeometry args={[1.05, 1.08, 0.08, 64]} />
-            <meshStandardMaterial color="#041126" roughness={0.3} metalness={0.75} envMapIntensity={1.5} />
-          </mesh>
-          {/* Bevelled gold rim */}
-          <mesh position={[0, 0, -0.01]}>
-            <torusGeometry args={[1.05, 0.045, 24, 96]} />
-            <meshStandardMaterial color={GOLD} roughness={0.16} metalness={0.94} emissive="#5a3d08" emissiveIntensity={0.22} envMapIntensity={2.5} />
-          </mesh>
-          {/* Inner gold halo ring */}
-          <mesh position={[0, 0, 0.032]}>
-            <ringGeometry args={[0.92, 0.96, 96]} />
-            <meshStandardMaterial color={GOLD} roughness={0.16} metalness={0.95} emissive="#66460a" emissiveIntensity={0.25} side={DoubleSide} />
-          </mesh>
-          {/* Midnight-navy field: a high-contrast backdrop for the gold lettering */}
-          <mesh position={[0, 0, 0.024]} rotation={[Math.PI / 2, 0, 0]}>
-            <cylinderGeometry args={[0.96, 0.98, 0.045, 64]} />
-            <meshStandardMaterial color="#030c1e" roughness={0.4} metalness={0.5} envMapIntensity={1.2} />
-          </mesh>
-          {/* PPAB emblem */}
-          <mesh position={[0, 0, 0.075]}>
-            <planeGeometry args={[1.75, 1.7]} />
-            <meshStandardMaterial
-              map={texture}
-              alphaMap={texture}
-              transparent
-              alphaTest={0.05}
-              color="#ffffff"
-              roughness={0.15}
-              metalness={0.82}
-              bumpMap={texture}
-              bumpScale={0.035}
-              emissive="#ffcc44"
-              emissiveMap={texture}
-              emissiveIntensity={0.65}
-              side={DoubleSide}
-            />
-          </mesh>
+          {/* Edge: copies of the mark stacked behind the face, in deeper gold, give it thickness */}
+          {MARK_EDGE_LAYERS.map((z) => (
+            <mesh key={z} position={[0, 0, z]}>
+              <planeGeometry args={[MARK_WIDTH, MARK_WIDTH / MARK_ASPECT]} />
+              <meshStandardMaterial map={texture} alphaTest={0.5} color="#a8791c" roughness={0.35} metalness={0.9} side={DoubleSide} />
+            </mesh>
+          ))}
+          {/* The PPAB logo itself, front and back */}
+          {[1, -1].map((side) => (
+            <mesh key={side} position={[0, 0, (side * MARK_DEPTH) / 2]} rotation={[0, side === 1 ? 0 : Math.PI, 0]}>
+              <planeGeometry args={[MARK_WIDTH, MARK_WIDTH / MARK_ASPECT]} />
+              <meshStandardMaterial
+                map={texture}
+                alphaTest={0.5}
+                roughness={0.16}
+                metalness={0.82}
+                bumpMap={texture}
+                bumpScale={0.035}
+                emissive="#ffcc44"
+                emissiveMap={texture}
+                emissiveIntensity={0.85}
+                envMapIntensity={1.6}
+              />
+            </mesh>
+          ))}
           {/* Fill lights that keep the lettering readable without a centre glare */}
           <pointLight position={[0, 0.45, 0.65]} intensity={1.2} color="#fff6e0" distance={3.5} />
           <pointLight position={[0, -0.38, 0.55]} intensity={2.2} color="#ffe8a3" distance={3} />
           <pointLight ref={sweep} position={[-1.8, 0.1, 0.5]} color="#ffffff" distance={3.5} intensity={0} />
-          {/* Rim sparkle */}
-          <mesh position={[0.48, 0.65, 0.09]}>
+          {/* Sparkle at the tip of the mace */}
+          <mesh position={[0.02, 1.2, 0.1]}>
             <sphereGeometry args={[0.024, 16, 16]} />
             <meshStandardMaterial color="#ffffff" emissive={GOLD} emissiveIntensity={2.5} />
           </mesh>

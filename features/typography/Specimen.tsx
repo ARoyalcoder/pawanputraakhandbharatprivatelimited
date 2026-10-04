@@ -54,14 +54,14 @@ export function Specimen() {
         {/* Section heading + reading text */}
         <div className="rounded-panel bg-white p-8 shadow-card">
           <SectionHeading
-            eyebrow="Solutions"
+            eyebrow="Company Divisions"
             index="02"
             title={
               <>
-                Complete Solutions. <em>One Trusted Partner.</em>
+                Specialist team. <em>Complete solutions.</em>
               </>
             }
-            description="Each division is a specialist team. Together they cover everything a property or business needs to be secure, connected, powered and online."
+            description="Each division is managed by a specialist team with expertise in its field. Together, we provide complete solutions to help businesses and properties stay secure, connected, powered and online."
           />
           <div className="mt-8 space-y-4 text-ink-soft">
             <Text>
