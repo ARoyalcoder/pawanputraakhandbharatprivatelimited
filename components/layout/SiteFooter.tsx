@@ -299,34 +299,38 @@ export function SiteFooter() {
                 </button>
               </div>
             </div>
+          </div>
+        </div>
 
-            {/* Regional Offices */}
-            <div className="space-y-3 pt-2">
-              <p className="text-[11px] font-mono uppercase tracking-wider text-white/50">
-                Corporate Hubs
-              </p>
-              {siteConfig.offices.map((office) => (
-                <address key={office.id} className="not-italic text-xs">
-                  <a
-                    href={mapsHref(office.mapQuery)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group block rounded-xl border border-white/10 bg-white/[0.02] p-2.5 transition-all hover:border-gold-400/40 hover:bg-white/[0.05]"
-                  >
-                    <div className="flex items-center justify-between font-semibold text-white/90">
-                      <span className="flex items-center gap-1.5 text-gold-300">
-                        <MapPin className="size-3.5" aria-hidden="true" />
-                        {office.type} ({office.city})
-                      </span>
-                      <ExternalLink className="size-3 text-white/40 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </div>
-                    <p className="mt-1 text-white/60 leading-relaxed">
-                      {office.addressLines.join(', ')}
-                    </p>
-                  </a>
-                </address>
-              ))}
-            </div>
+        {/* ================================================================= */}
+        {/* 3. CORPORATE HUBS / REGIONAL OFFICES (BELOW ALL DATA)             */}
+        {/* ================================================================= */}
+        <div className="border-t border-white/10 pt-8 pb-10">
+          <p className="mb-4 text-xs font-mono uppercase tracking-wider text-gold-300 font-semibold">
+            Corporate Hubs
+          </p>
+          <div className="grid gap-4 md:grid-cols-2">
+            {siteConfig.offices.map((office) => (
+              <address key={office.id} className="not-italic text-xs">
+                <a
+                  href={mapsHref(office.mapQuery)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group block rounded-2xl border border-white/10 bg-white/[0.02] p-4 transition-all duration-200 hover:border-gold-400/40 hover:bg-white/[0.05]"
+                >
+                  <div className="flex items-center justify-between font-semibold text-white/90">
+                    <span className="flex items-center gap-2 text-gold-300">
+                      <MapPin className="size-4 shrink-0 text-gold-400" aria-hidden="true" />
+                      <span className="text-sm font-semibold">{office.type} ({office.city})</span>
+                    </span>
+                    <ExternalLink className="size-3.5 text-white/40 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </div>
+                  <p className="mt-2 text-white/65 leading-relaxed text-xs">
+                    {office.addressLines.join(', ')}
+                  </p>
+                </a>
+              </address>
+            ))}
           </div>
         </div>
 
