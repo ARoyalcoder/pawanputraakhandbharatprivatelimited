@@ -17,7 +17,7 @@ export function IndustriesSection() {
               <em>Where you work.</em>
             </>
           }
-          description="Homes, campuses, hospitals, offices, hotels, factories and shops each need a different mix. Choose a sector to see how PPAB's divisions come together for it."
+          description="Homes, retail and shops, schools and colleges, hospitals and clinics, corporate offices, hotels, factories and industries, apartments and societies, commercial spaces, and farms and farmhouses."
           className="mb-8 lg:mb-10"
         />
         <div data-reveal="up">
