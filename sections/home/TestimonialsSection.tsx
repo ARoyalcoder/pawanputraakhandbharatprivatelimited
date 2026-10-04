@@ -15,9 +15,10 @@ export function TestimonialsSection() {
             index="07"
             title={
               <>
-                In our clients&apos; <em>own words.</em>
+                What Our Clients <em>Say.</em>
               </>
             }
+            description="Real experiences from clients who have worked with PPAB. Their feedback reflects our commitment to quality, reliable service, and professional support."
             className="lg:col-span-5"
           />
           {testimonials.length > 0 ? (
