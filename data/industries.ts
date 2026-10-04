@@ -10,9 +10,9 @@ export const industries: Industry[] = [
     name: 'Residential',
     icon: 'home',
     audience: 'Homes, villas, apartments and housing societies',
-    headline: 'Safer, better-connected, more efficient homes.',
+    headline: 'Safer, Smarter & Better-Connected Homes',
     summary:
-      'From the front gate to the rooftop, PPAB brings security, connectivity, solar and building expertise to homes and residential communities.',
+      'From the entrance gate to the rooftop, PPAB brings together security, connectivity, solar energy, and property expertise to create safer, more comfortable, and efficient homes and residential communities.',
     needs: [
       'Know who is at the door before opening it',
       'Watch gates, entrances and parking',
@@ -21,10 +21,10 @@ export const industries: Industry[] = [
       'Plan, build, furnish or renovate a home',
     ],
     solutions: [
-      { division: 'secure', services: ['CCTV Camera', 'Video Door Phone', 'Maintenance & AMC'] },
+      { division: 'secure', services: ['CCTV Camera', 'Video Door Phone'] },
       { division: 'connect', services: ['Wi-Fi', 'Routers'] },
-      { division: 'solar', services: ['On-Grid Solar', 'Hybrid Solar', 'Net Metering'] },
-      { division: 'space', services: ['Real Estate', 'Architecture', 'Interior Design', 'Construction'] },
+      { division: 'solar', services: ['On-Grid Solar', 'Hybrid Solar'] },
+      { division: 'space', services: ['Real Estate', 'Architecture'] },
     ],
     imageId: 'industry-residential',
     seo: {

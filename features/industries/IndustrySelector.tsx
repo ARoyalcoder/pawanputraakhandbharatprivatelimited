@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useId, useRef, useState, useEffect, type KeyboardEvent } from 'react';
-import { ArrowRight, ShieldCheck } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AIImageView } from '@/components/media/AIImageView';
 import { Icon } from '@/components/ui/Icon';
@@ -136,9 +136,6 @@ export function IndustrySelector({ items }: { items: IndustryCardData[] }) {
                   <span className="font-mono text-xs font-bold uppercase tracking-wider text-gold-700">
                     {current.index} / {String(items.length).padStart(2, '0')} · {current.name}
                   </span>
-                  <span className="hidden sm:inline-flex items-center gap-1.5 font-mono text-[11px] text-muted">
-                    <ShieldCheck className="size-3.5 text-success" /> Turnkey PPAB Deployment
-                  </span>
                 </div>
 
                 <h3 className="mt-3.5 text-xl sm:text-2xl font-bold font-heading text-navy-900 leading-snug">
@@ -151,7 +148,7 @@ export function IndustrySelector({ items }: { items: IndustryCardData[] }) {
                 {/* Delivered PPAB Capabilities */}
                 <div className="mt-5">
                   <div className="text-[11px] font-mono uppercase tracking-wider text-muted mb-2">
-                    Delivered PPAB Capabilities:
+                    PPAB Capabilities:
                   </div>
                   <ul className="flex flex-wrap gap-2" aria-label={`${current.name} solutions`}>
                     {current.solutions.map((s) => (

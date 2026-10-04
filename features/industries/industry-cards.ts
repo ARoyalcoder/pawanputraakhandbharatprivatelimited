@@ -5,6 +5,15 @@ import { resolveAIImage } from '@/lib/media/ai-assets';
 import type { Industry } from '@/types/content';
 import type { IndustryCardData } from './types';
 
+const displayServicesOverride: Record<string, Record<string, string[]>> = {
+  residential: {
+    secure: ['CCTV Cameras', 'Video Door Phones'],
+    connect: ['Wi-Fi & Networking', 'Routers'],
+    solar: ['On-Grid & Hybrid Solar Solutions'],
+    space: ['Real Estate & Architecture Services'],
+  },
+};
+
 export function toIndustryCard(industry: Industry, index: number): IndustryCardData {
   return {
     id: industry.id,
@@ -17,7 +26,14 @@ export function toIndustryCard(industry: Industry, index: number): IndustryCardD
     needs: industry.needs,
     solutions: industry.solutions.map((s) => {
       const division = getDivision(s.division);
-      return { division: s.division, divisionName: division.name, href: division.href, accent: divisionAccent[s.division].hex, services: s.services };
+      const customServices = displayServicesOverride[industry.id]?.[s.division];
+      return {
+        division: s.division,
+        divisionName: division.name,
+        href: division.href,
+        accent: divisionAccent[s.division].hex,
+        services: customServices || s.services,
+      };
     }),
     href: `/industries/${industry.id}`,
     image: resolveAIImage(industry.imageId),
