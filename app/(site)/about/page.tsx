@@ -36,16 +36,22 @@ export default function AboutPage() {
           { label: 'Home', href: '/' },
           { label: 'About', href: '/about' },
         ]}
-        eyebrow="About PPAB"
+        eyebrow="About Us"
         title={
           <>
-            Complete Solutions. <em>One Trusted Partner.</em>
+            Building Solutions. <em>Creating Growth.</em>
           </>
         }
         description={
           <>
             <p>
-              {siteConfig.companyName} is one company with five specialist divisions: security, connectivity, solar, digital and infrastructure, working as one integrated team for homes, businesses, institutions and industries.
+              Pawan Putra Akhand Bharat Pvt. Ltd. is a multi-vertical Indian business solutions company delivering trusted services across Security, Connectivity, Solar, Digital Solutions and Real Estate & Projects.
+            </p>
+            <p className="mt-3">
+              We combine technology, quality and professional service to help businesses, institutions and individuals build safer, smarter and more connected environments.
+            </p>
+            <p className="mt-4 font-mono text-xs uppercase tracking-widest text-gold-300 font-semibold">
+              One Vision. Multiple Solutions. Trusted Service.
             </p>
             {/* Interactive Live Metrics Strip */}
             <div className="mt-7 grid grid-cols-3 gap-3 border-y border-white/10 py-4">
