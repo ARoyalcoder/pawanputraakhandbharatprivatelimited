@@ -5,62 +5,63 @@ import { companyProfile } from '@/data/company-profile';
 
 const { whoWeAre, about, identity, vision, mission, whyChoose } = companyProfile;
 
-/** Who we are, with the company's purpose set apart beside it. */
+/** Who we are, our purpose, vision and mission unified into one connected section. */
 export function AboutWhoWeAre() {
   return (
     <Section tone="white" id="who-we-are" aria-labelledby="who-we-are-title">
-      <Container className="grid gap-10 lg:grid-cols-12 lg:gap-16">
-        <div className="lg:col-span-7">
-          <SectionHeading
-            id="who-we-are-title"
-            eyebrow={whoWeAre.eyebrow}
-            title={
-              <>
-                {whoWeAre.title} <em>{whoWeAre.titleAccent}</em>
-              </>
-            }
-          />
-          <div className="mt-6 space-y-4">
-            {whoWeAre.paragraphs.map((text) => (
-              <p key={text} data-reveal="up" className="type-body text-muted">
-                {text}
-              </p>
-            ))}
+      <Container className="space-y-12 lg:space-y-16">
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-7">
+            <p data-reveal="fade" className="inline-flex items-center gap-3 type-eyebrow text-gold-700">
+              <span aria-hidden="true" className="h-px w-8 bg-current" />
+              {whoWeAre.eyebrow}
+            </p>
+            <h2 id="who-we-are-title" className="sr-only">
+              {whoWeAre.eyebrow}
+            </h2>
+            <div className="mt-8 space-y-4">
+              {whoWeAre.paragraphs.map((text) => (
+                <p key={text} data-reveal="up" className="type-body text-muted leading-relaxed">
+                  {text}
+                </p>
+              ))}
+            </div>
           </div>
+          <aside data-reveal="up" className="self-start rounded-panel bg-navy-950 p-8 text-white shadow-card lg:col-span-5 lg:mt-6">
+            <p className="type-eyebrow text-gold-300">Our purpose</p>
+            <p className="mt-4 type-h4 text-white leading-snug">{whoWeAre.purpose}</p>
+          </aside>
         </div>
-        <aside data-reveal="up" className="self-start rounded-panel bg-navy-950 p-8 text-white lg:col-span-5 lg:mt-14">
-          <p className="type-eyebrow text-gold-300">Our purpose</p>
-          <p className="mt-4 type-h4 text-white">{whoWeAre.purpose}</p>
-        </aside>
+
+        <div className="grid gap-6 lg:grid-cols-2">
+          {[vision, mission].map((block, i) => (
+            <article
+              key={block.eyebrow}
+              data-reveal="up"
+              className="flex flex-col rounded-panel bg-navy-950 p-8 text-white shadow-card border border-white/10"
+            >
+              <p className="type-eyebrow text-gold-300">{block.eyebrow}</p>
+              <h3 id={i === 0 ? 'vision-title' : undefined} className="mt-3 type-h3 text-white">
+                {block.title}
+              </h3>
+              <div className="mt-4 space-y-3">
+                {block.paragraphs.map((text) => (
+                  <p key={text} className="type-body-sm text-white/75 leading-relaxed">
+                    {text}
+                  </p>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
       </Container>
     </Section>
   );
 }
 
-/** Vision and mission on the dark surface. */
+/** Connected into AboutWhoWeAre */
 export function AboutVisionMission() {
-  return (
-    <Section tone="darker" aria-labelledby="vision-title" className="overflow-hidden">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-blueprint opacity-35 mask-fade-radial" />
-      <Container className="grid gap-6 lg:grid-cols-2">
-        {[vision, mission].map((block, i) => (
-          <article key={block.eyebrow} data-reveal="up" className="rounded-panel border border-white/10 bg-navy-900 p-8">
-            <p className="type-eyebrow text-gold-300">{block.eyebrow}</p>
-            <h2 id={i === 0 ? 'vision-title' : undefined} className="mt-3 type-h3 text-white">
-              {block.title}
-            </h2>
-            <div className="mt-4 space-y-3">
-              {block.paragraphs.map((text) => (
-                <p key={text} className="type-body-sm text-white/75">
-                  {text}
-                </p>
-              ))}
-            </div>
-          </article>
-        ))}
-      </Container>
-    </Section>
-  );
+  return null;
 }
 
 /** About us and our identity, side by side. */
