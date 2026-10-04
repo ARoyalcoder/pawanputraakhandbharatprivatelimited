@@ -184,9 +184,10 @@ export const industries: Industry[] = [
     name: 'Commercial',
     icon: 'commercial',
     audience: 'Shops, showrooms, malls and commercial complexes',
-    headline: 'Commercial spaces that attract, protect and perform.',
+    headline: 'Commercial Spaces That Attract, Protect & Perform',
     summary:
-      'Retail and commercial spaces need security at the counter, connectivity for customers and staff, and marketing that brings people in. PPAB covers all three.',
+      'Retail stores, showrooms, offices, and commercial properties need secure premises, reliable connectivity, efficient energy solutions, and digital marketing that brings customers through the door. PPAB brings these services together under one trusted partner.',
+    tagline: 'Secure Your Space. Connect Your Business. Grow with PPAB.',
     needs: [
       'Coverage of counters, entrances and stock areas',
       'Wi-Fi and billing connectivity',
@@ -198,7 +199,7 @@ export const industries: Industry[] = [
       { division: 'secure', services: ['CCTV Camera', 'Maintenance & AMC'] },
       { division: 'connect', services: ['Wi-Fi', 'Routers'] },
       { division: 'solar', services: ['On-Grid Solar', 'Net Metering'] },
-      { division: 'digital', services: ['SEO', 'Google Ads', 'Meta Ads', 'Graphic Designing'] },
+      { division: 'digital', services: ['SEO', 'Google Ads'] },
       { division: 'space', services: ['Interior Design', 'Real Estate'] },
     ],
     imageId: 'industry-commercial',
