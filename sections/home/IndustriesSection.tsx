@@ -9,12 +9,12 @@ export function IndustriesSection() {
       <Container>
         <SectionHeading
           id="industries-title"
-          eyebrow="Industries"
+          eyebrow="Industries We Serve"
           index="03"
           align="center"
           title={
             <>
-              Built around <em>where you work.</em>
+              <em>Where you work.</em>
             </>
           }
           description="Homes, campuses, hospitals, offices, hotels, factories and shops each need a different mix. Choose a sector to see how PPAB's divisions come together for it."
