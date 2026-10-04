@@ -81,6 +81,9 @@ export function ProcessTimeline({ steps, tone = 'light' }: { steps: NumberedPoin
                 <p className={cn('type-index', dark ? 'text-gold-300' : 'text-gold-700')}>Step {step.index}</p>
                 {/* Six narrow columns at lg: step titles drop to h5 until xl so words like "Implementation" fit. */}
                 <h3 className={cn('mt-2 type-h4 lg:type-h5 xl:type-h4', dark ? 'text-white' : 'text-navy-900')}>{step.title}</h3>
+                {step.subtitle && (
+                  <p className={cn('mt-1 text-xs font-semibold', dark ? 'text-gold-300' : 'text-gold-700')}>{step.subtitle}</p>
+                )}
                 <p className={cn('mt-2 text-small', dark ? 'text-white/65' : 'text-muted')}>{step.description}</p>
               </div>
             </li>

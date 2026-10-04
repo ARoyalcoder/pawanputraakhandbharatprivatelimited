@@ -134,6 +134,7 @@ export interface NumberedPoint {
   id: string;
   index: string;
   title: string;
+  subtitle?: string;
   description: string;
   icon: IconName;
 }
