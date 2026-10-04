@@ -5,6 +5,42 @@
  */
 
 import { prisma } from './prisma';
+import { logger } from '@/lib/logger';
+
+/**
+ * Circuit breaker. A connection attempt to an unreachable database takes seconds to fail, so
+ * under load every request would queue behind one. After a failure the database is skipped
+ * for a short while and the in-memory store is used straight away.
+ */
+const DB_RETRY_MS = 30_000;
+let dbDownUntil = 0;
+
+function dbAvailable(): boolean {
+  return Boolean(prisma && prisma.lead) && Date.now() >= dbDownUntil;
+}
+
+/** Prisma reports query-level problems (duplicate, not found) as P2xxx; anything else is the connection. */
+function errorCode(error: unknown): string | undefined {
+  return typeof error === 'object' && error !== null && 'code' in error ? String((error as { code: unknown }).code) : undefined;
+}
+
+function noteDbFailure(error: unknown): void {
+  if (errorCode(error)?.startsWith('P2')) return;
+  if (Date.now() >= dbDownUntil) {
+    logger.error('Lead database unreachable; leads are being held in memory only', {
+      error: error instanceof Error ? error.message.slice(0, 300) : String(error),
+    });
+  }
+  dbDownUntil = Date.now() + DB_RETRY_MS;
+}
+
+/** Thrown when a reference ID is already taken, so the caller can pick another. */
+export class DuplicateReferenceError extends Error {
+  constructor() {
+    super('Lead reference already exists');
+    this.name = 'DuplicateReferenceError';
+  }
+}
 
 export type LeadStatus =
   | 'NEW'
@@ -168,7 +204,7 @@ export class LeadRepository {
     };
 
     try {
-      if (prisma && prisma.lead) {
+      if (dbAvailable()) {
         const saved = await prisma.lead.create({
           data: {
             referenceId: newRecord.referenceId,
@@ -191,10 +227,14 @@ export class LeadRepository {
           metadata: saved.metadata as Record<string, unknown> | null,
         };
       }
-    } catch {
+    } catch (error) {
+      // A taken reference must not fall through to memory, where the lead would be lost on restart.
+      if (errorCode(error) === 'P2002') throw new DuplicateReferenceError();
       // Prisma offline or DB unavailable -> fallback to memory
+      noteDbFailure(error);
     }
 
+    if (inMemoryLeads.some((l) => l.referenceId === newRecord.referenceId)) throw new DuplicateReferenceError();
     inMemoryLeads.unshift(newRecord);
     return newRecord;
   }
@@ -204,7 +244,7 @@ export class LeadRepository {
    */
   async findAll(filters?: LeadFilters): Promise<{ leads: LeadRecord[]; total: number }> {
     try {
-      if (prisma && prisma.lead) {
+      if (dbAvailable()) {
         const where: Record<string, unknown> = {};
         if (filters?.status) where.status = filters.status;
         if (filters?.division && filters.division !== 'All') where.division = filters.division;
@@ -237,8 +277,9 @@ export class LeadRepository {
           total,
         };
       }
-    } catch {
+    } catch (error) {
       // Fallback to in-memory filter
+      noteDbFailure(error);
     }
 
     let result = [...inMemoryLeads];
@@ -280,7 +321,7 @@ export class LeadRepository {
    */
   async findById(idOrRef: string): Promise<LeadRecord | null> {
     try {
-      if (prisma && prisma.lead) {
+      if (dbAvailable()) {
         const lead = await prisma.lead.findFirst({
           where: {
             OR: [{ id: idOrRef }, { referenceId: idOrRef }],
@@ -294,8 +335,9 @@ export class LeadRepository {
           };
         }
       }
-    } catch {
+    } catch (error) {
       // Fallback
+      noteDbFailure(error);
     }
 
     const found = inMemoryLeads.find(
@@ -313,7 +355,7 @@ export class LeadRepository {
     notes?: string
   ): Promise<LeadRecord | null> {
     try {
-      if (prisma && prisma.lead) {
+      if (dbAvailable()) {
         const updated = await prisma.lead.update({
           where: { id },
           data: {
@@ -327,8 +369,9 @@ export class LeadRepository {
           metadata: updated.metadata as Record<string, unknown> | null,
         };
       }
-    } catch {
+    } catch (error) {
       // Fallback
+      noteDbFailure(error);
     }
 
     const index = inMemoryLeads.findIndex((l) => l.id === id || l.referenceId === id);

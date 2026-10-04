@@ -7,6 +7,9 @@ interface RateLimitRecord {
   timestamps: number[];
 }
 
+/** Upper bound on tracked clients, so a flood of distinct addresses cannot grow memory without limit. */
+const MAX_KEYS = 20_000;
+
 class InMemoryRateLimiter {
   private store: Map<string, RateLimitRecord> = new Map();
   private cleanupInterval: NodeJS.Timeout | null = null;
@@ -38,6 +41,7 @@ class InMemoryRateLimiter {
 
     let record = this.store.get(key);
     if (!record) {
+      if (this.store.size >= MAX_KEYS) this.evict();
       record = { timestamps: [] };
       this.store.set(key, record);
     }
@@ -69,6 +73,17 @@ class InMemoryRateLimiter {
 
   public reset(key: string): void {
     this.store.delete(key);
+  }
+
+  /** Drop expired entries, then the oldest tenth if the store is still full. */
+  private evict(): void {
+    this.cleanup();
+    if (this.store.size < MAX_KEYS) return;
+    let remove = Math.ceil(MAX_KEYS / 10);
+    for (const key of this.store.keys()) {
+      this.store.delete(key);
+      if (--remove <= 0) break;
+    }
   }
 
   private cleanup(): void {

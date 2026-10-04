@@ -56,7 +56,19 @@ const nextConfig = {
   // Note: no custom Cache-Control for /_next/static — Next.js already marks hashed production
   // assets immutable, and forcing it in development pins stale chunks in the browser.
   async headers() {
-    return [{ source: '/:path*', headers: securityHeaders }];
+    return [
+      { source: '/:path*', headers: securityHeaders },
+      // Files in /public are otherwise served with max-age=0, so every visit re-requests them.
+      // Production only: the same header in development would pin stale files in the browser.
+      ...(process.env.NODE_ENV === 'production'
+        ? [
+            {
+              source: '/:folder(images|brand)/:path*',
+              headers: [{ key: 'Cache-Control', value: 'public, max-age=86400, stale-while-revalidate=604800' }],
+            },
+          ]
+        : []),
+    ];
   },
 };
 

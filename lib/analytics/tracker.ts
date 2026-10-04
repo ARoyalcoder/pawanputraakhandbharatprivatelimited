@@ -3,21 +3,24 @@
  * Tracks essential business conversions and page engagement without storing PII
  */
 
-export type AnalyticsEventType =
-  | 'page_view'
-  | 'solution_view'
-  | 'industry_view'
-  | 'project_view'
-  | 'blog_view'
-  | 'cta_click'
-  | 'call_click'
-  | 'whatsapp_click'
-  | 'contact_form_submit'
-  | 'cctv_lead_submit'
-  | 'solar_lead_submit'
-  | 'digital_lead_submit'
-  | 'connect_lead_submit'
-  | 'space_lead_submit';
+export const ANALYTICS_EVENTS = [
+  'page_view',
+  'solution_view',
+  'industry_view',
+  'project_view',
+  'blog_view',
+  'cta_click',
+  'call_click',
+  'whatsapp_click',
+  'contact_form_submit',
+  'cctv_lead_submit',
+  'solar_lead_submit',
+  'digital_lead_submit',
+  'connect_lead_submit',
+  'space_lead_submit',
+] as const;
+
+export type AnalyticsEventType = (typeof ANALYTICS_EVENTS)[number];
 
 export interface AnalyticsEventPayload {
   path?: string;
@@ -54,9 +57,7 @@ class AnalyticsStore {
     };
 
     this.events.unshift(record);
-    if (this.events.length > this.maxEvents) {
-      this.events = this.events.slice(0, this.maxEvents);
-    }
+    if (this.events.length > this.maxEvents) this.events.length = this.maxEvents;
   }
 
   public getEvents(): StoredAnalyticsEvent[] {
