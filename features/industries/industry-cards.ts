@@ -12,6 +12,12 @@ const displayServicesOverride: Record<string, Record<string, string[]>> = {
     solar: ['On-Grid & Hybrid Solar Solutions'],
     space: ['Real Estate & Architecture Services'],
   },
+  education: {
+    secure: ['CCTV Cameras & Biometric Attendance'],
+    connect: ['LAN / CAN Networking & Wi-Fi'],
+    digital: ['Website Development & School ERP / Software'],
+    solar: ['On-Grid Solar & Solar Street Lights'],
+  },
 };
 
 export function toIndustryCard(industry: Industry, index: number): IndustryCardData {
@@ -23,6 +29,7 @@ export function toIndustryCard(industry: Industry, index: number): IndustryCardD
     audience: industry.audience,
     headline: industry.headline,
     summary: industry.summary,
+    tagline: industry.tagline,
     needs: industry.needs,
     solutions: industry.solutions.map((s) => {
       const division = getDivision(s.division);

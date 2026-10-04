@@ -144,6 +144,11 @@ export function IndustrySelector({ items }: { items: IndustryCardData[] }) {
                 <p className="mt-2 text-xs sm:text-sm text-ink-soft leading-relaxed max-w-xl">
                   {current.summary}
                 </p>
+                {current.tagline && (
+                  <p className="mt-2 text-xs sm:text-sm font-bold text-navy-900">
+                    {current.tagline}
+                  </p>
+                )}
 
                 {/* Delivered PPAB Capabilities */}
                 <div className="mt-5">

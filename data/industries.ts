@@ -38,9 +38,10 @@ export const industries: Industry[] = [
     name: 'Education',
     icon: 'education',
     audience: 'Schools, colleges, coaching centres and campuses',
-    headline: 'Campuses that are secure, connected and well run.',
+    headline: 'Secure, Connected & Efficient Campuses',
     summary:
-      'Education campuses need safe premises, dependable networks and systems that simplify administration. PPAB brings these together for schools and colleges.',
+      'Educational campuses need safe premises, reliable connectivity, and smart systems that make everyday administration easier. PPAB brings these solutions together for schools, colleges, and educational institutions.',
+    tagline: 'One Campus. One Integrated Solution.',
     needs: [
       'Coverage of gates, corridors and common areas',
       'Attendance for staff and students',
@@ -49,9 +50,9 @@ export const industries: Industry[] = [
       'Solar power and street lighting across the campus',
     ],
     solutions: [
-      { division: 'secure', services: ['CCTV Camera', 'Biometric Attendance', 'PA System'] },
-      { division: 'connect', services: ['LAN / CAN', 'Wi-Fi', 'Fiber Networking'] },
-      { division: 'digital', services: ['Website Development', 'School ERP / School Software', 'Social Media Marketing'] },
+      { division: 'secure', services: ['CCTV Camera', 'Biometric Attendance'] },
+      { division: 'connect', services: ['LAN / CAN', 'Wi-Fi'] },
+      { division: 'digital', services: ['Website Development', 'School ERP / School Software'] },
       { division: 'solar', services: ['On-Grid Solar', 'Solar Street Light'] },
     ],
     imageId: 'industry-education',

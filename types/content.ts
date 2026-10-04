@@ -123,6 +123,7 @@ export interface Industry {
   audience: string;
   headline: string;
   summary: string;
+  tagline?: string;
   needs: string[];
   solutions: { division: DivisionId; services: string[] }[];
   imageId: string;

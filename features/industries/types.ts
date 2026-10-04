@@ -9,6 +9,7 @@ export interface IndustryCardData {
   audience: string;
   headline: string;
   summary: string;
+  tagline?: string;
   needs: string[];
   solutions: { division: DivisionId; divisionName: string; href: string; accent: string; services: string[] }[];
   href: string;
