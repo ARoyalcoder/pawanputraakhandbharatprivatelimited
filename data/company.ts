@@ -154,21 +154,26 @@ export const processSteps: NumberedPoint[] = [
   },
 ];
 
-export const aboutPillars: { id: string; title: string; description: string }[] = [
+export const aboutPillars: { id: string; title: string; subtitle?: string; description: string }[] = [
   {
     id: 'integrated',
-    title: 'Integrated by design',
+    title: 'Integrated by Design',
+    subtitle: 'Solutions Planned to Work Together',
     description:
-      'Cameras need networks, networks need power, and businesses need both online and offline infrastructure. PPAB plans them together.',
+      'Cameras need reliable networks, networks need dependable power, and businesses need both physical and digital infrastructure. PPAB plans these requirements together for better coordination and performance.',
   },
   {
     id: 'one-contact',
-    title: 'One point of contact',
-    description: 'One team understands your full requirement, instead of several vendors each seeing one part of it.',
+    title: 'One Point of Contact',
+    subtitle: 'One Team. One Clear Communication.',
+    description:
+      'Instead of managing multiple vendors for different services, you have one PPAB team that understands your complete requirement and coordinates the solution from start to finish.',
   },
   {
     id: 'lifecycle',
-    title: 'From survey to support',
-    description: 'Consultation, installation or implementation, handover, and maintenance: the whole lifecycle, handled.',
+    title: 'From Survey to Support',
+    subtitle: 'Complete Support Throughout the Journey',
+    description:
+      'From consultation and site survey to installation, implementation, testing, handover, and ongoing maintenance, PPAB stays involved throughout the complete project lifecycle.',
   },
 ];

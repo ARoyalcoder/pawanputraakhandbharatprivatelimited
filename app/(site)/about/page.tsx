@@ -103,21 +103,38 @@ export default function AboutPage() {
           <div className="lg:col-span-5">
             <SectionHeading
               id="model-title"
-              eyebrow="Our model"
+              eyebrow="Our Model"
               title={
                 <>
-                  Why one partner <em>works better.</em>
+                  One Integrated Approach for <em>Complete Solutions.</em>
                 </>
               }
-              description="Requirements rarely fit neatly into one trade. PPAB is organised so that the teams who secure, connect, power and digitise a property can plan it together."
+              description={
+                <>
+                  Most property and business requirements involve more than one service.{' '}
+                  <strong className="font-semibold text-navy-950">
+                    PPAB brings specialist teams together so security, connectivity, power, digital systems, and infrastructure can work as one complete solution.
+                  </strong>
+                </>
+              }
             />
+            <div data-reveal="fade" className="mt-8">
+              <p className="font-mono text-xs uppercase tracking-widest text-gold-700 font-semibold">
+                Multiple Needs. One Integrated Partner.
+              </p>
+            </div>
           </div>
           <ol className="grid gap-4 lg:col-span-7">
             {aboutPillars.map((pillar, i) => (
-              <li key={pillar.id} data-reveal="up" className="grid gap-2 rounded-card border border-line p-6 sm:grid-cols-[4rem_1fr] sm:gap-6">
+              <li key={pillar.id} data-reveal="up" className="grid gap-2 rounded-card border border-line p-6 sm:grid-cols-[4rem_1fr] sm:gap-6 shadow-xs">
                 <span className="type-ordinal text-gold-600">0{i + 1}</span>
                 <div>
                   <h3 className="type-h4 text-navy-900">{pillar.title}</h3>
+                  {pillar.subtitle && (
+                    <p className="mt-1 font-serif text-sm font-medium text-gold-700 italic">
+                      {pillar.subtitle}
+                    </p>
+                  )}
                   <p className="mt-2 type-body text-muted">{pillar.description}</p>
                 </div>
               </li>
