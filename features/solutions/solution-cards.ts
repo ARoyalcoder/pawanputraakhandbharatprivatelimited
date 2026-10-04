@@ -16,7 +16,7 @@ const highlightsMap: Record<string, string[]> = {
   connect: ['10 Gbps Fiber Core', 'Wi-Fi 6 Mesh Roaming', 'Organized Server Racks', '99.9% Network SLA'],
   solar: ['High-Yield Solar Panels', 'Up to 80% Bill Savings', 'Net-Metering & Subsidy', '25-Yr Performance Life'],
   digital: ['Modern Next.js & React', 'Custom ERP & CRM', 'ROI-Driven Ads & SEO', 'Scalable Cloud Architecture'],
-  space: ['End-to-End Turnkey', '3D Architectural Renders', 'Quality-Assured Civil EPC', 'Legal Clear Titles'],
+  space: ['End-to-End Solutions', '3D Architectural Renders', 'Quality-Assured Civil EPC', 'Legal Clear Titles'],
 };
 
 const statsMap: Partial<Record<string, { value: string; label: string }>> = {
