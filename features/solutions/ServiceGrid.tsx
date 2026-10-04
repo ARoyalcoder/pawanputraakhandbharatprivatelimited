@@ -38,7 +38,12 @@ export function ServiceGrid({ services, accent, tone = 'light', columns = 3 }: S
             </span>
             <span className={cn('type-index', dark ? 'text-white/55' : 'text-navy-900/60')}>{String(i + 1).padStart(2, '0')}</span>
           </div>
-          <h3 className={cn('mt-6 type-h4', dark ? 'text-white' : 'text-navy-900')}>{service.name}</h3>
+          <h3 className={cn('mt-6 type-h4', dark ? 'text-white' : 'text-navy-900')}>{service.displayName ?? service.name}</h3>
+          {service.subtitle && (
+            <p className={cn('mt-1 font-serif text-sm font-medium italic', dark ? 'text-gold-300' : 'text-gold-700')}>
+              {service.subtitle}
+            </p>
+          )}
           <p className={cn('mt-2 text-small', dark ? 'text-white/65' : 'text-muted')}>{service.summary}</p>
         </li>
       ))}

@@ -17,32 +17,46 @@ export const secure: Division = {
     {
       id: 'cctv-camera',
       name: 'CCTV Camera',
+      displayName: 'CCTV Cameras',
+      subtitle: 'Security Planned Around Your Property',
       summary:
-        'Camera systems planned around entrances, perimeters and critical areas, with recording and viewing set up the way you use them.',
+        'CCTV systems designed around entrances, perimeters, key areas, and specific security requirements, with recording and remote viewing configured for convenient use.',
       icon: 'cctv',
     },
     {
       id: 'video-door-phone',
       name: 'Video Door Phone',
-      summary: 'See and speak to visitors before you open the door: for homes, apartments and offices.',
+      displayName: 'Video Door Phones',
+      subtitle: 'See Who’s at the Door',
+      summary:
+        'See and speak with visitors before granting access. Ideal for homes, apartments, offices, and other properties.',
       icon: 'video-door',
     },
     {
       id: 'biometric-attendance',
       name: 'Biometric Attendance',
-      summary: 'Fingerprint and face-based attendance systems for offices, schools, factories and institutions.',
+      displayName: 'Biometric Attendance',
+      subtitle: 'Smarter Attendance Management',
+      summary:
+        'Fingerprint and face-recognition attendance systems for offices, schools, factories, institutions, and commercial workplaces.',
       icon: 'fingerprint',
     },
     {
       id: 'installation',
       name: 'Installation',
-      summary: 'Site survey, cabling, mounting, configuration and handover, handled by our team.',
+      displayName: 'Professional Installation',
+      subtitle: 'From Site Survey to Handover',
+      summary:
+        'Our team handles site assessment, cabling, camera mounting, system configuration, testing, and final handover.',
       icon: 'wrench',
     },
     {
       id: 'maintenance-amc',
       name: 'Maintenance & AMC',
-      summary: 'Scheduled maintenance and annual maintenance contracts to keep your security systems working.',
+      displayName: 'Maintenance & AMC',
+      subtitle: 'Reliable Support After Installation',
+      summary:
+        'Scheduled maintenance and Annual Maintenance Contracts help keep your security systems reliable, functional, and ready when you need them.',
       icon: 'shield',
     },
   ],

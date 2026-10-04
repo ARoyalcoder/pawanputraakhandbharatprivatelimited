@@ -81,6 +81,8 @@ export type ConceptArtVariant = 'hero' | DivisionId | IndustryId;
 export interface ServiceItem {
   id: string;
   name: string;
+  displayName?: string;
+  subtitle?: string;
   summary: string;
   icon: IconName;
 }

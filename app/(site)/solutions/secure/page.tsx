@@ -101,7 +101,7 @@ export default function SecurePage() {
             eyebrow="Services"
             title={
               <>
-                Everything security, <em>from one team.</em>
+                Our Security <em>Services.</em>
               </>
             }
             className="mb-12"
