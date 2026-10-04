@@ -25,7 +25,8 @@ const heroDivisions: HeroDivision[] = divisions.map((d) => ({
 const delay = (step: number) => ({ animationDelay: `${0.08 + step * 0.09}s` });
 const wordDelay = (step: number) => ({ animationDelay: `${0.16 + step * 0.085}s` });
 
-const headline = ['Powering', 'Security,', 'Connectivity'];
+const firstLine = ['Built', 'in', 'Bharat.'];
+const secondLine = ['Connected', 'to'];
 
 export function HeroSection() {
   return (
@@ -36,17 +37,26 @@ export function HeroSection() {
       </p>
 
       <h1 className="mt-6 type-display-xl font-extrabold text-white">
-        {headline.map((word, i) => (
+        {firstLine.map((word, i) => (
           <Fragment key={word}>
             <span className="hero-word">
               <span style={wordDelay(i)}>{word}</span>
             </span>{' '}
           </Fragment>
         ))}
-        <span className="hero-word">
-          <em style={wordDelay(headline.length + 0.6)} className="type-accent text-gold-300">
-            &amp; Growth
-          </em>
+        <span className="block mt-1 sm:mt-2">
+          {secondLine.map((word, i) => (
+            <Fragment key={word}>
+              <span className="hero-word">
+                <span style={wordDelay(firstLine.length + i)}>{word}</span>
+              </span>{' '}
+            </Fragment>
+          ))}
+          <span className="hero-word">
+            <em style={wordDelay(firstLine.length + secondLine.length + 0.6)} className="type-accent text-gold-300">
+              Possibilities.
+            </em>
+          </span>
         </span>
       </h1>
 

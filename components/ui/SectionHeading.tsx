@@ -64,13 +64,13 @@ export function SectionHeading({
         {title}
       </Tag>
       {description && (
-        <p
+        <div
           data-reveal="up"
           suppressHydrationWarning
           className={cn('mt-5 max-w-2xl type-lead', dark ? 'text-white/75' : 'text-muted', align === 'center' && 'mx-auto')}
         >
           {description}
-        </p>
+        </div>
       )}
       {children}
     </header>

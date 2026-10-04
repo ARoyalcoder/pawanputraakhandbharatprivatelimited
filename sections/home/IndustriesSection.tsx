@@ -1,6 +1,7 @@
 import { Section, Container } from '@/components/ui/Section';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { IndustrySelector } from '@/features/industries/IndustrySelector';
+import { IndustrySectorsGrid } from '@/features/industries/IndustrySectorsGrid';
 import { getIndustryCards } from '@/features/industries/industry-cards';
 
 export function IndustriesSection() {
@@ -14,12 +15,12 @@ export function IndustriesSection() {
           align="center"
           title={
             <>
-              <em>Where you work.</em>
+              <em>Where we work.</em>
             </>
           }
-          description="Homes, retail and shops, schools and colleges, hospitals and clinics, corporate offices, hotels, factories and industries, apartments and societies, commercial spaces, and farms and farmhouses."
           className="mb-8 lg:mb-10"
         />
+        <IndustrySectorsGrid />
         <div data-reveal="up">
           <IndustrySelector items={getIndustryCards()} />
         </div>
