@@ -60,8 +60,17 @@ describe('Verified company information', () => {
     expect(siteConfig.offices.map((o) => o.city)).toEqual(['Lucknow', 'New Delhi']);
   });
 
-  it('publishes no unverified social profiles', () => {
-    expect(siteConfig.social).toEqual([]);
+  it('publishes verified corporate social profiles', () => {
+    expect(siteConfig.social).toEqual([
+      {
+        label: 'Facebook',
+        href: 'https://www.facebook.com/profile.php?id=61590670627127',
+      },
+      {
+        label: 'Instagram',
+        href: 'https://www.instagram.com/pawanputraakhandbharat',
+      },
+    ]);
   });
 });
 

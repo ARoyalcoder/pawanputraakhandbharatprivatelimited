@@ -45,7 +45,8 @@ export function HeroStage({ divisions, children }: { divisions: HeroDivision[]; 
   const sectionRef = useRef<HTMLElement>(null);
   const progressRef = useRef(0);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const [active, setActive] = useState(0);
+  const solarIndex = divisions.findIndex((d) => d.id === 'solar');
+  const [active, setActive] = useState(solarIndex >= 0 ? solarIndex : 2);
   const [hovering, setHovering] = useState(false);
   const [inView, setInView] = useState(true);
   // The scene assembles once the first-visit intro has handed over (at once when there is none).

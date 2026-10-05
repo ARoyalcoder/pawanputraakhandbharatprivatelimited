@@ -45,9 +45,15 @@ export const env = {
   NEXT_PUBLIC_WEBSITE: getEnv('NEXT_PUBLIC_WEBSITE', 'https://www.pawanputraakhandbharat.com'),
   NEXT_PUBLIC_HEAD_OFFICE: getEnv('NEXT_PUBLIC_HEAD_OFFICE', 'BCC Tower, Arjunganj, Lucknow'),
 
-  // Social Media (Omitted when unverified to prevent placeholder indexing)
-  NEXT_PUBLIC_FACEBOOK_URL: getEnv('NEXT_PUBLIC_FACEBOOK_URL', ''),
-  NEXT_PUBLIC_INSTAGRAM_URL: getEnv('NEXT_PUBLIC_INSTAGRAM_URL', ''),
+  // Social Media (Verified official accounts)
+  NEXT_PUBLIC_FACEBOOK_URL: getEnv(
+    'NEXT_PUBLIC_FACEBOOK_URL',
+    'https://www.facebook.com/profile.php?id=61590670627127'
+  ),
+  NEXT_PUBLIC_INSTAGRAM_URL: getEnv(
+    'NEXT_PUBLIC_INSTAGRAM_URL',
+    'https://www.instagram.com/pawanputraakhandbharat'
+  ),
   NEXT_PUBLIC_LINKEDIN_URL: getEnv('NEXT_PUBLIC_LINKEDIN_URL', ''),
   NEXT_PUBLIC_YOUTUBE_URL: getEnv('NEXT_PUBLIC_YOUTUBE_URL', ''),
   NEXT_PUBLIC_TWITTER_URL: getEnv('NEXT_PUBLIC_TWITTER_URL', ''),

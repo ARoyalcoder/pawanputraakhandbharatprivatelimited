@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Mail, Phone } from 'lucide-react';
 import { PageHero } from '@/components/layout/PageHero';
 import { Section, Container } from '@/components/ui/Section';
-import { WhatsAppIcon } from '@/components/ui/Icon';
+import { WhatsAppIcon, FacebookIcon, InstagramIcon } from '@/components/ui/Icon';
 import { LeadFormTabs } from '@/components/forms/LeadFormTabs';
 import { LazyMap } from '@/features/contact/LazyMap';
 import { siteConfig } from '@/config/site.config';
@@ -94,6 +94,31 @@ export default function ContactPage() {
                 </div>
               </article>
             ))}
+
+            {siteConfig.social.length > 0 && (
+              <article data-reveal="up" className="rounded-panel bg-white p-6 shadow-card">
+                <p className="type-eyebrow text-gold-700">Official Social Profiles</p>
+                <h3 className="mt-1.5 type-h3 text-navy-900">Connect Online</h3>
+                <p className="mt-2 type-body text-muted">
+                  Follow PPAB for project highlights, technology updates, and direct company announcements.
+                </p>
+                <div className="mt-5 flex flex-wrap gap-3">
+                  {siteConfig.social.map((s) => (
+                    <a
+                      key={s.label}
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2.5 rounded-xl border border-navy-900/15 bg-white px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-navy-900 shadow-sm transition-all hover:border-gold-500 hover:text-gold-700 hover:shadow-md"
+                    >
+                      {s.label.toLowerCase() === 'facebook' && <FacebookIcon size={16} />}
+                      {s.label.toLowerCase() === 'instagram' && <InstagramIcon size={16} />}
+                      <span>{s.label}</span>
+                    </a>
+                  ))}
+                </div>
+              </article>
+            )}
           </div>
         </Container>
       </Section>

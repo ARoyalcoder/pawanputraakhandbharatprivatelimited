@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useId, useRef, useState } from 'react';
 import { ChevronDown, Menu, Phone, X } from 'lucide-react';
 import { mainNav } from '@/data/navigation';
-import { Icon, WhatsAppIcon } from '@/components/ui/Icon';
+import { Icon, WhatsAppIcon, FacebookIcon, InstagramIcon } from '@/components/ui/Icon';
 import { ButtonLink } from '@/components/ui/Button';
 import { Logo } from '@/components/ui/Logo';
 import { telHref, whatsappHref } from '@/lib/contact';
@@ -146,6 +146,24 @@ export function MobileNav() {
                 WhatsApp
               </ButtonLink>
             </div>
+            {siteConfig.social.length > 0 && (
+              <div className="flex items-center justify-center gap-3 pt-1">
+                {siteConfig.social.map((s) => (
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex size-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/70 hover:border-gold-400/50 hover:bg-gold-400/10 hover:text-gold-300 transition-colors"
+                    aria-label={`Visit PPAB on ${s.label}`}
+                    title={s.label}
+                  >
+                    {s.label === 'Facebook' && <FacebookIcon size={16} />}
+                    {s.label === 'Instagram' && <InstagramIcon size={16} />}
+                  </a>
+                ))}
+              </div>
+            )}
             <p className="text-center type-caption text-white/50">{siteConfig.contact.phoneDisplay} · Lucknow · New Delhi</p>
           </div>
         </div>

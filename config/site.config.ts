@@ -62,8 +62,17 @@ export const siteConfig = {
       mapQuery: 'C400, Sector 7, Block C, Palam Extension, Dwarka, New Delhi 110077',
     },
   ] satisfies Office[],
-  /** Only verified profiles belong here. None have been supplied yet. */
-  social: [] as SocialLink[],
+  /** Verified corporate social profiles. */
+  social: [
+    {
+      label: 'Facebook',
+      href: 'https://www.facebook.com/profile.php?id=61590670627127',
+    },
+    {
+      label: 'Instagram',
+      href: 'https://www.instagram.com/pawanputraakhandbharat',
+    },
+  ] satisfies SocialLink[],
 } as const;
 
 export type SiteConfig = typeof siteConfig;

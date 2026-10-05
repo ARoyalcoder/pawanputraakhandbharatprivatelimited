@@ -35,7 +35,7 @@ export function CameraModule({ accent, isActive = false }: ModuleProps) {
   });
 
   return (
-    <group scale={0.95} position={[0.05, 0, 0]} rotation={[0, -1.15, 0]}>
+    <group scale={0.92} position={[0, 0.04, 0]} rotation={[0.06, -1.25, -0.08]}>
       {/* Wall plate, arm and ball joint */}
       <mesh position={[-0.5, -0.08, 0]} rotation={[0, 0, Math.PI / 2]}>
         <cylinderGeometry args={[0.13, 0.13, 0.035, 32]} />
@@ -119,7 +119,7 @@ export function NetworkModule({ accent, isActive = false }: ModuleProps) {
   });
 
   return (
-    <group scale={0.95} rotation={[0.25, -0.35, 0]} position={[0, -0.1, 0]}>
+    <group scale={0.92} rotation={[0.15, -0.42, -0.04]} position={[0, -0.18, 0.06]}>
       {/* Body */}
       <RoundedBox args={[0.92, 0.11, 0.56]} radius={0.04} smoothness={4}>
         <meshStandardMaterial color="#f2f4f8" roughness={0.4} metalness={0.1} envMapIntensity={1.1} />
@@ -144,19 +144,19 @@ export function NetworkModule({ accent, isActive = false }: ModuleProps) {
           <meshStandardMaterial color="#aab2c0" roughness={0.6} metalness={0.2} />
         </mesh>
       ))}
-      {/* Antennas: hinge, mast and tip */}
+      {/* Antennas: hinge, mast and tip - raked back and flared so they do not intersect the PPAB logo */}
       {[-0.36, 0, 0.36].map((x, i) => (
-        <group key={x} position={[x, 0.03, -0.27]} rotation={[-0.18, 0, (i - 1) * -0.16]}>
+        <group key={x} position={[x, 0.03, -0.27]} rotation={[-0.34, 0, (i - 1) * -0.22]}>
           <mesh position={[0, 0.03, 0]}>
             <cylinderGeometry args={[0.03, 0.034, 0.07, 16]} />
             <meshStandardMaterial color={DARK} roughness={0.4} metalness={0.3} />
           </mesh>
-          <mesh position={[0, 0.33, 0]}>
-            <cylinderGeometry args={[0.017, 0.024, 0.54, 16]} />
+          <mesh position={[0, 0.27, 0]}>
+            <cylinderGeometry args={[0.016, 0.022, 0.44, 16]} />
             <meshStandardMaterial color={DARK} roughness={0.45} metalness={0.2} />
           </mesh>
-          <mesh position={[0, 0.6, 0]}>
-            <sphereGeometry args={[0.017, 12, 8]} />
+          <mesh position={[0, 0.5, 0]}>
+            <sphereGeometry args={[0.016, 12, 8]} />
             <meshStandardMaterial color={DARK} roughness={0.45} metalness={0.2} />
           </mesh>
         </group>
@@ -202,8 +202,8 @@ export function SolarModule({ accent, isActive = false }: ModuleProps) {
   const cellDepth = (PANEL.depth - 0.07) / CELL_ROWS;
 
   return (
-    <group scale={0.95} rotation={[0, -0.5, 0]}>
-      <group ref={panel} position={[0, 0.08, 0]} rotation={[0.62, 0, 0]}>
+    <group scale={0.9} rotation={[0.04, -0.62, 0]} position={[0.04, -0.14, 0]}>
+      <group ref={panel} position={[0, 0.06, 0]} rotation={[0.58, 0, 0]}>
         {/* Aluminium frame and white backsheet */}
         <RoundedBox args={[PANEL.width, 0.035, PANEL.depth]} radius={0.012} smoothness={3}>
           <meshStandardMaterial color={ALUMINIUM} roughness={0.3} metalness={0.9} envMapIntensity={1.4} />
@@ -286,7 +286,7 @@ export function DigitalModule({ accent, isActive = false }: ModuleProps) {
   });
 
   return (
-    <group scale={0.95} rotation={[0.3, -0.45, 0]} position={[0, -0.12, 0]}>
+    <group scale={0.92} rotation={[0.22, -0.74, 0.04]} position={[0.04, -0.14, 0]}>
       {/* Base */}
       <RoundedBox args={[0.9, 0.03, 0.6]} radius={0.012} smoothness={3}>
         <meshStandardMaterial color={ALUMINIUM} roughness={0.28} metalness={0.9} envMapIntensity={1.4} />
@@ -309,8 +309,8 @@ export function DigitalModule({ accent, isActive = false }: ModuleProps) {
         <meshStandardMaterial color="#b3bbc8" roughness={0.2} metalness={0.8} />
       </mesh>
 
-      {/* Lid, hinged at the back edge */}
-      <group position={[0, 0.015, -0.3]} rotation={[-0.32, 0, 0]}>
+      {/* Lid, hinged at the back edge - open wider to face camera */}
+      <group position={[0, 0.015, -0.3]} rotation={[-0.42, 0, 0]}>
         <RoundedBox args={[0.9, 0.6, 0.018]} radius={0.012} smoothness={3} position={[0, 0.3, 0]}>
           <meshStandardMaterial color={ALUMINIUM} roughness={0.28} metalness={0.9} envMapIntensity={1.4} />
         </RoundedBox>
@@ -383,7 +383,7 @@ export function SpaceModule({ accent, isActive = false }: ModuleProps) {
   const storey = 0.24;
 
   return (
-    <group scale={0.76} rotation={[0, -0.55, 0]} position={[0, -0.3, 0]}>
+    <group scale={0.76} rotation={[0, -0.72, 0]} position={[-0.14, -0.22, 0]}>
       {/* Plot */}
       <mesh position={[0, -0.02, 0]}>
         <boxGeometry args={[1.05, 0.04, 0.8]} />

@@ -17,7 +17,7 @@ import { siteConfig } from '@/config/site.config';
 import { footerNav, legalLinks } from '@/data/navigation';
 import { divisions, divisionAccent } from '@/data/divisions';
 import { Logo } from '@/components/ui/Logo';
-import { WhatsAppIcon } from '@/components/ui/Icon';
+import { WhatsAppIcon, FacebookIcon, InstagramIcon } from '@/components/ui/Icon';
 import { mailHref, telHref, whatsappHref } from '@/lib/contact';
 import { useQuote } from '@/components/forms/QuoteProvider';
 
@@ -297,6 +297,30 @@ export function SiteFooter() {
                 </button>
               </div>
             </div>
+
+            {siteConfig.social.length > 0 && (
+              <div className="pt-2 border-t border-white/10">
+                <p className="text-[11px] font-semibold uppercase tracking-wider text-gold-300/90 mb-2.5">
+                  Follow PPAB
+                </p>
+                <div className="flex items-center gap-2.5">
+                  {siteConfig.social.map((s) => (
+                    <a
+                      key={s.label}
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex size-9 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-white/80 transition-all duration-200 hover:border-gold-400/50 hover:bg-gold-400/10 hover:text-gold-300"
+                      aria-label={`Visit PPAB on ${s.label}`}
+                      title={s.label}
+                    >
+                      {s.label === 'Facebook' && <FacebookIcon size={16} />}
+                      {s.label === 'Instagram' && <InstagramIcon size={16} />}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
 

@@ -24,7 +24,10 @@ describe('structured data', () => {
     expect(org.telephone).toBe('+918796716111');
     expect(org.email).toBe('pawanputraakhandbharat@gmail.com');
     expect(org.address.addressLocality).toBe('Lucknow');
-    expect('sameAs' in org).toBe(false);
+    expect(org.sameAs).toEqual([
+      'https://www.facebook.com/profile.php?id=61590670627127',
+      'https://www.instagram.com/pawanputraakhandbharat',
+    ]);
   });
 
   it('lists every division service in the Service schema', () => {

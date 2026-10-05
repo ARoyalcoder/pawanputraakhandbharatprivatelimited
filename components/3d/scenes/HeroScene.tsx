@@ -52,11 +52,28 @@ const FOV = 30;
 const BASE = { x: 0, y: 0.55, z: 12 };
 /** Where the fly-in starts, relative to BASE: high, left and far. */
 const FLY_FROM = { x: -3.2, y: 2.6, z: 9 };
-const ORBIT_RADIUS = 2.6;
+const ORBIT_RADIUS = 2.95;
 /** Half-width the orbit needs on screen: its widest modules sit at ±0.95 R, plus their own size. */
 const ORBIT_REACH = ORBIT_RADIUS * 0.95 + 0.4;
-/** Orbit angle the active division settles at: front-right, with the others balanced either side. */
-const ACTIVE_ANGLE = Math.PI / 5;
+/** Orbit angle the active division settles at: front-left spot on the orbit ring (marked as position 1). */
+const ACTIVE_ANGLE = -Math.PI / 5;
+
+/**
+ * Per-module fine-tuning to ensure objects frame the central PPAB emblem
+ * with generous clearance without overlapping the gold letters or central mace.
+ */
+const MODULE_OFFSETS = [
+  // 0: Camera (Secure) - clean surveillance posture
+  { yOffset: 0.02, radialOffset: 0.02, scaleMult: 0.96 },
+  // 1: Router (Connect) - antennas clear, compact footprint
+  { yOffset: -0.06, radialOffset: 0.06, scaleMult: 0.92 },
+  // 2: Solar (Solar) - grounded mount
+  { yOffset: -0.04, radialOffset: 0.04, scaleMult: 0.92 },
+  // 3: Digital (Laptop) - crisp screen visibility
+  { yOffset: -0.02, radialOffset: 0.05, scaleMult: 0.95 },
+  // 4: Space (Building) - architectural terrace elevation
+  { yOffset: 0.06, radialOffset: 0.05, scaleMult: 0.95 },
+];
 /** Small screens: height of the division rail, and of the spacer HeroStage keeps free above it (h-[19rem] sm:h-[23rem]). */
 const RAIL_PX = 186;
 const SPACER_PX = { base: 304, sm: 368 };
@@ -216,7 +233,7 @@ function Stage({ settings, tier, active, progressRef, pointer, play = true }: He
           </Suspense>
         </group>
         {/* Tilted, rolled orbit: reads as a diagonal sweep across the frame */}
-        <group rotation={[0.4, 0, -0.2]}>
+        <group rotation={[0.34, 0, -0.16]} position={[0, -0.15, 0]}>
           <Orbit active={active} rig={rig} tails={rich} />
           <PulseWaves active={active} />
         </group>
@@ -301,7 +318,7 @@ function AccentLight({ accent, frame }: { accent: string; frame: Framing }) {
   useFrame((_, delta) => {
     light.current?.color.lerp(color.set(accent), 1 - Math.exp(-3 * delta));
   });
-  return <pointLight ref={light} position={[frame.x + 1.8, frame.y + 0.6, 2.4]} intensity={8} distance={8} color={accent} />;
+  return <pointLight ref={light} position={[frame.x - 1.5, frame.y - 0.4, 2.8]} intensity={8.5} distance={8} color={accent} />;
 }
 
 /** Stand-in for bloom: a gold glow behind the medallion and a wash of the active division's colour. */
@@ -327,7 +344,7 @@ function Halo({ glow, accent, rig }: { glow: Texture; accent: string; rig: RigRe
       <sprite ref={gold} position={[0, 0, -0.6]} scale={5.4}>
         <spriteMaterial map={glow} color="#f4b740" transparent opacity={0} depthWrite={false} blending={AdditiveBlending} toneMapped={false} />
       </sprite>
-      <sprite ref={tint} position={[0.6, -0.2, -1.2]} scale={8}>
+      <sprite ref={tint} position={[-0.8, -0.3, -1.2]} scale={8}>
         <spriteMaterial map={glow} color={accent} transparent opacity={0} depthWrite={false} blending={AdditiveBlending} toneMapped={false} />
       </sprite>
     </>
@@ -553,14 +570,16 @@ interface ModuleSlotProps {
 function ModuleSlot({ index, angle, accent, isActive, rig, children }: ModuleSlotProps) {
   const slot = useRef<Group>(null);
   const aura = useRef<Mesh>(null);
-  const x = Math.sin(angle) * ORBIT_RADIUS;
-  const z = Math.cos(angle) * ORBIT_RADIUS;
+  const offset = MODULE_OFFSETS[index] ?? { yOffset: 0, radialOffset: 0, scaleMult: 1.0 };
+  const r = ORBIT_RADIUS + offset.radialOffset;
+  const x = Math.sin(angle) * r;
+  const z = Math.cos(angle) * r;
 
   useFrame((state, delta) => {
     // Modules arrive one after another along the orbit.
     const arrive = backOut(segment(rig.current.t, 0.42 + index * 0.08, 0.72 + index * 0.08));
-    const targetScale = (isActive ? 1.18 : 0.8) * arrive;
-    const targetY = (isActive ? 0.14 : 0) + Math.sin(state.clock.elapsedTime * 0.9 + angle * 2) * 0.05;
+    const targetScale = (isActive ? 1.2 : 0.8) * offset.scaleMult * arrive;
+    const targetY = (isActive ? 0.04 : 0) + offset.yOffset + Math.sin(state.clock.elapsedTime * 0.9 + angle * 2) * 0.04;
     if (slot.current) {
       slot.current.visible = arrive > 0.01;
       slot.current.scale.setScalar(MathUtils.damp(slot.current.scale.x, targetScale, rig.current.t < 1 ? 12 : 4.5, delta));
@@ -574,7 +593,7 @@ function ModuleSlot({ index, angle, accent, isActive, rig, children }: ModuleSlo
 
   return (
     <group position={[x, 0, z]} rotation={[0, angle, 0]}>
-      <mesh ref={aura} position={[0, -0.45, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+      <mesh ref={aura} position={[0, -0.45 + offset.yOffset, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <ringGeometry args={[0.38, 0.47, 48]} />
         <meshBasicMaterial color={accent} transparent opacity={0} side={DoubleSide} toneMapped={false} depthWrite={false} />
       </mesh>
