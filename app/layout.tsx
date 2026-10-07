@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import '@/styles/globals.css';
 import { siteConfig } from '@/config/site.config';
 import { AnalyticsProvider } from '@/components/analytics/AnalyticsProvider';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { fontVariables } from './fonts';
 
 export const metadata: Metadata = {
@@ -56,7 +57,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: motionBootstrap }} />
       </head>
       <body className="min-h-dvh">
-        <AnalyticsProvider>{children}</AnalyticsProvider>
+        <AnalyticsProvider>
+          {children}
+          <SpeedInsights />
+        </AnalyticsProvider>
       </body>
     </html>
   );
