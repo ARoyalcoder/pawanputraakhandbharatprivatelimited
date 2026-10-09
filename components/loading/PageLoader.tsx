@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { LoadingProgress } from './LoadingProgress';
 
@@ -8,8 +8,19 @@ import { LoadingProgress } from './LoadingProgress';
  * Top Route Navigation Loading Bar.
  * Listens to pathname changes and paints a discrete, luxurious gold progress line.
  * Eliminates sudden blank screens or unresponsive link clicks.
+ *
+ * `useSearchParams` opts everything up to the nearest Suspense boundary out of server rendering,
+ * so the bar gets a boundary of its own; without it the whole site shell renders in the browser only.
  */
 export function PageLoader() {
+  return (
+    <Suspense fallback={null}>
+      <NavigationProgress />
+    </Suspense>
+  );
+}
+
+function NavigationProgress() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [isNavigating, setIsNavigating] = useState(false);

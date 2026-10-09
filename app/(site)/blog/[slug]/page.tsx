@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = await cmsContentService.getBlogBySlug(slug);
   if (!post || post.status !== 'PUBLISHED') return {};
-  return buildMetadata({ title: post.title, description: post.excerpt, path: `/blog/${post.slug}`, type: 'article', publishedTime: post.publishedAt });
+  return buildMetadata({ title: post.title, absoluteTitle: true, description: post.excerpt, path: `/blog/${post.slug}`, type: 'article', publishedTime: post.publishedAt });
 }
 
 export default async function BlogPostPage({ params }: Props) {

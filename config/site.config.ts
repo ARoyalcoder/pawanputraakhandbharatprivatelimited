@@ -29,6 +29,10 @@ export const siteConfig = {
   masterTagline: 'Powering Security, Connectivity & Growth',
   secondaryTagline: 'Smart Technology. Safe Tomorrow.',
   positioning: 'One trusted partner for Security, Connectivity, Solar, Digital Technology and Infrastructure.',
+  /** Search-result title and description for the homepage: 50-60 and 120-160 characters. */
+  seoTitle: 'Pawan Putra Akhand Bharat | CCTV, Solar & IT Solutions',
+  seoDescription:
+    'CCTV, networking, solar, websites, apps, ERP, real estate and construction solutions for homes, businesses and institutions in Lucknow and New Delhi.',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.pawanputraakhandbharat.com',
   locale: 'en_IN',
   contact: {

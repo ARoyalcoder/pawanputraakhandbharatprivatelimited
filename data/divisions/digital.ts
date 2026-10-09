@@ -63,9 +63,9 @@ export const digital: Division = {
     },
   ],
   seo: {
-    title: 'Pawan Putra Digital: Websites, Apps, Software, ERP, CRM & Marketing',
+    title: 'Pawan Putra Digital: Websites, Apps, ERP, CRM & SEO',
     description:
-      'Website, app and software development, ERP, CRM, SEO, Google Ads, Meta Ads, social media marketing, branding and graphic design. Har Business Ki Digital Pehchaan.',
+      'Website, app and software development, ERP, CRM, SEO, Google Ads, Meta Ads, social media, branding and graphic design. Har Business Ki Digital Pehchaan.',
   },
 };
 

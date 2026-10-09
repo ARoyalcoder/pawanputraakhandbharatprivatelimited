@@ -9,7 +9,7 @@ import { whyUs } from '@/data/company';
 import { buildMetadata } from '@/lib/seo/metadata';
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Why Choose PPAB',
+  title: 'Why Choose Pawan Putra Akhand Bharat',
   description:
     'One partner for multiple solutions, professional execution, a transparent process, after-sales support and solutions that scale.',
   path: '/why-us',

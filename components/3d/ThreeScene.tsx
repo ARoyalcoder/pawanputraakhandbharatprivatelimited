@@ -12,13 +12,15 @@ interface ThreeSceneProps {
   /** Optional Spline scene; when set (and the device supports 3D) it replaces the R3F scene. */
   splineUrl?: string;
   className?: string;
+  /** Hold the scene back (showing the fallback) until this is true. */
+  enabled?: boolean;
 }
 
 /** Single entry point for 3D on the site: Spline when configured, otherwise React Three Fiber. */
-export function ThreeScene({ fallback, render, splineUrl, className }: ThreeSceneProps) {
+export function ThreeScene({ fallback, render, splineUrl, className, enabled = true }: ThreeSceneProps) {
   const tier = useQualityTier();
-  if (splineUrl && tier && tier !== 'OFF') {
+  if (enabled && splineUrl && tier && tier !== 'OFF') {
     return <SplineScene scene={splineUrl} fallback={fallback} className={className} />;
   }
-  return <CanvasWrapper fallback={fallback} render={render} className={className} />;
+  return <CanvasWrapper fallback={fallback} render={render} className={className} enabled={enabled} />;
 }

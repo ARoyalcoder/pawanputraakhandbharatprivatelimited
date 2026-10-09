@@ -41,7 +41,7 @@ export const space: Division = {
     },
   ],
   seo: {
-    title: 'Pawan Putra Space: Real Estate, Architecture, Interiors & Construction',
+    title: 'Pawan Putra Space: Real Estate, Design & Construction',
     description:
       'Real estate, architecture, interior design, construction and property solutions, from plot to finished space. Har Space Ka Bharosa.',
   },

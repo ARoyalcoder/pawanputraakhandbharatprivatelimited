@@ -10,6 +10,7 @@ import { ConceptArt } from '@/components/media/ConceptArt';
 import { gsap, ScrollTrigger, prefersReducedMotion, useGSAP } from '@/lib/animations/gsap';
 import { whenIntroDone } from '@/lib/animations/heroCue';
 import { useMediaQuery, useReducedMotion } from '@/hooks/useMediaQuery';
+import { useDeferredStart } from '@/hooks/useDeferredStart';
 import { cn } from '@/lib/utils';
 
 export interface HeroDivision {
@@ -53,6 +54,8 @@ export function HeroStage({ divisions, children }: { divisions: HeroDivision[]; 
   const [play, setPlay] = useState(false);
   const reduced = useReducedMotion();
   const finePointer = useMediaQuery('(pointer: fine)');
+  // three.js is the heaviest code on the page; it stays out of the way of first paint and hydration.
+  const sceneEnabled = useDeferredStart();
   const baseId = useId();
   const paused = hovering || !inView;
   const current = divisions[active];
@@ -129,6 +132,7 @@ export function HeroStage({ divisions, children }: { divisions: HeroDivision[]; 
       <div className="pointer-events-none absolute inset-0 -z-10">
         <ThreeScene
           splineUrl={splineUrl}
+          enabled={sceneEnabled}
           fallback={heroFallback}
           render={(ctx) => <HeroScene {...ctx} active={active} progressRef={progressRef} pointer={finePointer} play={play} />}
         />
@@ -142,7 +146,8 @@ export function HeroStage({ divisions, children }: { divisions: HeroDivision[]; 
       />
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(120%_90%_at_50%_45%,transparent_55%,rgb(2_11_29/0.7)_100%)]" />
       <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-48 bg-gradient-to-t from-navy-950 to-transparent" />
-      <div aria-hidden="true" className="hero-grain pointer-events-none absolute inset-0 -z-10" />
+      {/* Desktop only: a full-screen blended noise filter is costly to paint on phones, where it is barely visible. */}
+      <div aria-hidden="true" className="hero-grain pointer-events-none absolute inset-0 -z-10 hidden lg:block" />
 
       {/* Division tabs */}
       <div

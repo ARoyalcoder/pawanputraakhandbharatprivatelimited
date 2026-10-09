@@ -28,7 +28,7 @@ export const industries: Industry[] = [
     ],
     imageId: 'industry-residential',
     seo: {
-      title: 'Residential Solutions: CCTV, Wi-Fi, Solar & Home Construction',
+      title: 'Residential: CCTV, Wi-Fi, Solar & Home Construction',
       description:
         'CCTV, video door phones, home Wi-Fi, rooftop solar, architecture, interiors and construction for homes and housing societies.',
     },
@@ -57,7 +57,7 @@ export const industries: Industry[] = [
     ],
     imageId: 'industry-education',
     seo: {
-      title: 'Education Solutions: Campus CCTV, Networking, ERP & Solar',
+      title: 'Education: Campus CCTV, Networking, ERP & Solar',
       description:
         'CCTV, biometric attendance, campus networking, Wi-Fi, school ERP, websites and solar for schools, colleges and campuses.',
     },
@@ -86,7 +86,7 @@ export const industries: Industry[] = [
     ],
     imageId: 'industry-healthcare',
     seo: {
-      title: 'Healthcare Solutions: CCTV, Networking, Solar Backup & Digital',
+      title: 'Healthcare: CCTV, Networking, Solar Backup & Digital',
       description:
         'CCTV, attendance, networking, server racks, hybrid solar with battery backup, websites and CRM for hospitals and clinics.',
     },
@@ -114,7 +114,7 @@ export const industries: Industry[] = [
     ],
     imageId: 'industry-corporate',
     seo: {
-      title: 'Corporate Office Solutions: Networking, Security, ERP & Interiors',
+      title: 'Corporate Offices: Network, Security, ERP & Interiors',
       description:
         'Office networking, Wi-Fi, server racks, IT support, CCTV, biometric attendance, CRM, ERP and office interiors.',
     },
@@ -144,7 +144,7 @@ export const industries: Industry[] = [
     ],
     imageId: 'industry-hospitality',
     seo: {
-      title: 'Hospitality Solutions: Guest Wi-Fi, Security, Solar & Branding',
+      title: 'Hospitality: Guest Wi-Fi, Security, Solar & Branding',
       description:
         'Guest Wi-Fi, CCTV, solar, branding, social media and interior design for hotels, resorts and restaurants.',
     },
@@ -174,7 +174,7 @@ export const industries: Industry[] = [
     ],
     imageId: 'industry-manufacturing',
     seo: {
-      title: 'Manufacturing & Warehouse Solutions: CCTV, Fiber, Solar & ERP',
+      title: 'Manufacturing & Warehouses: CCTV, Fiber, Solar & ERP',
       description:
         'Perimeter CCTV, attendance, fiber networking, industrial solar, solar pumps, ERP and construction for factories and warehouses.',
     },
@@ -204,7 +204,7 @@ export const industries: Industry[] = [
     ],
     imageId: 'industry-commercial',
     seo: {
-      title: 'Commercial & Retail Solutions: CCTV, Wi-Fi, Solar & Marketing',
+      title: 'Commercial & Retail: CCTV, Wi-Fi, Solar & Marketing',
       description:
         'CCTV, Wi-Fi, rooftop solar, SEO, Google Ads, Meta Ads, store interiors and property guidance for shops, showrooms and complexes.',
     },

@@ -2,17 +2,15 @@ import type { Metadata, Viewport } from 'next';
 import '@/styles/globals.css';
 import { siteConfig } from '@/config/site.config';
 import { AnalyticsProvider } from '@/components/analytics/AnalyticsProvider';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 import { fontVariables } from './fonts';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.companyName} | ${siteConfig.masterTagline}`,
+    default: siteConfig.seoTitle,
     template: `%s | ${siteConfig.brandName}`,
   },
-  description:
-    'Security, connectivity, solar, digital and infrastructure solutions for homes, businesses, institutions and industries. CCTV, networking, solar, websites, apps, ERP, real estate and construction.',
+  description: siteConfig.seoDescription,
   applicationName: siteConfig.companyName,
   authors: [{ name: siteConfig.companyName }],
   keywords: [
@@ -59,7 +57,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-dvh">
         <AnalyticsProvider>
           {children}
-          <SpeedInsights />
         </AnalyticsProvider>
       </body>
     </html>

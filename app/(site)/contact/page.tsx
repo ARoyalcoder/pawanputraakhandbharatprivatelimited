@@ -10,7 +10,7 @@ import { mailHref, mapsHref, telHref, whatsappHref } from '@/lib/contact';
 import { buildMetadata } from '@/lib/seo/metadata';
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Contact PPAB: Call, WhatsApp or Request a Free Consultation',
+  title: 'Contact PPAB: Call, WhatsApp or Free Consultation',
   description: `Call or WhatsApp ${siteConfig.contact.phoneDisplay}, email ${siteConfig.contact.email}, or visit our Lucknow head office or New Delhi branch.`,
   path: '/contact',
 });

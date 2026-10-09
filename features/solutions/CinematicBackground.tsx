@@ -1,11 +1,18 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import { SolutionEnvironment3D } from './SolutionEnvironment3D';
 import { useInViewLoad } from '@/hooks/useInViewLoad';
 import { useDeviceCapability } from '@/hooks/useDeviceCapability';
+import { useDeferredStart } from '@/hooks/useDeferredStart';
 import type { SolutionCardData } from './types';
+
+// Imports three.js, so it is fetched only once the canvas is actually going to mount.
+const SolutionEnvironment3D = dynamic(() => import('./SolutionEnvironment3D').then((mod) => mod.SolutionEnvironment3D), {
+  ssr: false,
+  loading: () => null,
+});
 
 interface CinematicBackgroundProps {
   items: SolutionCardData[];
@@ -22,6 +29,7 @@ export const CinematicBackground: React.FC<CinematicBackgroundProps> = ({
   });
 
   const { canRender3D, isLowPower } = useDeviceCapability();
+  const sceneEnabled = useDeferredStart();
   const [loadedIndices, setLoadedIndices] = useState<Set<number>>(new Set([0]));
 
   const activeItem = items[activeIndex] || items[0];
@@ -70,7 +78,7 @@ export const CinematicBackground: React.FC<CinematicBackgroundProps> = ({
           >
             <Image
               src={imageSrc}
-              alt=""
+              alt={`Illustrative image for ${item.name}`}
               fill
               priority={idx === 0}
               loading={idx === 0 ? undefined : 'lazy'}
@@ -85,7 +93,7 @@ export const CinematicBackground: React.FC<CinematicBackgroundProps> = ({
       })}
 
       {/* 3. Three.js Interactive 3D Lighting & Particle Depth Canvas (Viewport-Lazy) */}
-      {isInView && canRender3D && !isLowPower && (
+      {sceneEnabled && isInView && canRender3D && !isLowPower && (
         <SolutionEnvironment3D
           accentColor={activeItem.accent}
           activeId={activeItem.id}

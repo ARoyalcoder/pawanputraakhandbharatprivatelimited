@@ -11,7 +11,7 @@ import { buildMetadata } from '@/lib/seo/metadata';
 import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Solutions: Security, Connectivity, Solar, Digital & Space',
+  title: 'Solutions: Security, Network, Solar, Digital & Space',
   description:
     "PPAB's five divisions: Pawan Putra Secure, Connect, Solar, Digital and Space. CCTV, networking, solar, software and marketing, real estate and construction.",
   path: '/solutions',

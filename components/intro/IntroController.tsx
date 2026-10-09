@@ -221,10 +221,10 @@ export function IntroController({ onComplete }: IntroControllerProps) {
           ref={companyNameRef}
           className="mt-6 text-center"
         >
-          <h1 className="font-heading text-lg sm:text-2xl md:text-3xl font-extrabold uppercase tracking-[0.24em] text-white drop-shadow-[0_2px_14px_rgba(0,0,0,0.8)]">
+          <p className="font-heading text-lg sm:text-2xl md:text-3xl font-extrabold uppercase tracking-[0.24em] text-white drop-shadow-[0_2px_14px_rgba(0,0,0,0.8)]">
             <span>PAWAN PUTRA </span>
             <span className="text-[#f4c95d] drop-shadow-[0_0_15px_rgba(244,201,93,0.4)]">AKHAND BHARAT</span>
-          </h1>
+          </p>
         </div>
 
         {/* Tagline */}

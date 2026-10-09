@@ -9,7 +9,7 @@ import { SmoothScroll } from '@/components/animation/SmoothScroll';
 import { CustomCursor } from '@/components/animation/CustomCursor';
 import { ScrollProgress } from '@/components/animation/ScrollProgress';
 import { JsonLd } from '@/components/seo/JsonLd';
-import { organizationSchema } from '@/lib/seo/schema';
+import { localBusinessSchema, organizationSchema, websiteSchema } from '@/lib/seo/schema';
 import { getNavMedia } from '@/lib/media/nav-media';
 import { PageLoader } from '@/components/loading/PageLoader';
 import { PageTransition } from '@/components/animation/PageTransition';
@@ -26,7 +26,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
       >
         Skip to main content
       </a>
-      <JsonLd data={organizationSchema()} />
+      <JsonLd data={[organizationSchema(), websiteSchema(), ...localBusinessSchema()]} />
       <SiteHeader utilityBar={<TopUtilityBar />} navMedia={getNavMedia()} />
       <main id="main-content" tabIndex={-1} className="outline-none">
         <PageTransition>{children}</PageTransition>

@@ -64,7 +64,7 @@ export const VerticalSolutionTab: React.FC<VerticalSolutionTabProps> = ({
       <div className="absolute inset-0 -z-20 overflow-hidden">
         <Image
           src={imageSrc}
-          alt=""
+          alt={`Illustrative image for ${item.name}`}
           fill
           sizes="220px"
           className="object-cover object-center filter brightness-[0.3] contrast-[1.15] opacity-40 transition-all duration-700 ease-out group-hover:opacity-75 group-hover:scale-105 group-hover:brightness-[0.55]"
