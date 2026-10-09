@@ -20,13 +20,15 @@ interface CanvasWrapperProps {
   className?: string;
   /** How far outside the viewport to start loading the scene. */
   rootMargin?: string;
+  /** Hold the scene back (showing the fallback) until this is true. */
+  enabled?: boolean;
 }
 
 /**
  * Mounts a 3D scene only when it is near the viewport and the device can handle it,
  * pauses it off screen, and falls back to static content on OFF tier or any error.
  */
-export function CanvasWrapper({ fallback, render, className, rootMargin = '300px' }: CanvasWrapperProps) {
+export function CanvasWrapper({ fallback, render, className, rootMargin = '300px', enabled = true }: CanvasWrapperProps) {
   const ref = useRef<HTMLDivElement>(null);
   const tier = useQualityTier();
   const [near, setNear] = useState(false);
@@ -51,7 +53,7 @@ export function CanvasWrapper({ fallback, render, className, rootMargin = '300px
     };
   }, [rootMargin]);
 
-  const active = tier && tier !== 'OFF' && near && !contextLost;
+  const active = enabled && tier && tier !== 'OFF' && near && !contextLost;
 
   return (
     <div ref={ref} className={cn('relative size-full', className)}>

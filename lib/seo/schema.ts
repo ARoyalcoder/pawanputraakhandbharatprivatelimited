@@ -52,6 +52,47 @@ export function organizationSchema() {
   };
 }
 
+export function websiteSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': absoluteUrl('/#website'),
+    url: siteConfig.url,
+    name: siteConfig.shortName,
+    alternateName: [siteConfig.brandName, siteConfig.companyName],
+    inLanguage: 'en-IN',
+    publisher: { '@id': orgId },
+  };
+}
+
+/** One LocalBusiness per verified office, linked back to the organisation. */
+export function localBusinessSchema() {
+  return siteConfig.offices.map((office) => {
+    const [street, ...rest] = office.addressLines;
+    // The last address line repeats the city, region and postal code, which have their own fields.
+    const streetAddress = [street, ...rest.slice(0, -1)].join(', ');
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'LocalBusiness',
+      '@id': absoluteUrl(`/#office-${office.id}`),
+      name: `${siteConfig.companyName} (${office.type}, ${office.city})`,
+      url: siteConfig.url,
+      image: absoluteUrl('/brand/ppab-logo.png'),
+      telephone: siteConfig.contact.phoneE164,
+      email: siteConfig.contact.email,
+      parentOrganization: { '@id': orgId },
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress,
+        addressLocality: office.city,
+        addressRegion: office.region,
+        ...('postalCode' in office ? { postalCode: office.postalCode } : {}),
+        addressCountry: 'IN',
+      },
+    };
+  });
+}
+
 export function serviceSchema(division: Division) {
   return {
     '@context': 'https://schema.org',

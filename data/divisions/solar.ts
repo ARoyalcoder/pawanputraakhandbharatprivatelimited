@@ -55,7 +55,7 @@ export const solar: Division = {
     },
   ],
   seo: {
-    title: 'Pawan Putra Solar: On-Grid, Off-Grid & Hybrid Solar Solutions',
+    title: 'Pawan Putra Solar: On-Grid, Off-Grid & Hybrid Solar',
     description:
       'On-grid, off-grid and hybrid solar, solar water pumps, street lights, net metering, batteries, inverters, cleaning and AMC. Suraj Ki Shakti, Aapki Bachat.',
   },

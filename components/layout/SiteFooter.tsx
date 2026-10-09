@@ -338,6 +338,11 @@ export function SiteFooter() {
               <p className="text-[11px] text-white/40">
                 CIN Registered Corporate Entity &bull; Technology &amp; Infrastructure Solutions
               </p>
+              {siteConfig.offices.map((office) => (
+                <address key={office.id} className="not-italic text-[11px] text-white/40">
+                  {office.type}: {office.addressLines.join(', ')}
+                </address>
+              ))}
             </div>
 
             {/* Legal Navigation */}

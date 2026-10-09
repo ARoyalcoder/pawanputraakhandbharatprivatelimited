@@ -6,10 +6,10 @@ import { cmsContentService } from '@/lib/cms/content.service';
 import { absoluteUrl } from '@/lib/seo/metadata';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const now = new Date();
+  // Static pages carry no lastModified: the only date available is the build time, which would
+  // claim every page changed on every deploy. Blog posts use their real publication date.
   const page = (path: string, priority: number, changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency'] = 'monthly') => ({
     url: absoluteUrl(path),
-    lastModified: now,
     changeFrequency,
     priority,
   });

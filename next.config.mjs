@@ -48,6 +48,13 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      // One canonical host. Only matches the bare domain, so it cannot loop.
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'pawanputraakhandbharat.com' }],
+        destination: 'https://www.pawanputraakhandbharat.com/:path*',
+        permanent: true,
+      },
       { source: '/privacy', destination: '/privacy-policy', permanent: true },
       { source: '/terms', destination: '/terms-conditions', permanent: true },
       { source: '/careers', destination: '/contact', permanent: false },
@@ -58,6 +65,10 @@ const nextConfig = {
   async headers() {
     return [
       { source: '/:path*', headers: securityHeaders },
+      // Admin screens and API responses must never appear in search results.
+      { source: '/admin/:path*', headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }] },
+      { source: '/admin', headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }] },
+      { source: '/api/:path*', headers: [{ key: 'X-Robots-Tag', value: 'noindex' }] },
       // Files in /public are otherwise served with max-age=0, so every visit re-requests them.
       // Production only: the same header in development would pin stale files in the browser.
       ...(process.env.NODE_ENV === 'production'

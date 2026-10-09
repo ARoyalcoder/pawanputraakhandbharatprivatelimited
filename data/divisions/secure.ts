@@ -93,7 +93,7 @@ export const secure: Division = {
     },
   ],
   seo: {
-    title: 'Pawan Putra Secure: CCTV, Video Door Phone & Biometric Attendance',
+    title: 'Pawan Putra Secure: CCTV, Door Phones & Biometrics',
     description:
       'CCTV cameras, video door phones, biometric attendance, installation and AMC for homes, businesses and institutions. Har Nazar Se Suraksha.',
   },

@@ -5,7 +5,7 @@ import { buildMetadata } from '@/lib/seo/metadata';
 
 export const metadata: Metadata = buildMetadata({
   title: 'Terms & Conditions',
-  description: `Terms for using the ${siteConfig.companyName} website.`,
+  description: `Terms and conditions for using the ${siteConfig.companyName} website, submitting enquiries and requesting quotations.`,
   path: '/terms-conditions',
 });
 

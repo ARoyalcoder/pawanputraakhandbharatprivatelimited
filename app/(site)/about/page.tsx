@@ -24,7 +24,7 @@ import { AnimatedCounter } from '@/components/animation/AnimatedCounter';
 export const metadata: Metadata = buildMetadata({
   title: 'About Pawan Putra Akhand Bharat Pvt. Ltd.',
   description:
-    'PPAB brings security, connectivity, solar, digital technology and infrastructure together under one roof, with a head office in Lucknow and a branch in New Delhi.',
+    'PPAB brings security, connectivity, solar, digital technology and infrastructure under one roof, with a head office in Lucknow and a branch in New Delhi.',
   path: '/about',
 });
 

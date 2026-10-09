@@ -84,7 +84,7 @@ export const connect: Division = {
     },
   ],
   seo: {
-    title: 'Pawan Putra Connect: Fiber, LAN/CAN, Wi-Fi & IT Support',
+    title: 'Pawan Putra Connect: Fiber, LAN, Wi-Fi & IT Support',
     description:
       'Fiber networking, LAN/CAN cabling, Wi-Fi, routers, switches, server racks and IT support for homes, offices, campuses and industry. Har Connection Mein Bharosa.',
   },

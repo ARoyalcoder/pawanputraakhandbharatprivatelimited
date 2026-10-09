@@ -15,10 +15,9 @@ import { siteConfig } from '@/config/site.config';
 import { CinematicIntro } from '@/components/intro/CinematicIntro';
 
 export const metadata: Metadata = buildMetadata({
-  title: `${siteConfig.companyName} | ${siteConfig.masterTagline}`,
+  title: siteConfig.seoTitle,
   absoluteTitle: true,
-  description:
-    'Complete technology, security, solar, digital and infrastructure solutions for homes, businesses, institutions and industries. CCTV, networking, solar, websites, apps, ERP, real estate and construction.',
+  description: siteConfig.seoDescription,
   path: '/',
 });
 

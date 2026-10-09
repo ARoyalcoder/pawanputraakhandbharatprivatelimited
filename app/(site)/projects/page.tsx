@@ -11,7 +11,7 @@ import { buildMetadata } from '@/lib/seo/metadata';
 import type { DivisionId } from '@/types/content';
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Projects',
+  title: 'Projects by Pawan Putra Akhand Bharat',
   description: 'Verified PPAB projects across security, networking, solar, digital and infrastructure, published with client approval and real photography.',
   path: '/projects',
 });

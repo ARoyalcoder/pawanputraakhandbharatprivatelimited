@@ -14,6 +14,17 @@ interface PageMeta {
 
 export const absoluteUrl = (path = '/') => new URL(path, siteConfig.url).toString();
 
+/**
+ * The branded card from app/opengraph-image.tsx. A page that sets its own `openGraph` object
+ * replaces the one inherited from the root segment, image included, so it is named explicitly.
+ */
+const socialImage = {
+  url: '/opengraph-image',
+  width: 1200,
+  height: 630,
+  alt: `${siteConfig.companyName}: ${siteConfig.masterTagline}`,
+};
+
 /** Page metadata with canonical URL and Open Graph / Twitter cards. */
 export function buildMetadata({ title, description, path, absoluteTitle, type = 'website', publishedTime, noIndex }: PageMeta): Metadata {
   const url = absoluteUrl(path);
@@ -28,9 +39,10 @@ export function buildMetadata({ title, description, path, absoluteTitle, type = 
       description,
       siteName: siteConfig.companyName,
       locale: siteConfig.locale,
+      images: [socialImage],
       ...(publishedTime ? { publishedTime } : {}),
     },
-    twitter: { card: 'summary_large_image', title, description },
+    twitter: { card: 'summary_large_image', title, description, images: [socialImage] },
     ...(noIndex ? { robots: { index: false, follow: true } } : {}),
   };
 }

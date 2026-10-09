@@ -134,7 +134,7 @@ export const ShowcaseAccordionCard: React.FC<ShowcaseAccordionCardProps> = ({
         <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none">
         <Image
           src={imageSrc}
-          alt=""
+          alt={`Illustrative image for ${item.name}`}
           fill
           priority={index < 2}
           sizes="(min-width: 1024px) 60vw, 220px"

@@ -7,9 +7,9 @@ import { industries } from '@/data/industries';
 import { buildMetadata } from '@/lib/seo/metadata';
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Industries We Serve',
+  title: 'Industries We Serve: Homes, Offices, Hospitals & More',
   description:
-    'Security, networking, solar, digital and infrastructure solutions for residential, education, healthcare, corporate, hospitality, manufacturing and commercial sectors.',
+    'Security, networking, solar and digital solutions for residential, education, healthcare, corporate, hospitality, manufacturing and commercial sectors.',
   path: '/industries',
 });
 
