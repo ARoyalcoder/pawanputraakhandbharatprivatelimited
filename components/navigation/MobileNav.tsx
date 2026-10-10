@@ -15,10 +15,15 @@ import { cn } from '@/lib/utils';
 export function MobileNav() {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [expanded, setExpanded] = useState<string | null>(null);
+  // The drawer's contents duplicate the desktop navigation, so they are not rendered until first opened.
+  const [hasOpened, setHasOpened] = useState(false);
   const pathname = usePathname();
   const baseId = useId();
 
-  const open = () => dialogRef.current?.showModal();
+  const open = () => {
+    setHasOpened(true);
+    dialogRef.current?.showModal();
+  };
   const close = () => dialogRef.current?.close();
 
   useEffect(() => {
@@ -66,6 +71,7 @@ export function MobileNav() {
           'open:translate-x-0 starting:open:translate-x-full backdrop:bg-navy-950/70'
         )}
       >
+        {hasOpened && (
         <div className="flex h-full flex-col bg-navy-950 bg-blueprint">
           <div className="flex h-[4.5rem] shrink-0 items-center justify-between border-b border-white/10 px-5">
             <Logo />
@@ -167,6 +173,7 @@ export function MobileNav() {
             <p className="text-center type-caption text-white/50">{siteConfig.contact.phoneDisplay} · Lucknow · New Delhi</p>
           </div>
         </div>
+        )}
       </dialog>
     </>
   );

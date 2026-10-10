@@ -80,8 +80,6 @@ export const CinematicBackground: React.FC<CinematicBackgroundProps> = ({
               src={imageSrc}
               alt={`Illustrative image for ${item.name}`}
               fill
-              priority={idx === 0}
-              loading={idx === 0 ? undefined : 'lazy'}
               sizes="100vw"
               className="object-cover object-center filter brightness-[0.75] contrast-[1.1] saturate-[1.1]"
             />

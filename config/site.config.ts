@@ -32,7 +32,7 @@ export const siteConfig = {
   /** Search-result title and description for the homepage: 50-60 and 120-160 characters. */
   seoTitle: 'Pawan Putra Akhand Bharat | CCTV, Solar & IT Solutions',
   seoDescription:
-    'CCTV, networking, solar, websites, apps, ERP, real estate and construction solutions for homes, businesses and institutions in Lucknow and New Delhi.',
+    'CCTV, networking, solar, websites, apps, ERP, real estate and construction for homes, businesses and institutions in Lucknow and New Delhi.',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.pawanputraakhandbharat.com',
   locale: 'en_IN',
   contact: {

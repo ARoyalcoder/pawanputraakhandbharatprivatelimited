@@ -93,7 +93,6 @@ export const ActiveSolutionCard: React.FC<ActiveSolutionCardProps> = ({
           src={imageSrc}
           alt={item.name}
           fill
-          priority
           sizes="(min-width: 1024px) 65vw, 100vw"
           className="object-cover object-center filter brightness-[0.65] contrast-[1.12] saturate-[1.05] transition-transform duration-1000 ease-out group-hover:scale-105"
         />
