@@ -136,7 +136,6 @@ export const ShowcaseAccordionCard: React.FC<ShowcaseAccordionCardProps> = ({
           src={imageSrc}
           alt={`Illustrative image for ${item.name}`}
           fill
-          priority={index < 2}
           sizes="(min-width: 1024px) 60vw, 220px"
           className={cn(
             'object-cover object-center filter transition-all duration-700 ease-out',
@@ -247,16 +246,10 @@ export const ShowcaseAccordionCard: React.FC<ShowcaseAccordionCardProps> = ({
         </div>
       </div>
 
-      {/* 5. EXPANDED VIEW: Rich division information, capabilities and CTAs */}
-      <div
-        className={cn(
-          'relative flex flex-col justify-between h-full p-4 sm:p-5 z-20 w-full min-w-[340px] xl:min-w-[380px]',
-          'transition-all ease-out',
-          isActive
-            ? 'opacity-100 translate-y-0 duration-400 delay-150 pointer-events-auto'
-            : 'opacity-0 translate-y-2 duration-150 delay-0 pointer-events-none'
-        )}
-      >
+      {/* 5. EXPANDED VIEW: Rich division information, capabilities and CTAs.
+          Mounted for the active card only; five hidden copies made up a quarter of the page's HTML. */}
+      {isActive && (
+      <div className="relative flex flex-col justify-between h-full p-4 sm:p-5 z-20 w-full min-w-[340px] xl:min-w-[380px] motion-safe:animate-page-in">
         {/* Top Header HUD Bar */}
         <div className="flex items-center justify-between gap-3 border-b border-white/10 pb-3">
           <div className="flex items-center gap-2.5">
@@ -396,6 +389,7 @@ export const ShowcaseAccordionCard: React.FC<ShowcaseAccordionCardProps> = ({
           </span>
         </div>
       </div>
+      )}
       </div>
     </div>
   );

@@ -15,11 +15,13 @@ interface PageMeta {
 export const absoluteUrl = (path = '/') => new URL(path, siteConfig.url).toString();
 
 /**
- * The branded card from app/opengraph-image.tsx. A page that sets its own `openGraph` object
+ * The branded social card: a saved copy of what app/opengraph-image.tsx renders, served as a
+ * plain .png because some crawlers only accept image URLs with a file extension. Re-save it
+ * from /opengraph-image if that design changes. A page that sets its own `openGraph` object
  * replaces the one inherited from the root segment, image included, so it is named explicitly.
  */
 const socialImage = {
-  url: '/opengraph-image',
+  url: '/brand/ppab-social-card.png',
   width: 1200,
   height: 630,
   alt: `${siteConfig.companyName}: ${siteConfig.masterTagline}`,
@@ -31,7 +33,7 @@ export function buildMetadata({ title, description, path, absoluteTitle, type = 
   return {
     title: absoluteTitle ? { absolute: title } : title,
     description,
-    alternates: { canonical: url },
+    alternates: { canonical: url, types: { 'text/plain': absoluteUrl('/llms.txt') } },
     openGraph: {
       type,
       url,

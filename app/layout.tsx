@@ -51,10 +51,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={fontVariables}
       suppressHydrationWarning
     >
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: motionBootstrap }} />
-      </head>
       <body className="min-h-dvh">
+        <script dangerouslySetInnerHTML={{ __html: motionBootstrap }} />
         <AnalyticsProvider>
           {children}
         </AnalyticsProvider>
